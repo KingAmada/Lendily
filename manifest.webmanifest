@@ -1,0 +1,35 @@
+{
+  "name": "Lendily",
+  "short_name": "Lendily",
+  "description": "Private loans, gifts, and halal loan agreements with recipient acceptance and clean receipts.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "background_color": "#f9fffd",
+  "theme_color": "#00b8a9",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "productivity", "business"],
+  "icons": [
+    {
+      "src": "loanily-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Create Agreement",
+      "short_name": "Create",
+      "description": "Start a loan, gift, or halal loan agreement.",
+      "url": "./index.html#loan-actions"
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View active and pending agreements.",
+      "url": "./index.html#dashboard"
+    }
+  ]
+}
