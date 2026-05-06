@@ -1,9 +1,9 @@
-const CACHE_NAME = 'lendily-pwa-v3';
+const CACHE_NAME = 'lendily-pwa-v21';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './loanily-icon.svg',
+  './Lendily Logo.png',
   './assets/css/lendily.css',
   './assets/js/lendily.js',
   './assets/js/manifest-loader.js'

@@ -26,21 +26,21 @@
     <meta property="og:title" content="Lendily - Stop Lending Without Recording It">
     <meta property="og:description" content="Protect urgent N2k loans, private loans, gifts, and halal markup agreements with digital receipts, recipient acceptance, lender approval, and repayment tracking.">
     <meta property="og:url" content="https://lendily.app/">
-    <meta property="og:image" content="https://lendily.app/loanily-icon.svg">
+    <meta property="og:image" content="https://lendily.app/Lendily%20Logo.png">
     <meta property="og:image:alt" content="Lendily private funding agreement app icon">
     <meta property="og:locale" content="en_NG">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Lendily - Protect Private Loans in Nigeria">
     <meta name="twitter:description" content="For urgent N2k, private loans, gifts, and halal markup profit. Record it on Lendily before you send money.">
-    <meta name="twitter:image" content="https://lendily.app/loanily-icon.svg">
+    <meta name="twitter:image" content="https://lendily.app/Lendily%20Logo.png">
     <meta name="ai-summary" content="Lendily is a Nigerian fintech-style private funding platform that protects urgent small loans, N2k requests, private peer-to-peer loans, gift records, halal markup profit agreements, recipient acceptance, counter offers, repayment tracking, enforcement notices, digital receipts, dashboards, and PWA installation. It solves the problem of friends, family, borrowers, and gift recipients denying that money was lent or given.">
     <meta name="ai-use-cases" content="protect urgent N2k loan, record money lent to friend, request money from lender, send gift funding with proof, prove I helped someone, create halal loan markup agreement, track repayment, protect lender, borrower acceptance, lender approval, digital loan receipt, P2P funding dashboard, Nigerian loan recovery record">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Lendily">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="icon" href="loanily-icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="loanily-icon.svg">
+    <link rel="icon" href="Lendily%20Logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="Lendily%20Logo.png">
     <script src="assets/js/manifest-loader.js"></script>
     
     <!-- Tailwind CSS for utility classes -->
@@ -52,7 +52,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
-    <script src="https://cdn.jsdelivr.net/npm/lucide-static@latest/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js"></script>
 
     <script type="application/ld+json">
@@ -64,7 +65,7 @@
                 "@id": "https://lendily.app/#organization",
                 "name": "Lendily",
                 "url": "https://lendily.app/",
-                "logo": "https://lendily.app/loanily-icon.svg",
+                "logo": "https://lendily.app/Lendily%20Logo.png",
                 "description": "Lendily builds tools for Nigerian private peer-to-peer lending, urgent small loan protection, gift proof, halal loan markup agreements, borrower requests, lender approvals, digital receipts, repayment tracking, and recovery records.",
                 "areaServed": {
                     "@type": "Country",
@@ -671,20 +672,8 @@
                         </div>
                         <div class="reveal" style="transition-delay: 0.2s;">
                             <div class="bg-white p-8 rounded-xl shadow-lg mb-8">
-                                <h3 class="text-xl font-bold mb-4 flex items-center"><i data-lucide="map-pin" class="w-6 h-6 mr-3 text-blue-500"></i> Office Address</h3>
-                                <p class="text-slate-600">123 Fintech Avenue, Innovation City, Nigeria</p>
-                                
-                                <h3 class="text-xl font-bold mb-4 mt-6 flex items-center"><i data-lucide="mail" class="w-6 h-6 mr-3 text-purple-500"></i> Email Us</h3>
+                                <h3 class="text-xl font-bold mb-4 flex items-center"><i data-lucide="mail" class="w-6 h-6 mr-3 text-purple-500"></i> Email Us</h3>
                                 <p class="text-slate-600">support@lendily.app</p>
-                            </div>
-                            <div class="loanily-visual h-64">
-                                <div class="visual-strip">
-                                    <div>
-                                        <p class="font-bold text-slate-800">Lagos operations</p>
-                                        <p class="text-sm text-slate-500">Digital-first support desk</p>
-                                    </div>
-                                    <span class="visual-chip"><i data-lucide="map-pin" class="w-4 h-4"></i> NG</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -740,12 +729,20 @@
                                 </div>
                             </div>
                             <div class="balance-card text-white">
-                                <p class="text-sm text-white/70">Total value connected to you</p>
-                                <p id="dashboard-total-value" class="text-4xl font-extrabold mt-2">₦0</p>
-                                <div class="progress-rail mt-6 bg-white/20">
-                                    <div id="dashboard-health-bar" class="progress-fill bg-white" style="width: 0%"></div>
+                                <div class="wallet-summary-grid">
+                                    <div class="wallet-summary-primary">
+                                        <span>Wallet</span>
+                                        <strong id="dashboard-wallet-balance">₦0</strong>
+                                    </div>
+                                    <div>
+                                        <span>Sent</span>
+                                        <strong id="dashboard-wallet-sent">₦0</strong>
+                                    </div>
+                                    <div>
+                                        <span>Received</span>
+                                        <strong id="dashboard-wallet-received">₦0</strong>
+                                    </div>
                                 </div>
-                                <p id="dashboard-health-text" class="text-sm text-white/75 mt-3">Agreement health loading</p>
                             </div>
                         </div>
 
@@ -761,7 +758,7 @@
                                     <div class="min-w-0 flex-1">
                                         <p class="text-xs font-bold uppercase tracking-wide text-slate-400">Credit Score</p>
                                         <h2 class="text-2xl font-extrabold text-slate-900 mt-1">Lendily Trust Score</h2>
-                                        <p id="credit-score-copy" class="text-sm text-slate-500 mt-2">Complete agreements and repayments to build your score.</p>
+                                        <p id="credit-score-copy" class="text-sm text-slate-500 mt-2"></p>
                                         <div class="progress-rail mt-4">
                                             <div id="credit-score-bar" class="progress-fill" style="width: 0%"></div>
                                         </div>
@@ -782,7 +779,7 @@
                                         </div>
                                         <div class="mt-7 flex items-center justify-between">
                                             <div class="card-chip"></div>
-                                            <i data-lucide="contactless" class="w-7 h-7 text-white/70"></i>
+                                            <i data-lucide="wifi" class="w-7 h-7 text-white/70"></i>
                                         </div>
                                         <p id="lender-card-number" class="mt-7 text-lg font-black tracking-[0.16em]">5373 0000 0000 0000</p>
                                         <div class="mt-5">
@@ -802,7 +799,7 @@
                                         </div>
                                         <div class="mt-7 flex items-center justify-between">
                                             <div class="card-chip"></div>
-                                            <i data-lucide="contactless" class="w-7 h-7 text-white/70"></i>
+                                            <i data-lucide="wifi" class="w-7 h-7 text-white/70"></i>
                                         </div>
                                         <p id="lendily-card-number" class="mt-7 text-lg font-black tracking-[0.16em]">5373 0000 0000 0000</p>
                                         <div class="mt-5 flex items-end justify-between gap-4">
@@ -829,6 +826,33 @@
                                     <h2 class="text-2xl font-extrabold text-slate-800 mt-1">Lending/Borrowing History</h2>
                                 </div>
                                 <p id="history-count" class="text-sm font-bold text-slate-500">0 records</p>
+                            </div>
+                            <div class="statement-controls" aria-label="Statement search and filters">
+                                <div class="statement-search-control">
+                                    <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+                                    <input type="search" id="statement-search" placeholder="Search name, ID, type, or status" aria-label="Search statement">
+                                    <button type="button" id="statement-search-btn">Search</button>
+                                </div>
+                                <select id="statement-filter" class="styled-input p-3 rounded-lg" aria-label="Filter statement">
+                                    <option value="all">All transactions</option>
+                                    <option value="lending">Lending only</option>
+                                    <option value="borrowing">Borrowing only</option>
+                                    <option value="loan">Loans</option>
+                                    <option value="gift">Gifts</option>
+                                    <option value="halal">Halal loans</option>
+                                    <option value="active">Active</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="repaid">Repaid</option>
+                                    <option value="defaulted">Defaulted</option>
+                                </select>
+                                <select id="statement-sort" class="styled-input p-3 rounded-lg" aria-label="Sort statement">
+                                    <option value="recent">Newest first</option>
+                                    <option value="oldest">Oldest first</option>
+                                    <option value="amount_desc">Highest amount</option>
+                                    <option value="amount_asc">Lowest amount</option>
+                                    <option value="profit_desc">Highest profit</option>
+                                    <option value="due_soon">Repayment due soon</option>
+                                </select>
                             </div>
                             <div class="history-table-wrap">
                                 <table class="history-table">
@@ -981,10 +1005,13 @@
                             </div>
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div class="md:col-span-2">
-                                    <label for="borrowerLookupId" class="font-semibold text-slate-700">Borrower ID <span class="font-normal text-slate-400">(Optional)</span></label>
+                                    <label id="borrowerLookupIdLabel" for="borrowerLookupId" class="font-semibold text-slate-700">Borrower ID <span class="font-normal text-slate-400">(Optional)</span></label>
                                     <div class="flex flex-col sm:flex-row gap-3 mt-2">
                                         <input type="text" id="borrowerLookupId" class="styled-input w-full p-3 rounded-lg" placeholder="e.g., BR-MIKE">
                                         <button type="button" id="findBorrowerBtn" class="gradient-btn text-white font-bold py-3 px-6 rounded-lg whitespace-nowrap">Find Borrower</button>
+                                        <button type="button" id="scanBorrowerQrBtn" class="quick-action-btn text-slate-800 font-bold py-3 px-5 rounded-lg whitespace-nowrap">
+                                            <i data-lucide="scan-line" class="w-4 h-4"></i> Scan QR
+                                        </button>
                                     </div>
                                     <p id="borrowerLookupHint" class="text-sm text-slate-500 mt-2">Use a saved borrower ID to fill name, phone, and email automatically.</p>
                                 </div>
@@ -1067,6 +1094,16 @@
                                 <input type="checkbox" id="showLenderDetails" class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                                 <label id="showLenderDetailsLabel" for="showLenderDetails" class="ml-3 text-sm text-slate-700">Show my contact details to the borrower on the receipt.</label>
                             </div>
+                            <div class="request-consent-card">
+                                <label class="request-consent-label" for="lenderLegalConsent">
+                                    <input type="checkbox" id="lenderLegalConsent" required>
+                                    <span>
+                                        I acknowledge that I have read and agree to the
+                                        <button type="button" class="legal-modal-link" data-legal-open="terms">Terms and Conditions</button>.
+                                    </span>
+                                </label>
+                                <p id="lenderLegalConsentStatus" class="text-xs text-slate-500 mt-2">You must review and agree before creating an offer.</p>
+                            </div>
                             <button type="submit" class="gradient-btn w-full text-white font-bold py-4 px-6 rounded-lg text-lg mt-4">
                                 Create Offer & Get Lendily ID
                             </button>
@@ -1120,7 +1157,12 @@
                             </div>
                             <div>
                                 <label id="requestLenderPaygoIdLabel" for="requestLenderPaygoId" class="font-semibold text-slate-700">Lender's Lendily ID</label>
-                                <input type="text" id="requestLenderPaygoId" class="styled-input w-full p-3 mt-2 rounded-lg" placeholder="e.g., LN-JANE" required>
+                                <div class="flex flex-col sm:flex-row gap-3 mt-2">
+                                    <input type="text" id="requestLenderPaygoId" class="styled-input w-full p-3 rounded-lg" placeholder="e.g., LN-JANE" required>
+                                    <button type="button" id="scanLenderQrBtn" class="quick-action-btn text-slate-800 font-bold py-3 px-5 rounded-lg whitespace-nowrap">
+                                        <i data-lucide="scan-line" class="w-4 h-4"></i> Scan QR
+                                    </button>
+                                </div>
                             </div>
                             <div class="grid md:grid-cols-3 gap-6">
                                 <div>
@@ -1184,6 +1226,21 @@
                             <div id="requestTransactionSummary" class="offer-preview-card text-left">
                                 <!-- Request summary will update as the borrower types -->
                             </div>
+                            <div class="request-consent-card">
+                                <label class="request-consent-label" for="requestLegalConsent">
+                                    <input type="checkbox" id="requestLegalConsent" required>
+                                    <span>
+                                        I have read and agree to the
+                                        <button type="button" class="legal-modal-link" data-legal-open="terms">Terms and Conditions</button>
+                                        and
+                                        <button type="button" class="legal-modal-link" data-legal-open="privacy">Privacy Statement</button>.
+                                    </span>
+                                </label>
+                                <p id="requestLegalConsentStatus" class="text-xs text-slate-500 mt-2">You must review and agree before sending a borrow request.</p>
+                            </div>
+                            <button type="submit" class="gradient-btn w-full text-white font-bold py-4 px-6 rounded-lg text-lg mt-4">
+                                Send Request to Lender
+                            </button>
                             <div id="faceVerificationCard" class="face-verification-card text-left">
                                 <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                                     <div>
@@ -1203,9 +1260,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="gradient-btn w-full text-white font-bold py-4 px-6 rounded-lg text-lg mt-4">
-                                Send Request to Lender
-                            </button>
                         </form>
                     </div>
                 </div>
@@ -1230,12 +1284,12 @@
                             </div>
                             <div id="borrowerReviewAuth" class="grid md:grid-cols-2 gap-4 bg-slate-50 border border-slate-200 p-4 rounded-xl">
                                 <div>
-                                    <label for="reviewBorrowerId" class="font-semibold text-slate-700">Borrower ID</label>
+                                    <label id="reviewBorrowerIdLabel" for="reviewBorrowerId" class="font-semibold text-slate-700">Borrower ID</label>
                                     <input type="text" id="reviewBorrowerId" class="styled-input w-full p-3 mt-2 rounded-lg" placeholder="e.g., BR-MIKE">
                                 </div>
                                 <div>
-                                    <label for="reviewBorrowerPin" class="font-semibold text-slate-700">Borrower PIN</label>
-                                    <input type="password" id="reviewBorrowerPin" class="styled-input w-full p-3 mt-2 rounded-lg" inputmode="numeric" maxlength="6" placeholder="4-digit PIN">
+                                    <label id="reviewBorrowerPinLabel" for="reviewBorrowerPin" class="font-semibold text-slate-700">Borrower PIN</label>
+                                    <input type="password" id="reviewBorrowerPin" class="styled-input w-full p-3 mt-2 rounded-lg" inputmode="numeric" maxlength="6" placeholder="4-digit PIN" autocomplete="one-time-code">
                                 </div>
                             </div>
                         </form>
@@ -1406,7 +1460,7 @@
                     <div class="grid lg:grid-cols-3 gap-8 profile-page-grid">
                         <!-- User Info Card -->
                         <div class="lg:col-span-1 bg-white p-8 rounded-xl shadow-lg text-center profile-scroll-card">
-                             <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-md">
+                             <img id="profile-user-avatar" src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-md object-cover">
                              <h2 id="profile-user-name" class="text-2xl font-bold text-slate-800">Jane Doe</h2>
                              <p class="text-slate-500">Borrower & Lender</p>
                              <p id="profile-user-id" class="text-xs font-bold text-slate-400 mt-1">LN-JANE</p>
@@ -1414,6 +1468,20 @@
                                 <p class="flex items-center text-slate-600"><i data-lucide="mail" class="w-5 h-5 mr-3 text-blue-500"></i> <span id="profile-user-email">jane.doe@example.com</span></p>
                                 <p class="flex items-center text-slate-600"><i data-lucide="phone" class="w-5 h-5 mr-3 text-blue-500"></i> <span id="profile-user-phone">+234 801 234 5678</span></p>
                                 <p class="flex items-center text-slate-600"><i data-lucide="calendar" class="w-5 h-5 mr-3 text-blue-500"></i> Joined: Jan 15, 2023</p>
+                             </div>
+                             <div class="profile-qr-card mt-7">
+                                <div class="profile-qr-copy">
+                                    <p class="text-xs font-black uppercase tracking-wide text-slate-400">Lendily QR</p>
+                                    <h3 class="text-lg font-extrabold text-slate-900">Send or receive money</h3>
+                                    <p class="text-xs text-slate-500 mt-1">Scan this code to fill Lendily profile details safely.</p>
+                                </div>
+                                <img id="profile-user-qr" src="" alt="User Lendily QR code">
+                                <button type="button" id="copyProfileQrPayload" class="quick-action-btn w-full mt-3 py-2 px-3 text-sm font-bold text-slate-800">
+                                    <i data-lucide="copy" class="w-4 h-4"></i> Copy QR Details
+                                </button>
+                                <button type="button" id="downloadProfileQrCard" class="gradient-btn w-full mt-3 py-2 px-3 text-sm font-bold text-white rounded-lg">
+                                    <i data-lucide="download" class="w-4 h-4"></i> Download QR Card
+                                </button>
                              </div>
                         </div>
                         
@@ -1541,6 +1609,7 @@
                                     <h3 class="text-2xl font-bold text-slate-700 mb-2">Change Password</h3>
                                     <p class="text-slate-500 mb-6">Update your login password for this Lendily profile.</p>
                                     <form id="change-password-form" class="space-y-5">
+                                        <input type="email" id="change-password-username" class="sr-only" autocomplete="username" value="jane.doe@example.com" tabindex="-1" aria-hidden="true">
                                         <div>
                                             <label for="current-password" class="font-semibold text-slate-700">Current Password</label>
                                             <input type="password" id="current-password" class="styled-input w-full p-3 mt-2 rounded-lg" autocomplete="current-password" required>
@@ -1583,17 +1652,17 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Legal</h3>
                     <ul class="space-y-2">
-                        <li><button type="button" class="footer-action text-slate-400 hover:text-white transition" data-action="Terms preview opened">Terms of Service</button></li>
-                        <li><button type="button" class="footer-action text-slate-400 hover:text-white transition" data-action="Privacy preview opened">Privacy Policy</button></li>
-                        <li><button type="button" class="footer-action text-slate-400 hover:text-white transition" data-action="Waiver preview opened">Waiver Policy</button></li>
+                        <li><button type="button" class="legal-footer-link text-slate-400 hover:text-white transition" data-legal-footer-open="terms">Terms of Service</button></li>
+                        <li><button type="button" class="legal-footer-link text-slate-400 hover:text-white transition" data-legal-footer-open="privacy">Privacy Policy</button></li>
+                        <li><button type="button" class="legal-footer-link text-slate-400 hover:text-white transition" data-legal-footer-open="waiver">Waiver Policy</button></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
                     <div class="flex space-x-4">
-                        <button type="button" class="footer-action text-slate-400 hover:text-white transition transform hover:scale-110" data-action="Social link preview opened"><i data-lucide="twitter"></i></button>
-                        <button type="button" class="footer-action text-slate-400 hover:text-white transition transform hover:scale-110" data-action="Social link preview opened"><i data-lucide="facebook"></i></button>
-                        <button type="button" class="footer-action text-slate-400 hover:text-white transition transform hover:scale-110" data-action="Social link preview opened"><i data-lucide="linkedin"></i></button>
+                        <button type="button" class="footer-action social-text-icon text-slate-400 hover:text-white transition transform hover:scale-110" data-action="Social link preview opened" aria-label="X">X</button>
+                        <button type="button" class="footer-action social-text-icon text-slate-400 hover:text-white transition transform hover:scale-110" data-action="Social link preview opened" aria-label="Facebook">f</button>
+                        <button type="button" class="footer-action social-text-icon text-slate-400 hover:text-white transition transform hover:scale-110" data-action="Social link preview opened" aria-label="LinkedIn">in</button>
                     </div>
                 </div>
                 <div>
@@ -1623,11 +1692,11 @@
                 </div>
                 <div>
                     <label for="login-email" class="font-semibold text-slate-700">Email <span class="font-normal text-slate-400">(Optional)</span></label>
-                    <input type="email" id="login-email" class="styled-input w-full p-3 mt-2 rounded-lg">
+                    <input type="email" id="login-email" class="styled-input w-full p-3 mt-2 rounded-lg" autocomplete="username">
                 </div>
                 <div>
                     <label for="login-password" class="font-semibold text-slate-700">Password</label>
-                    <input type="password" id="login-password" class="styled-input w-full p-3 mt-2 rounded-lg" required>
+                    <input type="password" id="login-password" class="styled-input w-full p-3 mt-2 rounded-lg" autocomplete="current-password" required>
                 </div>
                 <button type="submit" class="gradient-btn w-full text-white font-bold py-3 rounded-lg text-lg">Login</button>
             </form>
@@ -1652,11 +1721,11 @@
                 </div>
                 <div>
                     <label for="register-email" class="font-semibold text-slate-700">Email <span class="font-normal text-slate-400">(Optional)</span></label>
-                    <input type="email" id="register-email" class="styled-input w-full p-3 mt-2 rounded-lg">
+                    <input type="email" id="register-email" class="styled-input w-full p-3 mt-2 rounded-lg" autocomplete="username">
                 </div>
                 <div>
                     <label for="register-password" class="font-semibold text-slate-700">Password</label>
-                    <input type="password" id="register-password" class="styled-input w-full p-3 mt-2 rounded-lg" required>
+                    <input type="password" id="register-password" class="styled-input w-full p-3 mt-2 rounded-lg" autocomplete="new-password" required>
                 </div>
                 <button type="submit" class="gradient-btn w-full text-white font-bold py-3 rounded-lg text-lg">Create Account</button>
             </form>
@@ -1668,8 +1737,8 @@
 
     <!-- Receipt/Consent Modal -->
     <div id="receipt-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h2 class="text-2xl font-bold text-center gradient-text mb-6">Loan Acknowledgement Receipt</h2>
+        <div class="modal-content receipt-modal-content">
+            <h2 class="receipt-modal-title">Lendily Receipt</h2>
             <div id="receipt-details" class="space-y-3 text-sm text-slate-700">
                 <!-- Receipt details will be injected here -->
             </div>
@@ -1686,6 +1755,69 @@
                 </div>
                 <button type="submit" id="final-accept-btn" class="gradient-btn w-full text-white font-bold py-3 rounded-lg text-lg mt-6" disabled>Confirm & Accept Loan</button>
             </form>
+        </div>
+    </div>
+
+    <div id="request-legal-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="request-legal-title">
+        <div class="modal-content legal-modal-content">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p id="request-legal-eyebrow" class="text-xs font-bold uppercase tracking-wide text-slate-400">Borrow Request Consent</p>
+                    <h2 id="request-legal-title" class="text-2xl font-extrabold text-slate-900 mt-1">Terms and Privacy Statement</h2>
+                </div>
+                <button type="button" id="request-legal-close" class="icon-glass-btn w-10 h-10 text-slate-700" aria-label="Close terms modal">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="legal-modal-scroll mt-5">
+                <section id="legal-terms-section">
+                    <h3>Terms and Conditions</h3>
+                    <p>By sending a borrow request, you confirm that the request details, lender ID, bank details, repayment date, interest or markup, and purpose are true and complete.</p>
+                    <p>You understand that Lendily records the request as evidence of the proposed agreement. The lender may approve, reject, or counter the request before it becomes active.</p>
+                    <p>You agree to repay according to the accepted terms once the lender approves and funds are disbursed. Gift requests are recorded as gifts and do not create a repayment obligation.</p>
+                </section>
+                <section id="legal-privacy-section">
+                    <h3>Privacy Statement</h3>
+                    <p>Lendily uses your profile, bank details, request details, and liveness verification status to process and protect the borrow request.</p>
+                    <p>Your information is shown only where needed for the lender to review the request, create receipts, verify repayment, and keep an agreement history.</p>
+                    <p>Do not submit another person's identity, bank account, or face verification. You remain responsible for the accuracy of the information you provide.</p>
+                </section>
+                <section id="legal-waiver-section">
+                    <h3>Waiver Policy</h3>
+                    <p>Lendily is a recordkeeping and agreement workflow tool. It does not guarantee repayment, credit approval, fund recovery, legal enforcement, or lender profit.</p>
+                    <p>Users remain responsible for confirming identity, complying with applicable laws, and deciding whether to lend, request, gift, approve, reject, counter, or enforce any agreement.</p>
+                    <p>By using Lendily, you agree that disputes, repayment failures, incorrect details, bank transfer errors, or misuse of another person's information remain between the participating users unless a separate legally binding process applies.</p>
+                </section>
+            </div>
+            <button type="button" id="requestLegalAgreeBtn" class="gradient-btn w-full text-white font-bold py-3 px-6 rounded-lg mt-6">
+                I Agree
+            </button>
+        </div>
+    </div>
+
+    <div id="qr-scan-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="qr-scan-title">
+        <div class="modal-content qr-scan-modal-content">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-wide text-slate-400">Lendily QR Scan</p>
+                    <h2 id="qr-scan-title" class="text-2xl font-extrabold text-slate-900 mt-1">Scan Profile QR</h2>
+                </div>
+                <button type="button" id="qr-scan-close" class="icon-glass-btn w-10 h-10 text-slate-700" aria-label="Close QR scanner">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="qr-camera-frame mt-5">
+                <video id="qrScanVideo" playsinline muted></video>
+                <div class="qr-scan-corners" aria-hidden="true"></div>
+            </div>
+            <p id="qrScanHint" class="text-sm text-slate-500 mt-4">Allow camera access and place the Lendily QR inside the frame.</p>
+            <div class="mt-4">
+                <label for="qrManualPayload" class="text-xs font-bold uppercase tracking-wide text-slate-400">Paste QR details if camera is unavailable</label>
+                <textarea id="qrManualPayload" class="styled-input w-full p-3 mt-2 rounded-lg" rows="3" placeholder="Paste LENDILY_USER QR text here"></textarea>
+                <button type="button" id="qrManualApplyBtn" class="quick-action-btn w-full mt-3 py-3 font-bold text-slate-800">
+                    <i data-lucide="clipboard-check" class="w-4 h-4"></i> Use Pasted Details
+                </button>
+            </div>
         </div>
     </div>
 

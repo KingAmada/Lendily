@@ -12,9 +12,9 @@
   "categories": ["finance", "productivity", "business"],
   "icons": [
     {
-      "src": "loanily-icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "Lendily%20Logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ],
