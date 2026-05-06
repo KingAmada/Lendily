@@ -1,5 +1,5 @@
         // --- STATE MANAGEMENT ---
-        const demoUser = { name: 'Jane Doe', email: 'jane.doe@example.com', phone: '+2348012345678', role: 'lender', lendilyId: 'LN-JANE' };
+        const demoUser = { name: 'Jane Doe', email: 'jane.doe@example.com', phone: '+2348012345678', role: 'lender', lendilyId: 'LN-JANE', walletBalance: 185000 };
         let loggedIn = true;
         let currentUser = { ...demoUser };
         let deferredInstallPrompt = null;
@@ -273,7 +273,10 @@
             'View Receipt': 'Duba Rasit',
             'Share': 'Raba',
             'Reminder': 'Tunatarwa',
-            'Enforce': 'Tilasta'
+            'Enforce': 'Tilasta',
+            'Wallet': 'Wallet',
+            'Sent': 'An Aika',
+            'Received': 'An Karba'
         });
         Object.assign(phraseTranslations.ig, {
             'Active': 'Na-arụ Ọrụ',
@@ -310,7 +313,10 @@
             'View Receipt': 'Lee Rịsit',
             'Share': 'Kekọrịta',
             'Reminder': 'Ncheta',
-            'Enforce': 'Mee Ka O Rube Isi'
+            'Enforce': 'Mee Ka O Rube Isi',
+            'Wallet': 'Wallet',
+            'Sent': 'Ezigara',
+            'Received': 'Anatara'
         });
         Object.assign(phraseTranslations.yo, {
             'Active': 'Nṣiṣẹ',
@@ -347,7 +353,10 @@
             'View Receipt': 'Wo Risiti',
             'Share': 'Pin',
             'Reminder': 'Iranti',
-            'Enforce': 'Fi Le Lọwọ'
+            'Enforce': 'Fi Le Lọwọ',
+            'Wallet': 'Wallet',
+            'Sent': 'Ti Firanṣẹ',
+            'Received': 'Ti Gba'
         });
         const translatePhrase = (value) => currentLanguage === 'en'
             ? value
@@ -846,10 +855,234 @@
             return { score, tier, percent, completed, active, pending };
         };
         const getAgreementQrUrl = (loan) => `https://api.qrserver.com/v1/create-qr-code/?size=112x112&margin=8&data=${encodeURIComponent(`Lendily:${loan.id}:${loan.borrower || ''}:${loan.amount || 0}`)}`;
+        const encodeBase64Url = (value) => btoa(unescape(encodeURIComponent(value)))
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=+$/g, '');
+        const decodeBase64Url = (value) => {
+            const normalized = String(value || '').replace(/-/g, '+').replace(/_/g, '/');
+            return decodeURIComponent(escape(atob(normalized.padEnd(Math.ceil(normalized.length / 4) * 4, '='))));
+        };
+        const getUserQrPayload = (user = currentUser) => {
+            const firstName = cleanText(user?.name || 'User').split(/\s+/)[0]?.toUpperCase() || 'USER';
+            return {
+                type: 'lendily-user-v1',
+                name: user?.name || '',
+                email: user?.email || '',
+                phone: user?.phone || '',
+                lendilyId: user?.lendilyId || `LN-${firstName}`,
+                borrowerId: user?.borrowerId || `BR-${firstName}`,
+                bankName: user?.bankName || '',
+                accountNumber: user?.accountNumber || '',
+                accountName: user?.accountName || user?.name || '',
+                state: user?.state || '',
+                lga: user?.lga || ''
+            };
+        };
+        const getUserQrText = (user = currentUser) => `LENDILY_USER:${encodeBase64Url(JSON.stringify(getUserQrPayload(user)))}`;
+        const getUserQrUrl = (user = currentUser) => `https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=10&data=${encodeURIComponent(getUserQrText(user))}`;
+        const getUserQrDataUrl = async (user = currentUser, width = 360) => {
+            const payload = getUserQrText(user);
+            if (window.QRCode?.toDataURL) {
+                return window.QRCode.toDataURL(payload, {
+                    width,
+                    margin: 2,
+                    color: { dark: '#0f172a', light: '#ffffff' },
+                    errorCorrectionLevel: 'M'
+                });
+            }
+            return getUserQrUrl(user);
+        };
+        const decodeLendilyQrText = (rawValue = '') => {
+            const value = String(rawValue || '').trim();
+            if (!value) return null;
+            try {
+                if (value.startsWith('LENDILY_USER:')) {
+                    return JSON.parse(decodeBase64Url(value.replace('LENDILY_USER:', '')));
+                }
+                if (value.startsWith('{')) return JSON.parse(value);
+                if (/^LN-[A-Z0-9-]{2,}$/i.test(value)) return { type: 'lendily-user-v1', lendilyId: normalizeLendilyId(value) };
+                if (/^BR-[A-Z0-9-]{2,}$/i.test(value)) return { type: 'lendily-user-v1', borrowerId: normalizeBorrowerId(value) };
+            } catch (error) {
+                console.warn('Could not decode Lendily QR payload.', error);
+            }
+            return null;
+        };
+        const ensureCurrentUserQrIdentity = () => {
+            if (!currentUser) return;
+            const firstName = cleanText(currentUser.name || 'User').split(/\s+/)[0]?.toUpperCase() || 'USER';
+            currentUser.lendilyId = currentUser.lendilyId || `LN-${firstName}`;
+            currentUser.borrowerId = currentUser.borrowerId || `BR-${firstName}`;
+            currentUser.qrPayload = getUserQrText(currentUser);
+        };
+        const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+        const loadImageElement = (src) => new Promise((resolve, reject) => {
+            const image = new Image();
+            image.onload = () => resolve(image);
+            image.onerror = reject;
+            image.src = src;
+        });
+        const waitForFaceApi = async (timeoutMs = 5000) => {
+            const startedAt = Date.now();
+            while (!window.faceapi?.nets?.tinyFaceDetector && Date.now() - startedAt < timeoutMs) {
+                await new Promise(resolve => setTimeout(resolve, 150));
+            }
+            return Boolean(window.faceapi?.nets?.tinyFaceDetector);
+        };
+        const loadFaceDetectionModels = async () => {
+            if (!await waitForFaceApi()) return false;
+            if (!loadFaceDetectionModels.ready) {
+                await window.faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/');
+                loadFaceDetectionModels.ready = true;
+            }
+            return true;
+        };
+        const imageHasFace = async (dataUrl) => {
+            const image = await loadImageElement(dataUrl);
+            try {
+                if (await loadFaceDetectionModels()) {
+                    const result = await window.faceapi.detectSingleFace(
+                        image,
+                        new window.faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.45 })
+                    );
+                    return Boolean(result);
+                }
+            } catch (error) {
+                console.warn('Face API image check failed, trying native detector.', error);
+            }
+            if ('FaceDetector' in window) {
+                const detector = new window.FaceDetector({ fastMode: true, maxDetectedFaces: 1 });
+                const faces = await detector.detect(image);
+                return faces.length > 0;
+            }
+            return false;
+        };
+        const drawRoundRect = (ctx, x, y, width, height, radius) => {
+            const r = Math.min(radius, width / 2, height / 2);
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.arcTo(x + width, y, x + width, y + height, r);
+            ctx.arcTo(x + width, y + height, x, y + height, r);
+            ctx.arcTo(x, y + height, x, y, r);
+            ctx.arcTo(x, y, x + width, y, r);
+            ctx.closePath();
+        };
+        const downloadCurrentUserQrCard = async () => {
+            if (!currentUser) return;
+            ensureCurrentUserQrIdentity();
+            const canvas = document.createElement('canvas');
+            canvas.width = 1080;
+            canvas.height = 680;
+            const ctx = canvas.getContext('2d');
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#08111f');
+            gradient.addColorStop(0.48, '#143b3b');
+            gradient.addColorStop(1, '#4f46e5');
+            ctx.fillStyle = gradient;
+            drawRoundRect(ctx, 0, 0, canvas.width, canvas.height, 44);
+            ctx.fill();
+
+            ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+            ctx.lineWidth = 2;
+            for (let i = -240; i < canvas.width; i += 86) {
+                ctx.beginPath();
+                ctx.moveTo(i, canvas.height);
+                ctx.lineTo(i + 620, 0);
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = 'rgba(255,255,255,0.08)';
+            ctx.font = '900 220px Inter, Arial, sans-serif';
+            ctx.fillText('L', 795, 525);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '900 42px Inter, Arial, sans-serif';
+            ctx.fillText('LENDILY', 72, 88);
+            ctx.font = '900 64px Inter, Arial, sans-serif';
+            ctx.fillText(currentUser.name || 'Lendily User', 72, 190);
+            ctx.fillStyle = 'rgba(255,255,255,0.72)';
+            ctx.font = '700 30px Inter, Arial, sans-serif';
+            ctx.fillText(currentUser.lendilyId || 'LN-USER', 72, 246);
+            ctx.fillText(currentUser.borrowerId || 'BR-USER', 72, 292);
+
+            const qrImage = await loadImageElement(await getUserQrDataUrl(currentUser, 360));
+            ctx.fillStyle = '#ffffff';
+            drawRoundRect(ctx, 710, 76, 280, 280, 28);
+            ctx.fill();
+            ctx.drawImage(qrImage, 735, 101, 230, 230);
+
+            if (currentUser.passportPhotoDataUrl) {
+                const avatar = await loadImageElement(currentUser.passportPhotoDataUrl);
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(138, 446, 58, 0, Math.PI * 2);
+                ctx.clip();
+                ctx.drawImage(avatar, 80, 388, 116, 116);
+                ctx.restore();
+                ctx.strokeStyle = 'rgba(255,255,255,0.75)';
+                ctx.lineWidth = 6;
+                ctx.beginPath();
+                ctx.arc(138, 446, 61, 0, Math.PI * 2);
+                ctx.stroke();
+            } else {
+                ctx.fillStyle = 'rgba(255,255,255,0.16)';
+                ctx.beginPath();
+                ctx.arc(138, 446, 58, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '900 42px Inter, Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText((currentUser.name || 'LU').split(/\s+/).map(part => part[0]).join('').slice(0, 2).toUpperCase(), 138, 461);
+                ctx.textAlign = 'left';
+            }
+
+            ctx.fillStyle = '#f8fafc';
+            ctx.font = '900 34px Inter, Arial, sans-serif';
+            ctx.fillText('Scan to send or receive money', 224, 430);
+            ctx.fillStyle = 'rgba(255,255,255,0.72)';
+            ctx.font = '700 24px Inter, Arial, sans-serif';
+            ctx.fillText(currentUser.email || currentUser.phone || 'Lendily profile', 224, 474);
+            ctx.fillText('Profile QR carries ID, contact, and bank details.', 224, 514);
+
+            const link = document.createElement('a');
+            link.download = `${(currentUser.lendilyId || 'lendily').toLowerCase()}-qr-card.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast('QR card downloaded.', 'success');
+        };
         const renderSummaryRow = (label, value, emphasis = false) => `
-            <div class="${emphasis ? 'bg-slate-950 text-white' : 'bg-slate-50'} border ${emphasis ? 'border-slate-950' : 'border-slate-200'} rounded-lg p-3">
-                <p class="${emphasis ? 'text-white/60' : 'text-slate-500'} text-[10px] font-bold uppercase tracking-wide">${label}</p>
-                <p class="${emphasis ? 'text-white' : 'text-slate-900'} mt-1 text-sm font-bold break-words">${value}</p>
+            <div class="summary-line ${emphasis ? 'is-emphasis' : ''}">
+                <p>${label}</p>
+                <strong>${value}</strong>
+            </div>
+        `;
+        const maskSensitiveNumber = (value, visibleDigits = 4) => {
+            const digits = digitsOnly(String(value || ''));
+            if (!digits) return 'Not provided';
+            const visible = digits.slice(-visibleDigits);
+            return `${'•'.repeat(Math.max(digits.length - visible.length, 4))}${visible}`;
+        };
+        const maskPhoneDisplay = (value) => {
+            const digits = digitsOnly(String(value || ''));
+            if (!digits) return 'Not provided';
+            return `${digits.slice(0, 4)}••••${digits.slice(-3)}`;
+        };
+        const maskEmailDisplay = (value) => {
+            const email = String(value || '').trim();
+            if (!email || !email.includes('@')) return email || 'Not provided';
+            const [name, domain] = email.split('@');
+            return `${name.slice(0, 2)}•••@${domain}`;
+        };
+        const renderPrivacyNotice = () => `
+            <div class="receipt-privacy-note">
+                <strong>Privacy protected receipt.</strong>
+                BVN, NIN, bank, account, and location details are hidden by default because receipts are often shared as screenshots.
+                Lendily only helps users document private funding agreements. Lendily is not a bank, lender, credit bureau, or debt collector.
             </div>
         `;
         const renderAgreementSummaryCard = (loan, options = {}) => {
@@ -858,49 +1091,59 @@
             const chargeLabel = loan.fundingType === 'halal' ? 'Markup' : 'Funding Charge';
             const note = cleanText(loan.transactionDetails || '');
             const statusText = options.statusText || getStatusLabel(loan.status || 'pending');
-            const rows = [
-                renderSummaryRow('Lender', loan.lender || 'Not provided'),
-                renderSummaryRow('Borrower', loan.borrower || 'Not provided'),
-                loan.borrowerState ? renderSummaryRow('Borrower State', loan.borrowerState) : '',
-                loan.borrowerLga ? renderSummaryRow('Borrower LGA', loan.borrowerLga) : '',
-                loan.borrowerBankName ? renderSummaryRow('Bank', loan.borrowerBankName) : '',
-                loan.borrowerAccountNumber ? renderSummaryRow('Account Number', loan.borrowerAccountNumber) : '',
-                loan.borrowerAccountName ? renderSummaryRow('Account Name', loan.borrowerAccountName) : '',
+            const chargeValue = calculateFundingCharge(loan);
+            const totalLabel = isGift ? 'Gift Amount' : 'Total Repayment';
+            const totalValue = isGift ? loan.amount : totalRepayment;
+            const detailRows = [
                 renderSummaryRow('Funding Type', getFundingLabel(loan)),
                 renderSummaryRow(getPurposeFieldLabel(loan), getPurposeLabel(loan.loanPurpose)),
-                renderSummaryRow('Principal', formatCurrency(loan.amount), true),
                 isGift ? '' : renderSummaryRow(loan.fundingType === 'halal' ? 'Markup Rate' : 'Interest Rate', `${loan.interestRate || 0}%`),
-                isGift ? '' : renderSummaryRow('Interest Period', (loan.interestPeriod || 'period').replace(/_/g, ' ')),
-                isGift ? '' : renderSummaryRow(chargeLabel, formatCurrency(calculateFundingCharge(loan))),
                 isGift ? '' : renderSummaryRow('Due Date', formatDate(loan.dueDate)),
-                isGift ? '' : renderSummaryRow('Repayment Plan', (loan.repaymentPlan || 'end_of_term').replace(/_/g, ' ')),
-                renderSummaryRow(isGift ? 'Gift Amount' : 'Total Repayment', isGift ? formatCurrency(loan.amount) : formatCurrency(totalRepayment), true)
+                isGift ? '' : renderSummaryRow('Plan', (loan.repaymentPlan || 'end_of_term').replace(/_/g, ' '))
             ].filter(Boolean).join('');
 
             return `
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden text-sm">
-                    <div class="bg-slate-950 text-white p-4 md:p-5 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                        <div class="flex items-start gap-3">
-                            <div class="w-11 h-11 rounded-xl bg-white text-slate-950 grid place-items-center font-black text-xl shadow-lg">L</div>
+                <div class="receipt-summary-card">
+                    <div class="receipt-summary-head">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="receipt-logo-dot">L</div>
                             <div>
-                                <p class="text-[10px] font-bold uppercase tracking-widest text-teal-300">Lendily Receipt Summary</p>
-                                <h3 class="text-xl font-extrabold mt-1">${loan.id}</h3>
-                                <p class="text-xs text-white/60 mt-1">Verified private agreement receipt</p>
+                                <p>Lendily Receipt</p>
+                                <h3>${loan.id}</h3>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <img src="${getAgreementQrUrl(loan)}" alt="QR code for ${loan.id}" class="w-20 h-20 rounded-lg bg-white p-1">
-                            <span class="self-start bg-white/10 border border-white/15 rounded-full px-3 py-1.5 text-xs font-bold">${statusText}</span>
+                        <div class="receipt-head-side">
+                            <img src="${getAgreementQrUrl(loan)}" alt="QR code for ${loan.id}">
+                            <span>${statusText}</span>
                         </div>
                     </div>
-                    <div class="p-4 md:p-5">
-                        <div class="grid md:grid-cols-2 gap-4">
-                            ${rows}
+                    <div class="receipt-summary-body">
+                        <div class="receipt-party-row">
+                            <div>
+                                <p>Lender</p>
+                                <strong>${loan.lender || 'Not provided'}</strong>
+                            </div>
+                            <div>
+                                <p>Borrower</p>
+                                <strong>${loan.borrower || 'Not provided'}</strong>
+                            </div>
                         </div>
-                        <div class="mt-4 bg-white border border-slate-200 rounded-lg p-3">
-                            <p class="text-[10px] font-bold uppercase tracking-wide text-slate-500">More Details</p>
-                            <p class="mt-2 text-sm text-slate-700 leading-relaxed">${note || 'No extra transaction details were added.'}</p>
+                        <div class="receipt-amount-strip">
+                            <div>
+                                <p>Principal</p>
+                                <strong>${formatCurrency(loan.amount)}</strong>
+                            </div>
+                            <div>
+                                <p>${isGift ? 'Charge' : chargeLabel}</p>
+                                <strong>${isGift ? 'No repayment' : formatCurrency(chargeValue)}</strong>
+                            </div>
+                            <div>
+                                <p>${totalLabel}</p>
+                                <strong>${formatCurrency(totalValue)}</strong>
+                            </div>
                         </div>
+                        <div class="receipt-detail-grid">${detailRows}</div>
+                        ${note ? `<p class="receipt-note">${note}</p>` : ''}
                     </div>
                 </div>
             `;
@@ -985,6 +1228,11 @@
             if (cleaned.startsWith('234')) return cleaned;
             if (cleaned.startsWith('0')) return `234${cleaned.slice(1)}`;
             return cleaned;
+        };
+        const toLocalPhoneInput = (phone) => {
+            const cleaned = digitsOnly(String(phone || ''));
+            if (cleaned.startsWith('234') && cleaned.length >= 13) return `0${cleaned.slice(3, 13)}`;
+            return cleaned.slice(0, 11);
         };
         const isPresent = (value) => {
             if (typeof value === 'boolean') return value;
@@ -1186,8 +1434,12 @@
         };
 
         const getPendingParty = (loan) => loan.status === 'pending_lender_acceptance' ? 'lender' : 'borrower';
+        const pendingStatuses = ['pending_borrower_acceptance', 'pending_lender_acceptance'];
         let liveAgreementFilter = 'all';
         let liveAgreementSort = 'recent';
+        let statementSearchQuery = '';
+        let statementFilter = 'all';
+        let statementSort = 'recent';
 
         const chartPalette = ['#00b8a9', '#6457ff', '#ff8a4c', '#22c55e', '#f59e0b', '#ef4444', '#64748b'];
 
@@ -1291,13 +1543,70 @@
         const renderTransactionHistory = (myLoans) => {
             const body = document.getElementById('transaction-history-body');
             if (!body) return;
-            setText('history-count', `${myLoans.length} ${myLoans.length === 1 ? 'record' : 'records'}`);
+            const searchInput = document.getElementById('statement-search');
+            const filterSelect = document.getElementById('statement-filter');
+            const sortSelect = document.getElementById('statement-sort');
+            if (searchInput && searchInput.value !== statementSearchQuery) searchInput.value = statementSearchQuery;
+            if (filterSelect) filterSelect.value = statementFilter;
+            if (sortSelect) sortSelect.value = statementSort;
+
             if (!myLoans.length) {
+                setText('history-count', '0 records');
                 body.innerHTML = '<tr><td colspan="11" class="text-slate-500">No transaction history yet.</td></tr>';
                 return;
             }
 
-            body.innerHTML = myLoans.map((loan, index) => {
+            const normalizedSearch = statementSearchQuery.trim().toLowerCase();
+            const getDateTime = (value, fallback) => {
+                const parsed = Date.parse(value);
+                return Number.isNaN(parsed) ? fallback : parsed;
+            };
+            const rows = myLoans
+                .map((loan, index) => ({ loan, index }))
+                .filter(({ loan, index }) => {
+                    const isLender = loan.lender.toLowerCase() === currentUser.name.toLowerCase();
+                    const statementRole = isLender ? 'lending' : 'borrowing';
+                    const statusIsPending = pendingStatuses.includes(loan.status);
+                    if (statementFilter === 'lending' && statementRole !== 'lending') return false;
+                    if (statementFilter === 'borrowing' && statementRole !== 'borrowing') return false;
+                    if (statementFilter === 'pending' && !statusIsPending) return false;
+                    if (['active', 'repaid', 'defaulted'].includes(statementFilter) && loan.status !== statementFilter) return false;
+                    if (['loan', 'gift', 'halal'].includes(statementFilter) && loan.fundingType !== statementFilter) return false;
+                    if (!normalizedSearch) return true;
+
+                    const searchable = [
+                        loan.id,
+                        loan.lender,
+                        loan.borrower,
+                        getFundingLabel(loan),
+                        getPurposeLabel(loan.loanPurpose),
+                        getStatusLabel(loan.status),
+                        statementRole,
+                        formatCurrency(getDisplayTotal(loan)),
+                        formatDate(getTransactionDate(loan, index)),
+                        formatDate(getRepaymentDate(loan))
+                    ].join(' ').toLowerCase();
+                    return searchable.includes(normalizedSearch);
+                })
+                .sort((a, b) => {
+                    const aTransactionTime = getDateTime(getTransactionDate(a.loan, a.index), a.index);
+                    const bTransactionTime = getDateTime(getTransactionDate(b.loan, b.index), b.index);
+                    if (statementSort === 'oldest') return aTransactionTime - bTransactionTime;
+                    if (statementSort === 'amount_desc') return getDisplayTotal(b.loan) - getDisplayTotal(a.loan);
+                    if (statementSort === 'amount_asc') return getDisplayTotal(a.loan) - getDisplayTotal(b.loan);
+                    if (statementSort === 'profit_desc') return getTotalProfit(b.loan) - getTotalProfit(a.loan);
+                    if (statementSort === 'due_soon') return getDateTime(getRepaymentDate(a.loan), 8640000000000000) - getDateTime(getRepaymentDate(b.loan), 8640000000000000);
+                    return bTransactionTime - aTransactionTime;
+                });
+
+            const filteredLabel = rows.length === myLoans.length ? `${rows.length}` : `${rows.length} of ${myLoans.length}`;
+            setText('history-count', `${filteredLabel} ${rows.length === 1 ? 'record' : 'records'}`);
+            if (!rows.length) {
+                body.innerHTML = '<tr><td colspan="11" class="text-slate-500">No statement records match your search.</td></tr>';
+                return;
+            }
+
+            body.innerHTML = rows.map(({ loan, index }) => {
                 const isLender = loan.lender.toLowerCase() === currentUser.name.toLowerCase();
                 const otherParty = isLender ? loan.borrower : loan.lender;
                 return `
@@ -1558,6 +1867,181 @@
         const loginModal = document.getElementById('login-modal');
         const registerModal = document.getElementById('register-modal');
         const receiptModal = document.getElementById('receipt-modal');
+        const requestLegalModal = document.getElementById('request-legal-modal');
+        const qrScanModal = document.getElementById('qr-scan-modal');
+        let activeLegalConsentTarget = 'request';
+        let lenderLegalAccepted = false;
+        let requestLegalAccepted = false;
+        let activeQrScanTarget = 'borrower';
+        let qrScanStream = null;
+        let qrScanTimer = null;
+        const legalSectionIds = {
+            terms: 'legal-terms-section',
+            privacy: 'legal-privacy-section',
+            waiver: 'legal-waiver-section'
+        };
+        const legalTitles = {
+            terms: 'Terms of Service',
+            privacy: 'Privacy Policy',
+            waiver: 'Waiver Policy'
+        };
+
+        const openLegalConsentModal = (target = 'request', section = 'terms') => {
+            const selectedSection = legalSectionIds[section] ? section : 'terms';
+            const isFooterPreview = target === 'footer';
+            activeLegalConsentTarget = target;
+            setText(
+                'request-legal-eyebrow',
+                isFooterPreview ? 'Lendily Legal' : target === 'lender' ? 'Lender Consent' : 'Borrow Request Consent'
+            );
+            setText('request-legal-title', legalTitles[selectedSection]);
+            document.getElementById('requestLegalAgreeBtn')?.classList.toggle('hidden', isFooterPreview);
+            requestLegalModal?.classList.add('active');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            window.setTimeout(() => {
+                document.getElementById(legalSectionIds[selectedSection])
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 80);
+        };
+
+        const resetLegalConsentState = (target) => {
+            const isLender = target === 'lender';
+            const checkbox = document.getElementById(isLender ? 'lenderLegalConsent' : 'requestLegalConsent');
+            const status = document.getElementById(isLender ? 'lenderLegalConsentStatus' : 'requestLegalConsentStatus');
+            if (isLender) lenderLegalAccepted = false;
+            else requestLegalAccepted = false;
+            if (checkbox) checkbox.checked = false;
+            if (status) {
+                status.textContent = isLender
+                    ? 'You must review and agree before creating an offer.'
+                    : 'You must review and agree before sending a borrow request.';
+                status.className = 'text-xs text-slate-500 mt-2';
+            }
+        };
+
+        const markLegalConsentAccepted = (target = activeLegalConsentTarget) => {
+            const isLender = target === 'lender';
+            const checkbox = document.getElementById(isLender ? 'lenderLegalConsent' : 'requestLegalConsent');
+            const status = document.getElementById(isLender ? 'lenderLegalConsentStatus' : 'requestLegalConsentStatus');
+            if (isLender) lenderLegalAccepted = true;
+            else requestLegalAccepted = true;
+            if (checkbox) checkbox.checked = true;
+            if (status) {
+                status.textContent = isLender
+                    ? 'Terms and Conditions accepted for this offer.'
+                    : 'Terms and Privacy Statement accepted for this request.';
+                status.className = 'text-xs text-emerald-600 font-bold mt-2';
+            }
+            requestLegalModal?.classList.remove('active');
+        };
+
+        const stopQrScanner = () => {
+            window.clearInterval(qrScanTimer);
+            qrScanTimer = null;
+            qrScanStream?.getTracks().forEach(track => track.stop());
+            qrScanStream = null;
+            const video = document.getElementById('qrScanVideo');
+            if (video) video.srcObject = null;
+        };
+
+        const applyScannedLendilyUser = (profile) => {
+            if (!profile) return showToast('That QR code is not a valid Lendily profile.', 'error');
+
+            if (activeQrScanTarget === 'lender') {
+                const lenderId = normalizeLendilyId(profile.lendilyId || '');
+                const lenderInput = document.getElementById('requestLenderPaygoId');
+                if (!lenderId) return showToast('This QR does not include a lender ID.', 'error');
+                if (isSamePerson({ lendilyId: lenderId, phone: profile.phone, email: profile.email })) {
+                    return showToast('You cannot request funds from yourself.', 'error');
+                }
+                if (lenderInput) lenderInput.value = lenderId;
+                if (profile.name) lenderDirectory[lenderId] = profile.name;
+                renderRequestSummary();
+                qrScanModal?.classList.remove('active');
+                stopQrScanner();
+                showToast(`${profile.name || lenderId} loaded as lender.`, 'success');
+                return true;
+            }
+
+            const isGiftFlow = document.getElementById('fundingType')?.value === 'gift';
+            const partyLabel = isGiftFlow ? 'Receiver' : 'Borrower';
+            if (isSamePerson({
+                name: profile.name,
+                phone: profile.phone,
+                email: profile.email,
+                borrowerId: profile.borrowerId
+            })) {
+                return showToast(`${partyLabel} cannot be the same person as you.`, 'error');
+            }
+            const borrowerId = normalizeBorrowerId(profile.borrowerId || '');
+            if (borrowerId) document.getElementById('borrowerLookupId') && (document.getElementById('borrowerLookupId').value = borrowerId);
+            document.getElementById('borrowerName') && (document.getElementById('borrowerName').value = profile.name || '');
+            document.getElementById('borrowerPhone') && (document.getElementById('borrowerPhone').value = toLocalPhoneInput(profile.phone || ''));
+            document.getElementById('borrowerEmail') && (document.getElementById('borrowerEmail').value = profile.email || '');
+            setBankSelect('borrowerBankName', profile.bankName || '');
+            document.getElementById('borrowerAccountNumber') && (document.getElementById('borrowerAccountNumber').value = digitsOnly(profile.accountNumber || '').slice(0, 10));
+            document.getElementById('borrowerAccountName') && (document.getElementById('borrowerAccountName').value = profile.accountName || profile.name || '');
+            if (borrowerId) {
+                borrowerDirectory[borrowerId] = {
+                    ...(borrowerDirectory[borrowerId] || {}),
+                    ...profile,
+                    borrowerId,
+                    role: 'borrower'
+                };
+            }
+            const hint = document.getElementById('borrowerLookupHint');
+            if (hint) hint.textContent = `${profile.name || partyLabel} loaded from scanned Lendily QR.`;
+            renderOfferPreview();
+            qrScanModal?.classList.remove('active');
+            stopQrScanner();
+            showToast(`${partyLabel} details loaded from QR.`, 'success');
+            return true;
+        };
+
+        const processQrScanText = (value) => applyScannedLendilyUser(decodeLendilyQrText(value));
+
+        const openQrScanner = async (target) => {
+            activeQrScanTarget = target;
+            setText('qr-scan-title', target === 'lender' ? 'Scan Lender QR' : 'Scan Borrower or Receiver QR');
+            setText('qrScanHint', 'Allow camera access and place the Lendily QR inside the portrait frame.');
+            const manual = document.getElementById('qrManualPayload');
+            if (manual) manual.value = '';
+            qrScanModal?.classList.add('active');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+
+            const video = document.getElementById('qrScanVideo');
+            if (!video || !navigator.mediaDevices?.getUserMedia) {
+                setText('qrScanHint', 'Camera scanning is unavailable in this browser. Paste QR details below.');
+                return;
+            }
+            if (!('BarcodeDetector' in window)) {
+                setText('qrScanHint', 'QR camera scanning is not supported in this browser. Paste QR details below.');
+                return;
+            }
+
+            try {
+                stopQrScanner();
+                qrScanStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment', width: { ideal: 720 }, height: { ideal: 960 } },
+                    audio: false
+                });
+                video.srcObject = qrScanStream;
+                await video.play();
+                const detector = new window.BarcodeDetector({ formats: ['qr_code'] });
+                qrScanTimer = window.setInterval(async () => {
+                    try {
+                        const codes = await detector.detect(video);
+                        const rawValue = codes?.[0]?.rawValue;
+                        if (rawValue) processQrScanText(rawValue);
+                    } catch (error) {
+                        console.warn('QR scan frame failed.', error);
+                    }
+                }, 450);
+            } catch (error) {
+                setText('qrScanHint', 'Camera permission is required to scan. Paste QR details below if needed.');
+                showToast('Camera permission is required to scan QR codes.', 'error');
+            }
+        };
         
         const updateAuthUI = () => {
             const authLinksContainer = document.getElementById('auth-links');
@@ -1609,14 +2093,42 @@
         const continueAsDemoUser = () => {
             loggedIn = true;
             currentUser = { ...demoUser };
+            ensureCurrentUserQrIdentity();
             updateAuthUI();
         };
 
         // --- MODAL HANDLING ---
         const setupModals = () => {
-            [loginModal, registerModal, receiptModal].forEach(modal => {
-                modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+            [loginModal, registerModal, receiptModal, requestLegalModal, qrScanModal].forEach(modal => {
+                modal?.addEventListener('click', (e) => {
+                    if (e.target !== modal) return;
+                    modal.classList.remove('active');
+                    if (modal === qrScanModal) stopQrScanner();
+                });
             });
+            document.getElementById('request-legal-close')?.addEventListener('click', () => requestLegalModal?.classList.remove('active'));
+            document.getElementById('requestLegalAgreeBtn')?.addEventListener('click', () => markLegalConsentAccepted());
+            document.querySelectorAll('[data-legal-footer-open]').forEach(button => {
+                button.addEventListener('click', () => openLegalConsentModal('footer', button.dataset.legalFooterOpen || 'terms'));
+            });
+            document.getElementById('qr-scan-close')?.addEventListener('click', () => {
+                qrScanModal?.classList.remove('active');
+                stopQrScanner();
+            });
+            document.getElementById('qrManualApplyBtn')?.addEventListener('click', () => {
+                processQrScanText(document.getElementById('qrManualPayload')?.value || '');
+            });
+            document.getElementById('copyProfileQrPayload')?.addEventListener('click', async () => {
+                ensureCurrentUserQrIdentity();
+                const value = getUserQrText(currentUser);
+                try {
+                    await navigator.clipboard?.writeText(value);
+                    showToast('QR details copied.', 'success');
+                } catch (error) {
+                    showToast(value, 'info');
+                }
+            });
+            document.getElementById('downloadProfileQrCard')?.addEventListener('click', downloadCurrentUserQrCard);
             
             document.getElementById('show-register-modal').addEventListener('click', (e) => {
                 e.preventDefault();
@@ -1643,6 +2155,7 @@
                 } else {
                     currentUser = { ...demoUser, email: emailValue, phone: loginPhone.value };
                 }
+                ensureCurrentUserQrIdentity();
                 updateAuthUI();
                 loginModal.classList.remove('active');
                 showToast('Login successful!', 'success');
@@ -1667,15 +2180,25 @@
                     lendilyId: `LN-${registerName.value.split(/\s+/)[0].toUpperCase()}`,
                     borrowerId: `BR-${registerName.value.split(/\s+/)[0].toUpperCase()}`
                 };
+                ensureCurrentUserQrIdentity();
+                lenderDirectory[currentUser.lendilyId] = currentUser.name;
+                borrowerDirectory[currentUser.borrowerId] = {
+                    borrowerId: currentUser.borrowerId,
+                    name: currentUser.name,
+                    email: currentUser.email,
+                    phone: currentUser.phone,
+                    role: 'borrower'
+                };
                 updateAuthUI();
                 registerModal.classList.remove('active');
-                showToast('Registration successful! Welcome.', 'success');
-                showPage('dashboard');
+                showToast('Registration successful. Your Lendily QR is ready in your profile.', 'success');
+                showPage('profile');
             });
         };
 
         const renderProfile = () => {
             if (!currentUser) return;
+            ensureCurrentUserQrIdentity();
             const lenderCompleteness = getProfileCompleteness(currentUser, 'lender');
             const borrowerCompleteness = getProfileCompleteness(currentUser, 'borrower');
             const profileId = currentUser.borrowerId || currentUser.lendilyId || 'Not assigned';
@@ -1684,6 +2207,14 @@
             setText('profile-user-id', profileId);
             setText('profile-user-email', currentUser.email || 'Not provided');
             setText('profile-user-phone', currentUser.phone || 'Not provided');
+            const avatar = document.getElementById('profile-user-avatar');
+            if (avatar && currentUser.passportPhotoDataUrl) avatar.src = currentUser.passportPhotoDataUrl;
+            const profileQr = document.getElementById('profile-user-qr');
+            if (profileQr) {
+                getUserQrDataUrl(currentUser, 260)
+                    .then(src => { profileQr.src = src; })
+                    .catch(() => { profileQr.src = getUserQrUrl(currentUser); });
+            }
 
             setText('lender-completeness-percent', `${lenderCompleteness.percent}%`);
             setText('borrower-completeness-percent', `${borrowerCompleteness.percent}%`);
@@ -1704,8 +2235,8 @@
                 if (!list) return;
                 list.innerHTML = completeness.items.map(item => `
                     <div class="profile-check-item">
-                        <span>${translatePhrase(item.label)}</span>
-                        <span class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold ${item.complete ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}">
+                        <span class="profile-check-label">${translatePhrase(item.label)}</span>
+                        <span class="profile-check-status ${item.complete ? 'is-done' : 'is-missing'}">
                             <i data-lucide="${item.complete ? 'check' : 'clock-3'}" class="w-3 h-3"></i>${item.complete ? translatePhrase('Done') : translatePhrase('Missing')}
                         </span>
                     </div>
@@ -1951,6 +2482,9 @@
                 idUploadName: idUploadFile?.name || currentUser?.idUploadName || '',
                 passportUploadName: passportUploadFile?.name || currentUser?.passportUploadName || ''
             };
+            ensureCurrentUserQrIdentity();
+            lenderDirectory[currentUser.lendilyId] = currentUser.name;
+            borrowerDirectory[currentUser.borrowerId] = { ...(borrowerDirectory[currentUser.borrowerId] || {}), ...currentUser, role: 'borrower' };
 
             renderProfile();
             renderDashboard();
@@ -1960,9 +2494,34 @@
 
         const syncProfileUpload = (inputId, uploadedKey, nameKey, statusId, label) => {
             const input = document.getElementById(inputId);
-            input?.addEventListener('change', () => {
+            input?.addEventListener('change', async () => {
                 const file = input.files?.[0];
                 if (!file) return;
+                let passportPhotoDataUrl = currentUser?.passportPhotoDataUrl || '';
+                if (inputId === 'profilePassportUpload') {
+                    if (!file.type.startsWith('image/')) {
+                        input.value = '';
+                        setText(statusId, 'Upload rejected. Passport photo must be an image.');
+                        showToast('Upload rejected. Passport photo must be an image.', 'error');
+                        return;
+                    }
+                    setText(statusId, 'Checking photo for a visible face...');
+                    try {
+                        passportPhotoDataUrl = await readFileAsDataUrl(file);
+                        const hasFace = await imageHasFace(passportPhotoDataUrl);
+                        if (!hasFace) {
+                            input.value = '';
+                            setText(statusId, 'Upload rejected. No face was detected in this photo.');
+                            showToast('Upload rejected. Please upload a clear passport photo with a face.', 'error');
+                            return;
+                        }
+                    } catch (error) {
+                        input.value = '';
+                        setText(statusId, 'Upload rejected. Face verification could not read this image.');
+                        showToast('Upload rejected. Use a clear image with a visible face.', 'error');
+                        return;
+                    }
+                }
                 const fullName = document.getElementById('profileFullName');
                 const phone = document.getElementById('profilePhone');
                 const dob = document.getElementById('profileDob');
@@ -1991,7 +2550,8 @@
                     accountNumber: accountNumber ? digitsOnly(accountNumber.value) : currentUser?.accountNumber,
                     accountName: accountName ? cleanText(accountName.value) : currentUser?.accountName,
                     [uploadedKey]: true,
-                    [nameKey]: file.name
+                    [nameKey]: file.name,
+                    ...(inputId === 'profilePassportUpload' ? { passportPhotoDataUrl } : {})
                 };
                 setText(statusId, `${label} uploaded: ${file.name}`);
                 renderProfile();
@@ -2042,10 +2602,13 @@
                 rateLabel.textContent = isHalal ? t('form.markup') : t('form.interestRate');
 
                 if (context === 'offer') {
+                    setHtml('borrowerLookupIdLabel', `${isGift ? "Receiver's ID" : 'Borrower ID'} <span class="font-normal text-slate-400">(Optional)</span>`);
+                    setText('findBorrowerBtn', isGift ? 'Find Receiver' : 'Find Borrower');
                     setText('borrowerNameLabel', isGift ? "Recipient's Full Name" : "Borrower's Full Name");
                     setText('borrowerPhoneLabel', isGift ? "Recipient's Phone" : "Borrower's Phone");
                     setHtml('borrowerEmailLabel', `${isGift ? "Recipient's" : "Borrower's"} Email Address <span class="font-normal text-slate-400">(Optional)</span>`);
                     setText('loanAmountLabel', isGift ? 'Gift Amount (NGN)' : 'Loan Amount (NGN)');
+                    setText('borrowerLookupHint', isGift ? 'Use a saved receiver ID to fill name, phone, and email automatically.' : 'Use a saved borrower ID to fill name, phone, and email automatically.');
                     setText('showLenderDetailsLabel', isGift ? 'Show my contact details to the recipient on the receipt.' : 'Show my contact details to the borrower on the receipt.');
                     renderOfferPreview();
                 }
@@ -2236,18 +2799,34 @@
         if(newLoanForm) {
             const borrowerLookupId = document.getElementById('borrowerLookupId');
             const borrowerLookupHint = document.getElementById('borrowerLookupHint');
+            const lenderLegalConsent = document.getElementById('lenderLegalConsent');
+
+            lenderLegalConsent?.addEventListener('change', (event) => {
+                if (!event.target.checked) {
+                    resetLegalConsentState('lender');
+                    return;
+                }
+                if (!lenderLegalAccepted) {
+                    event.target.checked = false;
+                    openLegalConsentModal('lender', 'terms');
+                }
+            });
+
             const fillBorrowerFromDirectory = () => {
+                const isGiftFlow = document.getElementById('fundingType')?.value === 'gift';
+                const partyName = isGiftFlow ? 'receiver' : 'borrower';
+                const partyLabel = isGiftFlow ? 'Receiver' : 'Borrower';
                 const normalizedId = normalizeBorrowerId(borrowerLookupId?.value || '');
                 if (borrowerLookupId) borrowerLookupId.value = normalizedId;
                 if (!normalizedId) {
-                    borrowerLookupHint && (borrowerLookupHint.textContent = 'Use a saved borrower ID to fill name, phone, and email automatically.');
+                    borrowerLookupHint && (borrowerLookupHint.textContent = `Use a saved ${partyName} ID to fill name, phone, and email automatically.`);
                     return;
                 }
 
                 const borrower = borrowerDirectory[normalizedId];
                 if (!borrower) {
-                    borrowerLookupHint && (borrowerLookupHint.textContent = 'No borrower found for that ID. Enter details manually or check the ID.');
-                    showToast('Borrower ID not found.', 'error');
+                    borrowerLookupHint && (borrowerLookupHint.textContent = `No ${partyName} found for that ID. Enter details manually or check the ID.`);
+                    showToast(`${partyLabel} ID not found.`, 'error');
                     return;
                 }
 
@@ -2264,10 +2843,14 @@
                 document.getElementById('borrowerAccountName').value = borrower.accountName || borrower.name || '';
                 borrowerLookupHint && (borrowerLookupHint.textContent = `${borrower.name} loaded from ${normalizedId}.`);
                 renderOfferPreview();
-                showToast('Borrower details loaded.', 'success');
+                showToast(`${partyLabel} details loaded.`, 'success');
             };
 
             document.getElementById('findBorrowerBtn')?.addEventListener('click', fillBorrowerFromDirectory);
+            document.getElementById('scanBorrowerQrBtn')?.addEventListener('click', () => openQrScanner('borrower'));
+            document.querySelectorAll('#new-loan-form [data-legal-open]').forEach(button => {
+                button.addEventListener('click', () => openLegalConsentModal('lender', button.dataset.legalOpen));
+            });
             borrowerLookupId?.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter') {
                     event.preventDefault();
@@ -2284,6 +2867,11 @@
 
             newLoanForm.addEventListener('submit', (e) => {
                 e.preventDefault();
+                if (!lenderLegalAccepted || !lenderLegalConsent?.checked) {
+                    openLegalConsentModal('lender', 'terms');
+                    showToast('Review and agree to the Terms and Conditions before creating an offer.', 'info');
+                    return;
+                }
                 if (!newLoanForm.reportValidity() || !validateOfferForm()) return;
                 const newLoanId = 'LN' + String(Math.floor(Math.random() * 900) + 100).padStart(3, '0');
                 const borrowerId = normalizeBorrowerId(document.getElementById('borrowerLookupId')?.value || '');
@@ -2318,6 +2906,7 @@
                 loans.unshift(newLoan);
                 showToast(`Offer created. Share this Lendily ID with the borrower: ${newLoanId}`, 'success');
                 newLoanForm.reset();
+                resetLegalConsentState('lender');
                 setBankSelect('borrowerBankName');
                 borrowerLookupHint && (borrowerLookupHint.textContent = 'Use a saved borrower ID to fill name, phone, and email automatically.');
                 document.getElementById('fundingType').dispatchEvent(new Event('change'));
@@ -2330,6 +2919,24 @@
             let borrowerFaceVerified = false;
             let borrowerFaceStream = null;
             let faceApiModelsLoaded = false;
+
+            const requestLegalConsent = document.getElementById('requestLegalConsent');
+            document.getElementById('scanLenderQrBtn')?.addEventListener('click', () => openQrScanner('lender'));
+
+            document.querySelectorAll('#request-loan-form [data-legal-open]').forEach(button => {
+                button.addEventListener('click', () => openLegalConsentModal('request', button.dataset.legalOpen));
+            });
+
+            requestLegalConsent?.addEventListener('change', (event) => {
+                if (!event.target.checked) {
+                    resetLegalConsentState('request');
+                    return;
+                }
+                if (!requestLegalAccepted) {
+                    event.target.checked = false;
+                    openLegalConsentModal('request', 'terms');
+                }
+            });
 
             const stopBorrowerFaceCamera = () => {
                 borrowerFaceStream?.getTracks().forEach(track => track.stop());
@@ -2483,6 +3090,11 @@
                     showPage('profile');
                     return;
                 }
+                if (!requestLegalAccepted || !requestLegalConsent?.checked) {
+                    openLegalConsentModal('request', 'terms');
+                    showToast('Review and agree to the Terms and Privacy Statement before sending your request.', 'info');
+                    return;
+                }
                 if (!requestLoanForm.reportValidity() || !validateRequestForm()) return;
                 const submitButton = requestLoanForm.querySelector('button[type="submit"]');
                 submitButton && (submitButton.disabled = true);
@@ -2526,6 +3138,7 @@
                 loans.unshift(requestedLoan);
                 showToast(`Request sent to lender. Lendily ID: ${newLoanId}`, 'success');
                 requestLoanForm.reset();
+                resetLegalConsentState('request');
                 borrowerFaceVerified = false;
                 stopBorrowerFaceCamera();
                 setFaceVerificationStatus('pending', 'Not verified');
@@ -2554,6 +3167,8 @@
             });
             setStateLgaPair('acceptBorrowerState', 'acceptBorrowerLga');
             setBankSelect('acceptBankName');
+            setText('reviewBorrowerIdLabel', 'Borrower ID');
+            setText('reviewBorrowerPinLabel', 'Borrower PIN');
             foundLoan = null;
         };
 
@@ -2564,6 +3179,10 @@
 
             if (foundLoan) {
                 const reviewerRole = getPendingParty(foundLoan);
+                const reviewPartyIdLabel = foundLoan.fundingType === 'gift' ? "Receiver's ID" : 'Borrower ID';
+                const reviewPartyPinLabel = foundLoan.fundingType === 'gift' ? 'Receiver PIN' : 'Borrower PIN';
+                setText('reviewBorrowerIdLabel', reviewPartyIdLabel);
+                setText('reviewBorrowerPinLabel', reviewPartyPinLabel);
                 const reviewBorrowerId = normalizeBorrowerId(document.getElementById('reviewBorrowerId')?.value || '');
                 const reviewBorrowerPin = document.getElementById('reviewBorrowerPin')?.value || '';
                 const expectedBorrowerId = normalizeBorrowerId(foundLoan.borrowerId || '');
@@ -2572,12 +3191,12 @@
 
                 if (reviewerRole === 'borrower') {
                     if (!reviewBorrowerId || !reviewBorrowerPin) {
-                        showToast('Enter your Borrower ID and PIN before viewing this agreement.', 'error');
+                        showToast(`Enter your ${reviewPartyIdLabel} and PIN before viewing this agreement.`, 'error');
                         acceptLoanDetailsForm.classList.add('hidden');
                         return;
                     }
                     if ((expectedBorrowerId && reviewBorrowerId !== expectedBorrowerId) || !borrowerProfile || reviewBorrowerPin !== expectedPin) {
-                        showToast('Borrower ID or PIN is incorrect for this agreement.', 'error');
+                        showToast(`${reviewPartyIdLabel} or PIN is incorrect for this agreement.`, 'error');
                         acceptLoanDetailsForm.classList.add('hidden');
                         return;
                     }
@@ -2689,29 +3308,17 @@
             receiptDetails.innerHTML = `
                 <div class="space-y-4">
                     ${renderAgreementSummaryCard(foundLoan, { statusText: 'Ready to Accept' })}
+                    ${renderPrivacyNotice()}
                     ${lenderDetailsHtml}
                     <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
-                        <h4 class="font-bold text-slate-900">Reviewer Details</h4>
+                        <h4 class="font-bold text-slate-900">Reviewer Summary</h4>
                         <div class="grid sm:grid-cols-2 gap-3 mt-3 text-sm">
                             ${renderSummaryRow('Full Name', document.getElementById('acceptBorrowerName').value)}
-                            ${renderSummaryRow('Email', document.getElementById('acceptBorrowerEmail').value || 'Not provided')}
-                            ${renderSummaryRow('Phone', document.getElementById('acceptBorrowerPhone').value)}
-                            ${renderSummaryRow('State', document.getElementById('acceptBorrowerState').value)}
-                            ${renderSummaryRow('LGA', document.getElementById('acceptBorrowerLga').value)}
-                            ${renderSummaryRow('Bank', document.getElementById('acceptBankName').value)}
-                            ${renderSummaryRow('Account Number', document.getElementById('acceptAccountNumber').value)}
-                            ${renderSummaryRow('Account Name', document.getElementById('acceptAccountName').value)}
-                            ${renderSummaryRow('NIN', document.getElementById('borrowerNIN').value)}
-                            ${renderSummaryRow('BVN', document.getElementById('borrowerBVN').value)}
-                            ${renderSummaryRow('Lendily ID', foundLoan.id)}
-                        </div>
-                    </div>
-                    <div class="bg-blue-50 border border-blue-100 p-4 rounded-xl">
-                        <h4 class="font-bold text-blue-900">Escrow Payment Details</h4>
-                        <div class="grid sm:grid-cols-3 gap-3 mt-3 text-sm">
-                            ${renderSummaryRow('Bank Name', 'Lendily Escrow Bank')}
-                            ${renderSummaryRow('Account Name', 'Lendily P2P Escrow')}
-                            ${renderSummaryRow('Account Number', '1234567890')}
+                            ${renderSummaryRow('Email', maskEmailDisplay(document.getElementById('acceptBorrowerEmail').value))}
+                            ${renderSummaryRow('Phone', maskPhoneDisplay(document.getElementById('acceptBorrowerPhone').value))}
+                            ${renderSummaryRow('NIN', maskSensitiveNumber(document.getElementById('borrowerNIN').value))}
+                            ${renderSummaryRow('BVN', maskSensitiveNumber(document.getElementById('borrowerBVN').value))}
+                            ${renderSummaryRow('Payout Account', `Account ending ${digitsOnly(document.getElementById('acceptAccountNumber').value).slice(-4) || '----'}`)}
                         </div>
                     </div>
                 </div>
@@ -2753,7 +3360,6 @@
             if (metricsGrid) metricsGrid.innerHTML = '';
 
             const myLoans = loans.filter(l => l.lender.toLowerCase() === currentUser.name.toLowerCase() || l.borrower.toLowerCase() === currentUser.name.toLowerCase());
-            const pendingStatuses = ['pending_borrower_acceptance', 'pending_lender_acceptance'];
             const activeLoans = myLoans.filter(l => l.status === 'active' || pendingStatuses.includes(l.status));
             const totalValue = myLoans.reduce((sum, loan) => sum + getDisplayTotal(loan), 0);
             const pendingCount = myLoans.filter(l => pendingStatuses.includes(l.status)).length;
@@ -2761,6 +3367,19 @@
             const completedCount = myLoans.filter(l => l.status === 'repaid').length;
             const healthyCount = myLoans.filter(l => l.status === 'active' || l.status === 'repaid').length;
             const healthScore = myLoans.length ? Math.round((healthyCount / myLoans.length) * 100) : 0;
+            const settledStatuses = ['active', 'repaid'];
+            const sentAmount = myLoans
+                .filter(loan => loan.lender.toLowerCase() === currentUser.name.toLowerCase() && settledStatuses.includes(loan.status))
+                .reduce((sum, loan) => sum + loan.amount, 0);
+            const receivedAmount = myLoans
+                .filter(loan => loan.borrower.toLowerCase() === currentUser.name.toLowerCase() && settledStatuses.includes(loan.status))
+                .reduce((sum, loan) => sum + loan.amount, 0);
+            const pendingIncoming = myLoans
+                .filter(loan => loan.borrower.toLowerCase() === currentUser.name.toLowerCase() && pendingStatuses.includes(loan.status))
+                .reduce((sum, loan) => sum + loan.amount, 0);
+            const walletBalance = Number.isFinite(currentUser.walletBalance)
+                ? currentUser.walletBalance
+                : Math.max(receivedAmount + pendingIncoming - sentAmount, 0);
             const filterSelect = document.getElementById('live-agreement-filter');
             const sortSelect = document.getElementById('live-agreement-sort');
             if (filterSelect) filterSelect.value = liveAgreementFilter;
@@ -2781,15 +3400,15 @@
                 });
 
             document.getElementById('dashboard-greeting').textContent = `Welcome back, ${currentUser.name.split(' ')[0]}`;
-            document.getElementById('dashboard-total-value').textContent = formatCurrency(totalValue);
-            document.getElementById('dashboard-health-bar').style.width = `${healthScore}%`;
-            document.getElementById('dashboard-health-text').textContent = `${healthScore}% agreement health across ${myLoans.length} records`;
+            setText('dashboard-wallet-balance', formatCurrency(walletBalance));
+            setText('dashboard-wallet-sent', formatCurrency(sentAmount));
+            setText('dashboard-wallet-received', formatCurrency(receivedAmount));
             document.getElementById('sidebar-user-name') && (document.getElementById('sidebar-user-name').textContent = currentUser.name);
             document.getElementById('sidebar-user-email') && (document.getElementById('sidebar-user-email').textContent = currentUser.email);
+            document.getElementById('change-password-username') && (document.getElementById('change-password-username').value = currentUser.email || '');
             const credit = getCreditScoreDetails(myLoans);
             setText('credit-score-value', credit.score);
             setText('credit-score-grade', credit.tier);
-            setText('credit-score-copy', `${credit.completed} completed, ${credit.active} active, ${credit.pending} pending agreements contribute to your score.`);
             setText('lendily-card-score', credit.score);
             setText('lendily-card-name', currentUser.name || 'Lendily User');
             setText('lender-card-name', currentUser.name || 'Lendily User');
@@ -2868,14 +3487,20 @@
                             ${statusBadge}
                         </div>
                         <div class="live-money-panel">
-                            <p><span>Principal</span><strong>${formatCurrency(loan.amount)}</strong></p>
-                            <p><span>${loan.fundingType === 'gift' ? 'Recorded' : 'Total Due'}</span><strong>${formatCurrency(getDisplayTotal(loan))}</strong></p>
+                            <div>
+                                <span>Principal</span>
+                                <strong>${formatCurrency(loan.amount)}</strong>
+                            </div>
+                            <div>
+                                <span>${loan.fundingType === 'gift' ? 'Recorded' : 'Total Due'}</span>
+                                <strong>${formatCurrency(getDisplayTotal(loan))}</strong>
+                            </div>
                         </div>
                         <div class="live-detail-grid text-sm">
                             <p><span>Type</span>${getFundingLabel(loan)}</p>
                             <p><span>Purpose</span>${getPurposeLabel(loan.loanPurpose)}</p>
-                            <p><span>${chargeLabel}</span>${chargeValue}</p>
-                            <p><span>Due Date</span>${formatDate(loan.dueDate)}</p>
+                            <p class="live-detail-inline"><span>${chargeLabel}</span>${chargeValue}</p>
+                            <p class="live-detail-inline"><span>Due Date</span>${formatDate(loan.dueDate)}</p>
                         </div>
                         <div>
                             <div class="flex items-center justify-between text-xs font-bold text-slate-400 mb-2">
@@ -2966,6 +3591,34 @@
             renderDashboard();
         });
 
+        const updateStatementSearch = () => {
+            statementSearchQuery = document.getElementById('statement-search')?.value.trim() || '';
+            renderDashboard();
+        };
+
+        document.getElementById('statement-search')?.addEventListener('input', (event) => {
+            statementSearchQuery = event.target.value.trim();
+            renderDashboard();
+        });
+
+        document.getElementById('statement-search')?.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter') return;
+            event.preventDefault();
+            updateStatementSearch();
+        });
+
+        document.getElementById('statement-search-btn')?.addEventListener('click', updateStatementSearch);
+
+        document.getElementById('statement-filter')?.addEventListener('change', (event) => {
+            statementFilter = event.target.value;
+            renderDashboard();
+        });
+
+        document.getElementById('statement-sort')?.addEventListener('change', (event) => {
+            statementSort = event.target.value;
+            renderDashboard();
+        });
+
         const resetInteractiveCard = (card) => {
             card.style.setProperty('--rx', '0deg');
             card.style.setProperty('--ry', '0deg');
@@ -3020,6 +3673,35 @@
         });
 
         // --- GENERAL INITIALIZATION ---
+        const refreshIcons = () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+                return;
+            }
+            const fallbackIcons = {
+                'activity': '↗', 'arrow-left': '←', 'arrow-right': '→', 'badge-check': '✓',
+                'bell-ring': '!', 'calendar': '◷', 'calendar-clock': '◷', 'chart-line': '↗',
+                'check': '✓', 'check-circle': '✓', 'check-circle-2': '✓', 'check-square': '☑',
+                'chevron-left': '‹', 'chevron-right': '›', 'clock-3': '◷',
+                'download': '↓', 'file-check-2': '✓', 'file-pen-line': '✎',
+                'file-plus-2': '+', 'gift': '◆', 'hand-coins': '₦', 'handshake': '✓',
+                'home': '⌂', 'info': 'i', 'landmark': '▦', 'layers-3': '▤',
+                'layout-dashboard': '▦', 'lock': '⌕', 'log-out': '↪',
+                'mail': '@', 'map-pin': '•', 'menu': '☰', 'message-circle': '◌',
+                'phone': '☎', 'plus-circle': '+', 'receipt': '▤', 'receipt-text': '▤',
+                'refresh-cw': '↻', 'repeat-2': '↻', 'scan-face': '◉', 'search': '⌕',
+                'search-check': '✓', 'send': '➤', 'shield-alert': '!', 'shield-check': '✓',
+                'sparkles': '✦', 'user-circle': '◉', 'user-round': '◉', 'wifi': '⌁',
+                'user-round-check': '✓', 'x': '×', 'x-circle': '×'
+            };
+            document.querySelectorAll('[data-lucide]').forEach(icon => {
+                const iconName = icon.getAttribute('data-lucide');
+                icon.textContent = fallbackIcons[iconName] || '•';
+                icon.classList.add('icon-fallback');
+                icon.setAttribute('aria-hidden', 'true');
+            });
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('current-year').textContent = new Date().getFullYear();
             registerPwa();
@@ -3032,7 +3714,6 @@
             startSocialProofFeed();
             const initialPage = window.location.hash.substring(1) || 'home';
             showPage(document.getElementById(initialPage) ? initialPage : 'home');
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
+            refreshIcons();
+            window.setTimeout(refreshIcons, 250);
         });
