@@ -2312,9 +2312,11 @@
             document.body.classList.toggle('dashboard-page', pageId === 'dashboard');
             document.body.dataset.page = pageId;
             pages.forEach(page => page.classList.toggle('active', page.id === pageId));
+            const navPageId = ['new-loan', 'request-loan', 'accept-loan'].includes(pageId) ? 'loan-actions' : pageId;
             document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
-                link.classList.toggle('active', link.getAttribute('href') === `#${pageId}`);
-                link.toggleAttribute('aria-current', link.getAttribute('href') === `#${pageId}`);
+                const isActive = link.getAttribute('href') === `#${navPageId}`;
+                link.classList.toggle('active', isActive);
+                link.toggleAttribute('aria-current', isActive);
             });
             if (pageId !== 'request-loan') {
                 const faceVideo = document.getElementById('borrowerFaceVideo');
