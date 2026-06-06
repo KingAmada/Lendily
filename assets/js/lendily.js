@@ -2310,7 +2310,12 @@
             }
 
             document.body.classList.toggle('dashboard-page', pageId === 'dashboard');
+            document.body.dataset.page = pageId;
             pages.forEach(page => page.classList.toggle('active', page.id === pageId));
+            document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${pageId}`);
+                link.toggleAttribute('aria-current', link.getAttribute('href') === `#${pageId}`);
+            });
             if (pageId !== 'request-loan') {
                 const faceVideo = document.getElementById('borrowerFaceVideo');
                 faceVideo?.srcObject?.getTracks().forEach(track => track.stop());
@@ -2345,6 +2350,11 @@
         window.addEventListener('popstate', (e) => {
             const pageId = (e.state && e.state.pageId) ? e.state.pageId : 'home';
             showPage(pageId);
+        });
+
+        window.addEventListener('hashchange', () => {
+            const pageId = window.location.hash.substring(1) || 'home';
+            showPage(document.getElementById(pageId) ? pageId : 'home');
         });
 
         // --- COMPONENT LOGIC ---
