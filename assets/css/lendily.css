@@ -1748,6 +1748,132 @@
             }
         }
 
+        @media (max-width: 640px) {
+            #home .grid > .reveal {
+                grid-column: span 1;
+            }
+
+            #home section:nth-of-type(3) .grid,
+            #home section:nth-of-type(4) .grid,
+            #home section:nth-of-type(5) .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+
+            #home section:nth-of-type(3) .grid > .reveal:nth-child(3),
+            #home section:nth-of-type(4) .grid > .gradient-border-card:nth-child(5),
+            #home section:nth-of-type(4) .grid > .gradient-border-card:nth-child(6) {
+                grid-column: span 1 !important;
+            }
+
+            #home section h2,
+            #home .text-3xl,
+            #home .md\:text-4xl {
+                font-size: 1.45rem !important;
+                line-height: 1.02 !important;
+            }
+
+            #home .grid > .reveal h3,
+            #home article h3,
+            #home .gradient-border-card h3 {
+                color: #111827 !important;
+                font-size: 0.82rem !important;
+            }
+
+            #home .grid > .reveal p,
+            #home article p,
+            #home .gradient-border-card p {
+                color: #667085 !important;
+                font-size: 0.66rem !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            #loan-actions h1,
+            #new-loan h1,
+            #request-loan h1,
+            #accept-loan h1 {
+                font-size: 1.45rem !important;
+                color: #07866f !important;
+            }
+
+            #loan-actions .nav-link.block h2 {
+                color: #111827 !important;
+                font-size: 0.86rem !important;
+            }
+
+            #loan-actions .nav-link.block p {
+                color: #667085 !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            .form-shell h1 {
+                font-size: 1.4rem !important;
+            }
+
+            .form-shell {
+                background: rgba(255,255,255,0.92) !important;
+            }
+
+            .lendily-card-stage {
+                min-height: auto !important;
+                max-height: 150px !important;
+            }
+
+            .lendily-card-showcase {
+                height: 130px !important;
+            }
+
+            .lendily-lux-card {
+                min-height: 124px !important;
+                height: 124px !important;
+                overflow: hidden !important;
+            }
+
+            .lendily-lux-card h2 {
+                font-size: 0.82rem !important;
+                line-height: 1 !important;
+            }
+
+            #lender-card-number,
+            #lendily-card-number {
+                font-size: 0.74rem !important;
+                letter-spacing: 0.05em !important;
+                margin-top: 14px !important;
+            }
+
+            .card-chip {
+                width: 34px !important;
+                height: 24px !important;
+            }
+
+            .lendily-lux-card .mt-7 {
+                margin-top: 12px !important;
+            }
+
+            .lendily-lux-card .mt-5 {
+                margin-top: 8px !important;
+            }
+
+            .credit-score-card {
+                min-height: 150px !important;
+                align-content: center;
+            }
+
+            .metric-card {
+                color: #111827 !important;
+            }
+
+            .metric-card p,
+            .metric-card span {
+                color: #667085 !important;
+            }
+        }
+
         body.dashboard-page .balance-card {
             background:
                 radial-gradient(circle at 88% 10%, rgba(20,184,166,0.22), transparent 28%),
@@ -5376,5 +5502,553 @@
                 margin-top: 8px !important;
                 padding: 8px !important;
                 border-radius: 14px !important;
+            }
+        }
+
+        /* Compact mobile-app concept pass */
+        @media (max-width: 640px) {
+            :root {
+                --app-compact-gap: 8px;
+                --app-compact-radius: 16px;
+            }
+
+            body {
+                background: #eef5f1 !important;
+                font-size: 14px;
+            }
+
+            header nav,
+            main,
+            footer {
+                width: calc(100vw - 14px) !important;
+            }
+
+            header nav {
+                min-height: 52px !important;
+                padding-block: 6px !important;
+            }
+
+            .brand-mark {
+                height: 36px !important;
+                font-size: 0.98rem !important;
+                padding: 4px 10px 4px 4px !important;
+            }
+
+            .brand-mark::before {
+                width: 28px !important;
+                height: 28px !important;
+            }
+
+            #install-app-btn,
+            #mobile-menu-btn,
+            .icon-glass-btn {
+                width: 36px !important;
+                height: 36px !important;
+                min-height: 36px !important;
+            }
+
+            main {
+                padding-top: 8px !important;
+                padding-bottom: 76px !important;
+            }
+
+            .page > section,
+            #home > section,
+            #contact > section,
+            #about > section {
+                padding: 7px 0 !important;
+            }
+
+            .container {
+                padding-inline: 0 !important;
+            }
+
+            h1,
+            #hero-title,
+            #loan-actions h1,
+            #new-loan h1,
+            #request-loan h1,
+            #accept-loan h1,
+            #profile h1,
+            #dashboard h1,
+            #home section h2 {
+                font-size: clamp(1.35rem, 7vw, 1.82rem) !important;
+                line-height: 1.02 !important;
+                letter-spacing: -0.045em !important;
+                margin-bottom: 6px !important;
+            }
+
+            #hero-subtitle,
+            #loan-actions > section > .container > p,
+            #home p,
+            .form-shell p,
+            #borrowerLookupHint {
+                font-size: 0.78rem !important;
+                line-height: 1.32 !important;
+            }
+
+            .loanily-hero {
+                gap: var(--app-compact-gap) !important;
+                padding: 0 !important;
+            }
+
+            .hero-kicker {
+                min-height: 26px !important;
+                padding: 4px 8px !important;
+                font-size: 0.63rem !important;
+            }
+
+            .hero-actions {
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: var(--app-compact-gap) !important;
+                margin-top: 10px !important;
+            }
+
+            .hero-actions a,
+            .gradient-btn,
+            .quick-action-btn,
+            button[type="submit"] {
+                min-height: 36px !important;
+                border-radius: 14px !important;
+                padding: 0 10px !important;
+                font-size: 0.76rem !important;
+                white-space: normal !important;
+            }
+
+            #hero-slide-dots {
+                margin-top: 6px !important;
+            }
+
+            #home .py-20,
+            #home .mt-20,
+            #home section + section {
+                margin-top: 0 !important;
+                padding-block: 7px !important;
+            }
+
+            #home .grid,
+            #home .grid.md\:grid-cols-3,
+            #home .grid.md\:grid-cols-2,
+            #home .grid.lg\:grid-cols-3,
+            #home .grid.md\:grid-cols-2.lg\:grid-cols-3 {
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: var(--app-compact-gap) !important;
+            }
+
+            #home .grid.md\:grid-cols-3:first-of-type {
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            }
+
+            #home .grid > .reveal,
+            #home article,
+            #home .gradient-border-card {
+                min-height: auto !important;
+                padding: 10px !important;
+                border-radius: var(--app-compact-radius) !important;
+                background: #ffffff !important;
+                border: 1px solid var(--ui-line) !important;
+                text-align: left !important;
+            }
+
+            #home .grid > .reveal p,
+            #home article p,
+            #home .gradient-border-card p {
+                font-size: 0.72rem !important;
+                line-height: 1.25 !important;
+                margin-top: 4px !important;
+            }
+
+            #home .grid > .reveal h3,
+            #home article h3,
+            #home .gradient-border-card h3 {
+                font-size: 0.9rem !important;
+                line-height: 1.08 !important;
+                margin: 0 !important;
+            }
+
+            #home h3.text-4xl {
+                font-size: 1.2rem !important;
+                line-height: 1 !important;
+            }
+
+            #home .w-20.h-20,
+            #home .w-16.h-16,
+            #home .gradient-border-card svg,
+            #home article svg {
+                width: 28px !important;
+                height: 28px !important;
+                margin: 0 0 6px !important;
+            }
+
+            #home .story-photo,
+            #home #testimonial-slider,
+            #home #prev-testimonial,
+            #home #next-testimonial {
+                display: none !important;
+            }
+
+            #loan-actions .container {
+                max-width: none !important;
+            }
+
+            #loan-actions .mb-8 {
+                margin-bottom: 8px !important;
+            }
+
+            #loan-actions .quick-action-btn {
+                width: auto !important;
+                min-height: 34px !important;
+                border-radius: 999px !important;
+            }
+
+            #loan-actions .grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+                gap: var(--app-compact-gap) !important;
+            }
+
+            #loan-actions .nav-link.block {
+                min-height: 114px !important;
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                align-content: start !important;
+                gap: 5px !important;
+                padding: 10px !important;
+                border-radius: var(--app-compact-radius) !important;
+            }
+
+            #loan-actions .nav-link.block svg {
+                grid-row: auto !important;
+                width: 26px !important;
+                height: 26px !important;
+            }
+
+            #loan-actions .nav-link.block h2 {
+                grid-column: auto !important;
+                font-size: 0.92rem !important;
+                line-height: 1.05 !important;
+            }
+
+            #loan-actions .nav-link.block p {
+                grid-column: auto !important;
+                font-size: 0.66rem !important;
+                line-height: 1.18 !important;
+            }
+
+            .form-shell {
+                padding: 10px !important;
+                border-radius: 18px !important;
+            }
+
+            form.space-y-6,
+            form.space-y-5,
+            form.space-y-4 {
+                gap: var(--app-compact-gap) !important;
+            }
+
+            .form-shell .grid,
+            .grid.md\:grid-cols-2,
+            .grid.md\:grid-cols-3,
+            .grid.md\:grid-cols-4,
+            #interestFields,
+            #repaymentFields {
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: var(--app-compact-gap) !important;
+            }
+
+            .md\:col-span-2,
+            .md\:col-span-3,
+            #borrowerEmail,
+            #loanAmount,
+            #transactionDetails,
+            #requestTransactionDetails,
+            .form-shell textarea,
+            .offer-preview-card,
+            .request-consent-card,
+            button[type="submit"] {
+                grid-column: 1 / -1 !important;
+            }
+
+            .form-shell .flex.flex-col.sm\:flex-row {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) auto auto !important;
+                gap: var(--app-compact-gap) !important;
+                align-items: end;
+            }
+
+            #findBorrowerBtn,
+            #scanBorrowerQrBtn,
+            #scanLenderQrBtn {
+                width: auto !important;
+                min-width: 42px !important;
+                min-height: 36px !important;
+                padding-inline: 10px !important;
+                border-radius: 13px !important;
+            }
+
+            label {
+                font-size: 0.58rem !important;
+                line-height: 1.1 !important;
+                margin-bottom: 3px !important;
+            }
+
+            .styled-input,
+            input,
+            select,
+            textarea {
+                min-height: 34px !important;
+                border-radius: 12px !important;
+                font-size: 0.78rem !important;
+                padding-inline: 9px !important;
+            }
+
+            textarea,
+            textarea.styled-input {
+                min-height: 58px !important;
+                padding-top: 8px !important;
+            }
+
+            .offer-preview-card {
+                padding: 8px !important;
+                border-radius: 16px !important;
+            }
+
+            .offer-preview-hero {
+                padding: 10px !important;
+                border-radius: 14px !important;
+            }
+
+            .offer-preview-hero .grid,
+            .offer-preview-card > .grid,
+            .offer-preview-card .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 6px !important;
+            }
+
+            .offer-preview-hero .text-3xl,
+            .offer-preview-hero .text-4xl {
+                font-size: 1.25rem !important;
+            }
+
+            .offer-preview-chip {
+                padding: 4px 8px !important;
+                font-size: 0.58rem !important;
+            }
+
+            .offer-preview-stat {
+                min-height: auto !important;
+                padding: 7px !important;
+                border-radius: 11px !important;
+            }
+
+            .offer-preview-stat dt {
+                font-size: 0.52rem !important;
+            }
+
+            .offer-preview-stat dd {
+                font-size: 0.74rem !important;
+            }
+
+            .offer-preview-timeline {
+                gap: 5px !important;
+                font-size: 0.72rem !important;
+            }
+
+            .request-consent-label,
+            .flex.items-start label {
+                font-size: 0.7rem !important;
+            }
+
+            .dashboard-hero {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: var(--app-compact-gap) !important;
+            }
+
+            .dashboard-hero > .bg-white,
+            .dashboard-hero .balance-card {
+                padding: 10px !important;
+                border-radius: var(--app-compact-radius) !important;
+            }
+
+            #dashboard-greeting {
+                font-size: 1.45rem !important;
+            }
+
+            .dashboard-hero p {
+                font-size: 0.72rem !important;
+                line-height: 1.25 !important;
+            }
+
+            .dashboard-hero > .bg-white > .flex > .flex {
+                display: grid !important;
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+                gap: var(--app-compact-gap) !important;
+            }
+
+            .dashboard-action-btn,
+            body.dashboard-page .dashboard-action-btn {
+                min-height: 34px !important;
+                font-size: 0.7rem !important;
+                border-radius: 12px !important;
+            }
+
+            .wallet-summary-grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+                gap: 6px !important;
+            }
+
+            .wallet-summary-grid > div {
+                border-radius: 12px !important;
+                background: rgba(255,255,255,0.08) !important;
+                padding: 8px !important;
+            }
+
+            .wallet-summary-grid span {
+                font-size: 0.52rem !important;
+            }
+
+            .wallet-summary-grid strong,
+            .wallet-summary-primary strong {
+                font-size: 0.92rem !important;
+            }
+
+            .credit-brief-grid,
+            #dashboard-metrics,
+            #active-loans-grid,
+            .profile-main-column > .grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: var(--app-compact-gap) !important;
+            }
+
+            .credit-score-card,
+            .lendily-card-stage,
+            .metric-card,
+            .dashboard-history-card,
+            .chart-card,
+            .live-agreement-card,
+            .profile-scroll-card,
+            .profile-page-grid > div,
+            .profile-settings-grid > div {
+                padding: 10px !important;
+                border-radius: var(--app-compact-radius) !important;
+            }
+
+            .credit-score-layout {
+                grid-template-columns: 64px minmax(0, 1fr) !important;
+                gap: 8px !important;
+            }
+
+            .credit-score-ring {
+                width: 64px !important;
+                height: 64px !important;
+            }
+
+            #credit-score-value {
+                font-size: 1rem !important;
+            }
+
+            #credit-score-grade {
+                font-size: 0.42rem !important;
+            }
+
+            .credit-score-card h2 {
+                font-size: 0.82rem !important;
+            }
+
+            .credit-score-card p {
+                font-size: 0.62rem !important;
+            }
+
+            .lendily-card-stage {
+                overflow: hidden;
+            }
+
+            .lendily-card-showcase {
+                grid-template-columns: 1fr !important;
+            }
+
+            .lendily-lux-card {
+                min-height: 126px !important;
+                padding: 10px !important;
+            }
+
+            .lendily-lux-card:nth-child(2) {
+                display: none !important;
+            }
+
+            .metric-card {
+                min-height: 74px !important;
+            }
+
+            .metric-card h3,
+            .metric-card .text-4xl,
+            .metric-card .text-3xl {
+                font-size: 1.25rem !important;
+            }
+
+            .dashboard-history-card {
+                grid-column: 1 / -1 !important;
+            }
+
+            .statement-controls {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: var(--app-compact-gap) !important;
+            }
+
+            .statement-search-control {
+                grid-column: 1 / -1 !important;
+            }
+
+            .profile-page-grid,
+            .profile-settings-grid {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                gap: var(--app-compact-gap) !important;
+            }
+
+            #profile .profile-page-grid > div:first-child {
+                display: grid !important;
+                grid-template-columns: 78px minmax(0, 1fr) !important;
+                gap: 10px !important;
+                align-items: start;
+            }
+
+            #profile-user-avatar {
+                width: 72px !important;
+                height: 72px !important;
+            }
+
+            #profile .profile-page-grid > div:first-child .mt-6,
+            #profile .profile-qr-card {
+                grid-column: 1 / -1 !important;
+            }
+
+            #profile .profile-qr-card img {
+                width: 96px !important;
+            }
+
+            .mobile-dock {
+                width: min(360px, calc(100vw - 20px)) !important;
+                padding: 4px !important;
+                border-radius: 18px !important;
+            }
+
+            .mobile-dock a {
+                min-height: 42px !important;
+                border-radius: 14px !important;
+                font-size: 0.58rem !important;
+                gap: 1px !important;
+            }
+
+            .mobile-dock svg {
+                width: 18px !important;
+                height: 18px !important;
             }
         }
