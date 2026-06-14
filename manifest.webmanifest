@@ -6,8 +6,8 @@
   "scope": "./",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
-  "background_color": "#f9fffd",
-  "theme_color": "#00b8a9",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f2f74",
   "orientation": "portrait-primary",
   "categories": ["finance", "productivity", "business"],
   "icons": [
