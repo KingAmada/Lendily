@@ -21,7 +21,7 @@
                 'pwa.install': 'Install',
                 'form.interestRate': 'Interest Rate (%)',
                 'form.markup': 'Markup (%)',
-                'form.profitExpected': 'Profit Expected (NGN)',
+                'form.profitExpected': 'Profit Expected',
                 'form.sendRequest': 'Send Request to Lender',
                 'form.createOffer': 'Create Offer & Get Lendily ID'
             },
@@ -40,7 +40,7 @@
                 'pwa.install': 'Saka',
                 'form.interestRate': 'Kudin Riba (%)',
                 'form.markup': 'Ribar Ciniki (%)',
-                'form.profitExpected': 'Ribar da ake so (NGN)',
+                'form.profitExpected': 'Ribar da ake so',
                 'form.sendRequest': 'Aika Bukata ga Mai Ba da Kudi',
                 'form.createOffer': 'Kirkiro Bayarwa & Sami Lendily ID'
             },
@@ -59,7 +59,7 @@
                 'pwa.install': 'Wụnye',
                 'form.interestRate': 'Ọnụego ọmụrụnwa (%)',
                 'form.markup': 'Uru Ahịa (%)',
-                'form.profitExpected': 'Uru a tụrụ anya (NGN)',
+                'form.profitExpected': 'Uru a tụrụ anya',
                 'form.sendRequest': 'Ziga Arịrịọ Nye Onye Na-agbazinye',
                 'form.createOffer': 'Mepụta Onyinye & Nweta Lendily ID'
             },
@@ -78,7 +78,7 @@
                 'pwa.install': 'Fi Sori Ẹrọ',
                 'form.interestRate': 'Oṣuwọn Ere (%)',
                 'form.markup': 'Ere Tita (%)',
-                'form.profitExpected': 'Ere Ti A Nreti (NGN)',
+                'form.profitExpected': 'Ere Ti A Nreti',
                 'form.sendRequest': 'Fi Ibere Ranṣẹ si Oluyawo',
                 'form.createOffer': 'Ṣẹda Ipese & Gba Lendily ID'
             }
@@ -474,6 +474,11 @@
             { id: 'LN003', lender: 'John Wick', lenderEmail: 'john.w@example.com', lenderPhone: '+2349011112222', borrower: 'Jane Doe', amount: 50000, dueDate: null, interestRate: 0, interestPeriod: 'period', fundingType: 'gift', loanPurpose: 'emergency', transactionDetails: 'Emergency support gift with no repayment expected.', repaymentPlan: null, status: 'repaid', initiatedBy: 'lender', showLenderDetails: true },
             { id: 'LN004', lender: 'Ada Lovelace', lenderEmail: 'ada.l@example.com', lenderPhone: '+2348033334444', borrower: 'Jane Doe', amount: 120000, dueDate: '2026-05-10', interestRate: 6, interestPeriod: 'period', fundingType: 'halal', loanPurpose: 'asset_purchase', transactionDetails: 'Laptop purchase under halal loan markup terms.', repaymentPlan: 'monthly', status: 'defaulted', initiatedBy: 'borrower', showLenderDetails: false },
             { id: 'LN005', lender: 'Jane Doe', lenderEmail: 'jane.doe@example.com', lenderPhone: '+2348012345678', borrower: 'Mike Ross', borrowerId: 'BR-MIKE', borrowerPin: '1234', amount: 90000, dueDate: '2026-09-01', interestRate: 0, interestPeriod: 'period', fundingType: 'loan', loanPurpose: 'rent', transactionDetails: 'Rent support requested for September.', repaymentPlan: 'monthly', status: 'pending_lender_acceptance', initiatedBy: 'borrower', showLenderDetails: true },
+            { id: 'LN006', lender: 'Jane Doe', lenderEmail: 'jane.doe@example.com', lenderPhone: '+2348012345678', borrower: 'Rachel Zane', borrowerId: 'BR-RACHEL', borrowerPin: '2468', amount: 65000, dueDate: '2026-08-02', interestRate: 4, interestPeriod: 'period', fundingType: 'loan', loanPurpose: 'education', transactionDetails: 'Certification course support with one-time repayment.', repaymentPlan: 'end_of_term', status: 'pending_lender_acceptance', initiatedBy: 'borrower', showLenderDetails: true },
+            { id: 'LN007', lender: 'Peter Obi', lenderEmail: 'peter.o@example.com', lenderPhone: '+2348022223333', borrower: 'Jane Doe', amount: 150000, dueDate: '2026-10-10', interestRate: 7, interestPeriod: 'monthly', fundingType: 'loan', loanPurpose: 'business', transactionDetails: 'Inventory financing request awaiting borrower confirmation.', repaymentPlan: 'monthly', status: 'pending_borrower_acceptance', initiatedBy: 'lender', showLenderDetails: true },
+            { id: 'LN008', lender: 'Jane Doe', lenderEmail: 'jane.doe@example.com', lenderPhone: '+2348012345678', borrower: 'Damilola King', borrowerId: 'BR-DAMI', borrowerPin: '3579', amount: 30000, dueDate: null, interestRate: 0, interestPeriod: 'period', fundingType: 'gift', loanPurpose: 'medical', transactionDetails: 'Medical support requested as a gift record.', repaymentPlan: null, status: 'pending_lender_acceptance', initiatedBy: 'borrower', showLenderDetails: true },
+            { id: 'LN009', lender: 'Aisha Bello', lenderEmail: 'aisha.b@example.com', lenderPhone: '+2348055556666', borrower: 'Jane Doe', amount: 220000, dueDate: '2026-11-20', interestRate: 12, interestPeriod: 'period', fundingType: 'halal', loanPurpose: 'asset_purchase', transactionDetails: 'Generator purchase with disclosed halal markup.', repaymentPlan: 'monthly', status: 'pending_borrower_acceptance', initiatedBy: 'lender', showLenderDetails: false },
+            { id: 'LN010', lender: 'Jane Doe', lenderEmail: 'jane.doe@example.com', lenderPhone: '+2348012345678', borrower: 'Tony Stark', borrowerId: 'BR-TONY', borrowerPin: '0007', amount: 180000, dueDate: '2026-12-01', interestRate: 5, interestPeriod: 'weekly', fundingType: 'loan', loanPurpose: 'business', transactionDetails: 'Short bridge funding for supply delivery.', repaymentPlan: 'weekly', status: 'pending_lender_acceptance', initiatedBy: 'borrower', showLenderDetails: true },
         ];
 
         const socialProofMessages = [
@@ -543,6 +548,27 @@
                 lucide.createIcons();
             }
             setTimeout(() => { toast.remove(); }, 4000);
+        };
+
+        let transientErrorTimer = null;
+        const showTransientErrorModal = (message, title = 'Action needed', options = {}) => {
+            const modal = document.getElementById('transient-error-modal');
+            const titleNode = document.getElementById('transient-error-title');
+            const copyNode = document.getElementById('transient-error-copy');
+            if (!modal || !titleNode || !copyNode) {
+                showToast(message, 'error');
+                return;
+            }
+
+            titleNode.textContent = title;
+            copyNode.textContent = message;
+            modal.classList.add('is-visible');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            clearTimeout(transientErrorTimer);
+            transientErrorTimer = setTimeout(() => {
+                modal.classList.remove('is-visible');
+                options.afterDismiss?.();
+            }, options.duration || 2600);
         };
 
         const showSocialProof = () => {
@@ -642,10 +668,29 @@
             }
 
             const installButton = document.getElementById('install-app-btn');
+            let installPromptTimer = null;
+            let installPromptHideTimer = null;
+            const hideInstallPrompt = () => installButton?.classList.remove('is-visible');
+            const showInstallPrompt = () => {
+                if (!installButton || !deferredInstallPrompt) return;
+                installButton.classList.remove('hidden');
+                installButton.classList.add('install-slide-prompt');
+                requestAnimationFrame(() => installButton.classList.add('is-visible'));
+                clearTimeout(installPromptHideTimer);
+                installPromptHideTimer = setTimeout(hideInstallPrompt, 4200);
+            };
+            const stopInstallPrompt = () => {
+                clearInterval(installPromptTimer);
+                clearTimeout(installPromptHideTimer);
+                installPromptTimer = null;
+                installButton?.classList.remove('is-visible', 'install-slide-prompt');
+                installButton?.classList.add('hidden');
+            };
             window.addEventListener('beforeinstallprompt', (event) => {
                 event.preventDefault();
                 deferredInstallPrompt = event;
-                installButton?.classList.remove('hidden');
+                showInstallPrompt();
+                if (!installPromptTimer) installPromptTimer = setInterval(showInstallPrompt, 9500);
             });
 
             installButton?.addEventListener('click', async () => {
@@ -657,12 +702,12 @@
                 deferredInstallPrompt.prompt();
                 await deferredInstallPrompt.userChoice;
                 deferredInstallPrompt = null;
-                installButton.classList.add('hidden');
+                stopInstallPrompt();
             });
 
             window.addEventListener('appinstalled', () => {
                 deferredInstallPrompt = null;
-                installButton?.classList.add('hidden');
+                stopInstallPrompt();
                 showToast('Lendily installed.', 'success');
             });
         };
@@ -881,6 +926,17 @@
         };
         const getUserQrText = (user = currentUser) => `LENDILY_USER:${encodeBase64Url(JSON.stringify(getUserQrPayload(user)))}`;
         const getUserQrUrl = (user = currentUser) => `https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=10&data=${encodeURIComponent(getUserQrText(user))}`;
+        const remoteImageToDataUrl = async (url) => {
+            const response = await fetch(url, { mode: 'cors' });
+            if (!response.ok) throw new Error('QR image download failed.');
+            const blob = await response.blob();
+            return await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        };
         const getUserQrDataUrl = async (user = currentUser, width = 360) => {
             const payload = getUserQrText(user);
             if (window.QRCode?.toDataURL) {
@@ -891,7 +947,7 @@
                     errorCorrectionLevel: 'M'
                 });
             }
-            return getUserQrUrl(user);
+            return remoteImageToDataUrl(getUserQrUrl(user).replace('size=220x220', `size=${width}x${width}`));
         };
         const decodeLendilyQrText = (rawValue = '') => {
             const value = String(rawValue || '').trim();
@@ -923,6 +979,7 @@
         });
         const loadImageElement = (src) => new Promise((resolve, reject) => {
             const image = new Image();
+            if (/^https?:\/\//i.test(src)) image.crossOrigin = 'anonymous';
             image.onload = () => resolve(image);
             image.onerror = reject;
             image.src = src;
@@ -981,8 +1038,8 @@
             const ctx = canvas.getContext('2d');
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
             gradient.addColorStop(0, '#08111f');
-            gradient.addColorStop(0.48, '#143b3b');
-            gradient.addColorStop(1, '#4f46e5');
+            gradient.addColorStop(0.52, '#0f2f74');
+            gradient.addColorStop(1, '#2563eb');
             ctx.fillStyle = gradient;
             drawRoundRect(ctx, 0, 0, canvas.width, canvas.height, 44);
             ctx.fill();
@@ -1010,7 +1067,20 @@
             ctx.fillText(currentUser.lendilyId || 'LN-USER', 72, 246);
             ctx.fillText(currentUser.borrowerId || 'BR-USER', 72, 292);
 
-            const qrImage = await loadImageElement(await getUserQrDataUrl(currentUser, 360));
+            let qrImage;
+            try {
+                qrImage = await loadImageElement(await getUserQrDataUrl(currentUser, 360));
+            } catch (error) {
+                console.warn('QR card image generation failed.', error);
+                showToast('QR card could not be generated. Downloading QR image instead.', 'info');
+                const fallbackLink = document.createElement('a');
+                fallbackLink.download = `${(currentUser.lendilyId || 'lendily').toLowerCase()}-qr.png`;
+                fallbackLink.href = getUserQrUrl(currentUser);
+                fallbackLink.target = '_blank';
+                fallbackLink.rel = 'noopener noreferrer';
+                fallbackLink.click();
+                return;
+            }
             ctx.fillStyle = '#ffffff';
             drawRoundRect(ctx, 710, 76, 280, 280, 28);
             ctx.fill();
@@ -1049,11 +1119,19 @@
             ctx.fillText(currentUser.email || currentUser.phone || 'Lendily profile', 224, 474);
             ctx.fillText('Profile QR carries ID, contact, and bank details.', 224, 514);
 
-            const link = document.createElement('a');
-            link.download = `${(currentUser.lendilyId || 'lendily').toLowerCase()}-qr-card.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-            showToast('QR card downloaded.', 'success');
+            try {
+                const link = document.createElement('a');
+                link.download = `${(currentUser.lendilyId || 'lendily').toLowerCase()}-qr-card.png`;
+                link.href = canvas.toDataURL('image/png');
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                showToast('QR card downloaded.', 'success');
+            } catch (error) {
+                console.warn('QR card download failed.', error);
+                showToast('QR card download was blocked. Opening the QR image instead.', 'info');
+                window.open(getUserQrUrl(currentUser), '_blank', 'noopener,noreferrer');
+            }
         };
         const renderSummaryRow = (label, value, emphasis = false) => `
             <div class="summary-line ${emphasis ? 'is-emphasis' : ''}">
@@ -1145,6 +1223,135 @@
                         <div class="receipt-detail-grid">${detailRows}</div>
                         ${note ? `<p class="receipt-note">${note}</p>` : ''}
                     </div>
+                </div>
+            `;
+        };
+
+        const renderReceiptInfoCard = (title, rows, tone = 'slate') => `
+            <section class="receipt-info-card ${tone}">
+                <h4>${title}</h4>
+                <div>
+                    ${rows.map(row => `
+                        <article>
+                            <span>${row.label}</span>
+                            <strong>${row.value}</strong>
+                        </article>
+                    `).join('')}
+                </div>
+            </section>
+        `;
+
+        const renderReceiptDocument = (loan, options = {}) => {
+            const isGift = loan.fundingType === 'gift';
+            const statusText = options.statusText || getStatusLabel(loan.status || 'pending');
+            const chargeLabel = loan.fundingType === 'halal' ? 'Markup' : 'Funding charge';
+            const chargeValue = calculateFundingCharge(loan);
+            const totalValue = isGift ? loan.amount : calculateTotalRepayment(loan);
+            const note = cleanText(loan.transactionDetails || '');
+            const primaryAmountLabel = isGift ? 'Gift recorded' : 'Total repayment';
+            const lenderRows = loan.showLenderDetails === false
+                ? [{ label: 'Funder', value: 'Private funder' }]
+                : [
+                    { label: 'Name', value: loan.lender || 'Not provided' },
+                    { label: 'Phone', value: loan.lenderPhone ? maskPhoneDisplay(loan.lenderPhone) : 'Not provided' },
+                    { label: 'Email', value: loan.lenderEmail ? maskEmailDisplay(loan.lenderEmail) : 'Not provided' }
+                ];
+            const reviewerRows = options.reviewerRows || [];
+
+            return `
+                <div class="lendily-receipt-doc">
+                    <section class="lendily-receipt-hero">
+                        <div>
+                            <span class="receipt-brand-mark">L</span>
+                            <p>Lendily protected receipt</p>
+                            <h3>${loan.id}</h3>
+                            <small>${statusText}</small>
+                        </div>
+                        <img src="${getAgreementQrUrl(loan)}" alt="QR code for ${loan.id}">
+                    </section>
+                    <section class="receipt-total-panel">
+                        <span>${primaryAmountLabel}</span>
+                        <strong>${formatCurrency(totalValue)}</strong>
+                        <small>${getFundingLabel(loan)} • ${getPurposeLabel(loan.loanPurpose)}</small>
+                    </section>
+                    <section class="receipt-party-grid">
+                        <article>
+                            <span>Lender</span>
+                            <strong>${loan.lender || 'Not provided'}</strong>
+                        </article>
+                        <article>
+                            <span>Borrower</span>
+                            <strong>${loan.borrower || 'Not provided'}</strong>
+                        </article>
+                    </section>
+                    <section class="receipt-money-grid">
+                        <article><span>Principal</span><strong>${formatCurrency(loan.amount)}</strong></article>
+                        <article><span>${isGift ? 'Charge' : chargeLabel}</span><strong>${isGift ? 'No repayment' : formatCurrency(chargeValue)}</strong></article>
+                        <article><span>Due date</span><strong>${isGift ? 'Not applicable' : formatDate(loan.dueDate)}</strong></article>
+                        <article><span>Plan</span><strong>${isGift ? 'Gift' : (loan.repaymentPlan || 'end_of_term').replace(/_/g, ' ')}</strong></article>
+                    </section>
+                    ${renderReceiptInfoCard('Agreement Details', [
+                        { label: 'Funding type', value: getFundingLabel(loan) },
+                        { label: getPurposeFieldLabel(loan), value: getPurposeLabel(loan.loanPurpose) },
+                        { label: loan.fundingType === 'halal' ? 'Markup rate' : 'Interest rate', value: isGift ? 'N/A' : `${loan.interestRate || 0}%` },
+                        { label: 'Transaction date', value: formatDate(getTransactionDate(loan)) }
+                    ])}
+                    ${renderReceiptInfoCard('Funder Details', lenderRows, 'blue')}
+                    ${reviewerRows.length ? renderReceiptInfoCard('Reviewer', reviewerRows, 'slate') : ''}
+                    ${note ? `<section class="receipt-note-card"><span>Note</span><p>${note}</p></section>` : ''}
+                    ${renderPrivacyNotice()}
+                </div>
+            `;
+        };
+
+        const renderReviewSummaryCard = (loan) => {
+            const isGift = loan.fundingType === 'gift';
+            const isHalal = loan.fundingType === 'halal';
+            const chargeAmount = calculateFundingCharge(loan);
+            const totalDisplay = isGift ? 'No repayment' : formatCurrency(calculateTotalRepayment(loan));
+            const chargeLabel = isHalal ? 'Markup Profit' : 'Interest Profit';
+            const rateLabel = isHalal ? 'Markup Rate' : 'Interest Rate';
+            const rateDisplay = isGift ? 'N/A' : `${loan.interestRate || 0}%`;
+            const periodValue = isGift ? 'Not applicable' : (loan.interestPeriod || 'period').replace(/_/g, ' ');
+            const repaymentPlan = isGift ? 'No repayment expected' : (loan.repaymentPlan || 'end_of_term').replace(/_/g, ' ');
+
+            return `
+                <div class="offer-summary-card review-summary-card">
+                    <div class="offer-summary-top">
+                        <div>
+                            <p>Agreement Review</p>
+                            <h3>${formatCurrency(loan.amount)}</h3>
+                            <small>${loan.lender || 'Lender'} to ${loan.borrower || 'Borrower'} • ${loan.id}</small>
+                        </div>
+                        <span class="offer-summary-badge">
+                            <i data-lucide="${isGift ? 'gift' : isHalal ? 'landmark' : 'hand-coins'}" class="w-3.5 h-3.5"></i>
+                            ${getFundingLabel(loan)}
+                        </span>
+                    </div>
+                    <div class="offer-summary-money-grid">
+                        <div class="is-primary">
+                            <span>Total repayment</span>
+                            <strong>${totalDisplay}</strong>
+                        </div>
+                        <div>
+                            <span>Principal</span>
+                            <strong>${formatCurrency(loan.amount)}</strong>
+                        </div>
+                        <div>
+                            <span>${chargeLabel}</span>
+                            <strong>${isGift ? 'No profit' : formatCurrency(chargeAmount)}</strong>
+                        </div>
+                    </div>
+                    <div class="offer-summary-meta">
+                        <div><span>${rateLabel}</span><strong>${rateDisplay}</strong></div>
+                        <div><span>Period</span><strong>${periodValue}</strong></div>
+                        <div><span>Purpose</span><strong>${getPurposeLabel(loan.loanPurpose)}</strong></div>
+                        <div><span>Plan</span><strong>${repaymentPlan}</strong></div>
+                        <div><span>Due date</span><strong>${formatDate(loan.dueDate)}</strong></div>
+                        <div><span>Status</span><strong>${getStatusLabel(loan.status)}</strong></div>
+                    </div>
+                    ${cleanText(loan.transactionDetails || '') ? `<p class="review-summary-note">${cleanText(loan.transactionDetails)}</p>` : ''}
+                    <div class="review-decision-slot"></div>
                 </div>
             `;
         };
@@ -1241,24 +1448,24 @@
         const getUserRole = (user = currentUser) => user?.role || 'lender';
         const getProfileRequirements = (role = 'lender') => {
             const lenderFields = [
-                { key: 'name', label: 'Full name' },
-                { key: 'phone', label: 'Phone number' }
+                { key: 'name', label: 'Full name', category: 'Contact Details' },
+                { key: 'phone', label: 'Phone number', category: 'Contact Details' }
             ];
             const borrowerFields = [
-                { key: 'name', label: 'Full name' },
-                { key: 'phone', label: 'Phone number' },
-                { key: 'dateOfBirth', label: 'Date of Birth' },
-                { key: 'residentialAddress', label: 'Residential Address' },
-                { key: 'state', label: 'State' },
-                { key: 'lga', label: 'LGA' },
-                { key: 'nin', label: 'NIN' },
-                { key: 'bvn', label: 'BVN' },
-                { key: 'idNumber', label: 'ID Number' },
-                { key: 'bankName', label: 'Bank Name' },
-                { key: 'accountNumber', label: 'Account Number' },
-                { key: 'accountName', label: 'Account Name' },
-                { key: 'idUploaded', label: 'ID Uploaded' },
-                { key: 'passportUploaded', label: 'Passport Photo Uploaded' }
+                { key: 'name', label: 'Full name', category: 'Contact Details' },
+                { key: 'phone', label: 'Phone number', category: 'Contact Details' },
+                { key: 'dateOfBirth', label: 'Date of Birth', category: 'Contact Details' },
+                { key: 'residentialAddress', label: 'Residential Address', category: 'Address' },
+                { key: 'state', label: 'State', category: 'Address' },
+                { key: 'lga', label: 'LGA', category: 'Address' },
+                { key: 'bankName', label: 'Bank Name', category: 'Bank Details' },
+                { key: 'accountNumber', label: 'Account Number', category: 'Bank Details' },
+                { key: 'accountName', label: 'Account Name', category: 'Bank Details' },
+                { key: 'nin', label: 'NIN', category: 'Documents' },
+                { key: 'bvn', label: 'BVN', category: 'Documents' },
+                { key: 'idNumber', label: 'ID Number', category: 'Documents' },
+                { key: 'idUploaded', label: 'ID Uploaded', category: 'Documents' },
+                { key: 'passportUploaded', label: 'Passport Photo Uploaded', category: 'Documents' }
             ];
             return role === 'borrower' ? borrowerFields : lenderFields;
         };
@@ -1441,14 +1648,14 @@
         let statementFilter = 'all';
         let statementSort = 'recent';
 
-        const chartPalette = ['#00b8a9', '#6457ff', '#ff8a4c', '#22c55e', '#f59e0b', '#ef4444', '#64748b'];
+        const chartPalette = ['#0f2f74', '#2563eb', '#60a5fa', '#64748b', '#f59e0b', '#ef4444', '#94a3b8'];
 
         const prepareCanvas = (canvas) => {
             if (!canvas) return null;
             const rect = canvas.getBoundingClientRect();
             const ratio = window.devicePixelRatio || 1;
-            const width = Math.max(rect.width, 280);
-            const height = Math.max(rect.height, 180);
+            const width = Math.max(rect.width, 96);
+            const height = Math.max(rect.height, 96);
             canvas.width = width * ratio;
             canvas.height = height * ratio;
             const ctx = canvas.getContext('2d');
@@ -1461,7 +1668,7 @@
             const legend = document.getElementById(legendId);
             if (!legend) return;
             legend.innerHTML = items.map((item, index) => `
-                <span><i class="legend-dot" style="background:${item.color || chartPalette[index % chartPalette.length]}"></i>${item.label}: ${item.value}</span>
+                <span><i class="legend-dot" style="background:${item.color || chartPalette[index % chartPalette.length]}"></i>${item.legendLabel || item.label}: ${item.value}</span>
             `).join('');
         };
 
@@ -1487,7 +1694,7 @@
             if (!prepared) return;
             const { ctx, width, height } = prepared;
             const total = visibleItems.reduce((sum, item) => sum + item.value, 0);
-            const radius = Math.min(width, height) * 0.36;
+            const radius = Math.min(width, height) * 0.43;
             const innerRadius = radius * 0.58;
             const centerX = width / 2;
             const centerY = height / 2;
@@ -1510,12 +1717,12 @@
             ctx.fill();
             ctx.globalCompositeOperation = 'source-over';
             ctx.fillStyle = '#0f172a';
-            ctx.font = '800 24px Inter, sans-serif';
+            ctx.font = '800 22px Inter, sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(String(total), centerX, centerY - 2);
             ctx.fillStyle = '#64748b';
-            ctx.font = '700 12px Inter, sans-serif';
-            ctx.fillText('records', centerX, centerY + 18);
+            ctx.font = '700 10px Inter, sans-serif';
+            ctx.fillText('records', centerX, centerY + 16);
 
             renderLegend(legendId, visibleItems.map((item, index) => ({
                 ...item,
@@ -1530,8 +1737,16 @@
                 color: chartPalette[index]
             }));
 
+            const compactStatusLabels = {
+                active: 'Active',
+                pending_borrower_acceptance: 'Borrower pending',
+                pending_lender_acceptance: 'Lender pending',
+                repaid: 'Repaid',
+                defaulted: 'Defaulted'
+            };
             const statusItems = ['active', 'pending_borrower_acceptance', 'pending_lender_acceptance', 'repaid', 'defaulted'].map((status, index) => ({
                 label: getStatusLabel(status),
+                legendLabel: compactStatusLabels[status],
                 value: myLoans.filter(loan => loan.status === status).length,
                 color: chartPalette[index]
             }));
@@ -1543,6 +1758,22 @@
         const renderTransactionHistory = (myLoans) => {
             const body = document.getElementById('transaction-history-body');
             if (!body) return;
+            const formatStatementAmount = (value) => {
+                const amount = Number(value) || 0;
+                const sign = amount < 0 ? '-' : '';
+                const abs = Math.abs(amount);
+                const compact = (divisor, suffix) => {
+                    const raw = abs / divisor;
+                    const text = raw >= 10 || Number.isInteger(raw)
+                        ? Math.round(raw).toLocaleString('en-NG')
+                        : raw.toFixed(1).replace(/\.0$/, '');
+                    return `${sign}₦${text}${suffix}`;
+                };
+                if (abs >= 1000000000) return compact(1000000000, 'b');
+                if (abs >= 1000000) return compact(1000000, 'm');
+                if (abs >= 1000) return compact(1000, 'k');
+                return `${sign}₦${abs.toLocaleString('en-NG')}`;
+            };
             const searchInput = document.getElementById('statement-search');
             const filterSelect = document.getElementById('statement-filter');
             const sortSelect = document.getElementById('statement-sort');
@@ -1550,9 +1781,11 @@
             if (filterSelect) filterSelect.value = statementFilter;
             if (sortSelect) sortSelect.value = statementSort;
 
-            if (!myLoans.length) {
+            const statementLoans = myLoans.filter(loan => !pendingStatuses.includes(loan.status));
+
+            if (!statementLoans.length) {
                 setText('history-count', '0 records');
-                body.innerHTML = '<tr><td colspan="11" class="text-slate-500">No transaction history yet.</td></tr>';
+                body.innerHTML = '<tr><td colspan="5" class="text-slate-500">No past transactions yet.</td></tr>';
                 return;
             }
 
@@ -1561,7 +1794,7 @@
                 const parsed = Date.parse(value);
                 return Number.isNaN(parsed) ? fallback : parsed;
             };
-            const rows = myLoans
+            const rows = statementLoans
                 .map((loan, index) => ({ loan, index }))
                 .filter(({ loan, index }) => {
                     const isLender = loan.lender.toLowerCase() === currentUser.name.toLowerCase();
@@ -1599,29 +1832,23 @@
                     return bTransactionTime - aTransactionTime;
                 });
 
-            const filteredLabel = rows.length === myLoans.length ? `${rows.length}` : `${rows.length} of ${myLoans.length}`;
+            const filteredLabel = rows.length === statementLoans.length ? `${rows.length}` : `${rows.length} of ${statementLoans.length}`;
             setText('history-count', `${filteredLabel} ${rows.length === 1 ? 'record' : 'records'}`);
             if (!rows.length) {
-                body.innerHTML = '<tr><td colspan="11" class="text-slate-500">No statement records match your search.</td></tr>';
+                body.innerHTML = '<tr><td colspan="5" class="text-slate-500">No past transactions match your search.</td></tr>';
                 return;
             }
 
-            body.innerHTML = rows.map(({ loan, index }) => {
+            body.innerHTML = rows.map(({ loan }, rowIndex) => {
                 const isLender = loan.lender.toLowerCase() === currentUser.name.toLowerCase();
                 const otherParty = isLender ? loan.borrower : loan.lender;
                 return `
                     <tr>
-                        <td><span class="font-bold text-slate-800">${otherParty}</span><br><span class="text-xs text-slate-400">${loan.id}</span></td>
-                        <td>${getFundingLabel(loan)}</td>
-                        <td class="font-bold text-slate-900">${formatCurrency(getDisplayTotal(loan))}</td>
-                        <td>${getInterestDisplay(loan)}</td>
-                        <td class="font-bold text-slate-900">${formatCurrency(getTotalProfit(loan))}</td>
-                        <td><span class="text-xs font-bold px-2 py-1 rounded-full ${getStatusColor(loan.status)}">${getStatusLabel(loan.status)}</span></td>
-                        <td>${formatDate(getTransactionDate(loan, index))}</td>
-                        <td>${formatDate(getRepaymentDate(loan))}</td>
-                        <td>${formatDate(getDisbursedDate(loan))}</td>
-                        <td>${formatDate(getReimbursedDate(loan))}</td>
-                        <td><button type="button" class="view-receipt-btn quick-action-btn text-xs font-bold px-3 py-2 text-slate-800" data-loan-id="${loan.id}">View Receipt</button></td>
+                        <td data-label="S/N" class="statement-serial">${rowIndex + 1}</td>
+                        <td data-label="Type">${getFundingLabel(loan)}</td>
+                        <td data-label="Name"><span class="font-bold text-slate-800">${otherParty}</span><br><span class="text-xs text-slate-400">${loan.id}</span></td>
+                        <td data-label="Amount" class="font-bold text-slate-900">${formatStatementAmount(getDisplayTotal(loan))}</td>
+                        <td data-label="Receipt"><button type="button" class="view-receipt-btn quick-action-btn statement-receipt-btn text-xs font-bold px-3 py-2 text-slate-800" data-loan-id="${loan.id}">Receipt</button></td>
                     </tr>
                 `;
             }).join('');
@@ -1653,55 +1880,52 @@
             const draft = buildRequestDraft();
             const isGift = draft.fundingType === 'gift';
             const isHalal = draft.fundingType === 'halal';
-            const chargeLabel = isHalal ? 'Markup' : 'Interest';
-            const chargeValue = isGift ? 'Not applicable' : `${Number.isFinite(draft.interestRate) ? draft.interestRate : 0}%`;
-            const profitLabel = isHalal ? 'Markup Amount' : 'Interest Amount';
+            const chargeLabel = isHalal ? 'Markup Rate' : 'Interest Rate';
             const chargeAmount = calculateFundingCharge(draft);
+            const profitLabel = isHalal ? 'Markup Profit' : 'Interest Profit';
             const periodValue = isGift ? 'Not applicable' : (draft.interestPeriod || 'period').replace(/_/g, ' ');
             const totalValue = isGift ? 'No repayment' : formatCurrency(calculateTotalRepayment(draft));
             const durationValue = getAgreementDurationLabel(draft.dueDate);
             const repaymentPlan = isGift ? 'No repayment expected' : (draft.repaymentPlan || 'end_of_term').replace(/_/g, ' ');
             const dueDateValue = formatDate(draft.dueDate);
-            const dueDateClass = dueDateValue === 'Not applicable' ? ' class="is-muted"' : '';
+            const profitDisplay = isGift ? 'No profit' : formatCurrency(chargeAmount);
+            const rateDisplay = isGift ? 'N/A' : `${Number.isFinite(draft.interestRate) ? draft.interestRate : 0}%`;
 
             summary.innerHTML = `
-                <div class="offer-preview-hero">
-                    <div class="flex items-start justify-between gap-4">
+                <div class="offer-summary-card request-summary-card">
+                    <div class="offer-summary-top">
                         <div>
-                            <p class="text-xs font-bold uppercase tracking-[0.16em] text-white/60">Transaction Summary</p>
-                            <h3 class="text-2xl font-black mt-2">${formatCurrency(draft.amount)}</h3>
-                            <p class="text-sm text-white/70 mt-1">${draft.borrower} requesting from ${draft.lender}</p>
+                            <p>Request Summary</p>
+                            <h3>${formatCurrency(draft.amount)}</h3>
+                            <small>${draft.borrower} requesting from ${draft.lender}</small>
                         </div>
-                        <span class="offer-preview-chip">
+                        <span class="offer-summary-badge">
                             <i data-lucide="${isGift ? 'gift' : isHalal ? 'landmark' : 'hand-coins'}" class="w-3.5 h-3.5"></i>
                             ${getFundingLabel(draft)}
                         </span>
                     </div>
-                    <div class="grid sm:grid-cols-3 gap-3 mt-5">
-                        <div>
-                            <p class="text-xs text-white/55 font-bold uppercase tracking-wide">Total To Pay</p>
-                            <p class="text-xl font-black mt-1">${totalValue}</p>
+                    <div class="offer-summary-money-grid">
+                        <div class="is-primary">
+                            <span>Total to repay</span>
+                            <strong>${totalValue}</strong>
                         </div>
                         <div>
-                            <p class="text-xs text-white/55 font-bold uppercase tracking-wide">${profitLabel}</p>
-                            <p class="text-xl font-black mt-1">${isGift ? 'No profit' : formatCurrency(chargeAmount)}</p>
+                            <span>Requested amount</span>
+                            <strong>${formatCurrency(draft.amount)}</strong>
                         </div>
                         <div>
-                            <p class="text-xs text-white/55 font-bold uppercase tracking-wide">Time</p>
-                            <p class="text-xl font-black mt-1">${durationValue}</p>
+                            <span>${profitLabel}</span>
+                            <strong>${profitDisplay}</strong>
                         </div>
                     </div>
-                </div>
-                <dl class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
-                    <div class="offer-preview-stat"><dt>${chargeLabel}</dt><dd>${chargeValue}</dd></div>
-                    <div class="offer-preview-stat"><dt>Period</dt><dd>${periodValue}</dd></div>
-                    <div class="offer-preview-stat"><dt>Purpose</dt><dd>${getPurposeLabel(draft.loanPurpose)}</dd></div>
-                    <div class="offer-preview-stat"><dt>Plan</dt><dd>${repaymentPlan}</dd></div>
-                    <div class="offer-preview-stat"><dt>Due Date</dt><dd${dueDateClass}>${dueDateValue}</dd></div>
-                </dl>
-                <div class="offer-preview-timeline mt-4">
-                    <span><i data-lucide="user-round-check" class="w-4 h-4 text-blue-500"></i> Borrower: <strong class="text-slate-900">${draft.borrower}</strong></span>
-                    <span><i data-lucide="receipt-text" class="w-4 h-4 text-teal-500"></i> The lender sees these terms before approving the request.</span>
+                    <div class="offer-summary-meta">
+                        <div><span>${chargeLabel}</span><strong>${rateDisplay}</strong></div>
+                        <div><span>Period</span><strong>${periodValue}</strong></div>
+                        <div><span>Purpose</span><strong>${getPurposeLabel(draft.loanPurpose)}</strong></div>
+                        <div><span>Plan</span><strong>${repaymentPlan}</strong></div>
+                        <div><span>Duration</span><strong>${durationValue}</strong></div>
+                        <div><span>Due date</span><strong>${dueDateValue}</strong></div>
+                    </div>
                 </div>
             `;
             if (typeof lucide !== 'undefined') {
@@ -1755,44 +1979,44 @@
             const totalDisplay = isGift ? 'No repayment' : formatCurrency(totalRepayment);
             const profitDisplay = isGift ? 'No profit' : formatCurrency(chargeAmount);
             const rateDisplay = isGift ? 'N/A' : `${Number.isFinite(draft.interestRate) ? draft.interestRate : 0}%`;
+            const dueDateDisplay = formatDate(draft.dueDate);
+            const borrowerDisplay = draft.borrower || 'Borrower name';
 
             preview.innerHTML = `
-                <div class="offer-preview-hero">
-                    <div class="flex items-start justify-between gap-4">
+                <div class="offer-summary-card">
+                    <div class="offer-summary-top">
                         <div>
-                            <p class="text-xs font-bold uppercase tracking-[0.16em] text-white/60">Offer Preview</p>
-                            <h3 class="text-2xl font-black mt-2">${formatCurrency(draft.amount)}</h3>
-                            <p class="text-sm text-white/70 mt-1">${draft.lender} to ${draft.borrower}</p>
+                            <p>Loan Summary</p>
+                            <h3>${formatCurrency(draft.amount)}</h3>
+                            <small>${draft.lender} to ${borrowerDisplay}</small>
                         </div>
-                        <span class="offer-preview-chip">
+                        <span class="offer-summary-badge">
                             <i data-lucide="${isGift ? 'gift' : isHalal ? 'landmark' : 'hand-coins'}" class="w-3.5 h-3.5"></i>
                             ${getFundingLabel(draft)}
                         </span>
                     </div>
-                    <div class="grid sm:grid-cols-3 gap-3 mt-5">
-                        <div>
-                            <p class="text-xs text-white/55 font-bold uppercase tracking-wide">${chargeLabel}</p>
-                            <p class="text-xl font-black mt-1">${profitDisplay}</p>
+                    <div class="offer-summary-money-grid">
+                        <div class="is-primary">
+                            <span>Total to receive</span>
+                            <strong>${totalDisplay}</strong>
                         </div>
                         <div>
-                            <p class="text-xs text-white/55 font-bold uppercase tracking-wide">Total To Receive</p>
-                            <p class="text-xl font-black mt-1">${totalDisplay}</p>
+                            <span>Principal</span>
+                            <strong>${formatCurrency(draft.amount)}</strong>
                         </div>
                         <div>
-                            <p class="text-xs text-white/55 font-bold uppercase tracking-wide">Time</p>
-                            <p class="text-xl font-black mt-1">${durationValue}</p>
+                            <span>${chargeLabel}</span>
+                            <strong>${profitDisplay}</strong>
                         </div>
                     </div>
-                </div>
-                <dl class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
-                    <div class="offer-preview-stat"><dt>${rateLabel}</dt><dd>${rateDisplay}</dd></div>
-                    <div class="offer-preview-stat"><dt>Period</dt><dd>${periodValue}</dd></div>
-                    <div class="offer-preview-stat"><dt>Purpose</dt><dd>${getPurposeLabel(draft.loanPurpose)}</dd></div>
-                    <div class="offer-preview-stat"><dt>Plan</dt><dd>${repaymentPlan}</dd></div>
-                </dl>
-                <div class="offer-preview-timeline mt-4">
-                    <span><i data-lucide="calendar-clock" class="w-4 h-4 text-blue-500"></i> Due date: <strong class="text-slate-900">${formatDate(draft.dueDate)}</strong></span>
-                    <span><i data-lucide="receipt-text" class="w-4 h-4 text-teal-500"></i> The borrower sees these terms before accepting the offer.</span>
+                    <div class="offer-summary-meta">
+                        <div><span>${rateLabel}</span><strong>${rateDisplay}</strong></div>
+                        <div><span>Period</span><strong>${periodValue}</strong></div>
+                        <div><span>Purpose</span><strong>${getPurposeLabel(draft.loanPurpose)}</strong></div>
+                        <div><span>Plan</span><strong>${repaymentPlan}</strong></div>
+                        <div><span>Duration</span><strong>${durationValue}</strong></div>
+                        <div><span>Due date</span><strong>${dueDateDisplay}</strong></div>
+                    </div>
                 </div>
             `;
             if (typeof lucide !== 'undefined') {
@@ -1869,6 +2093,8 @@
         const receiptModal = document.getElementById('receipt-modal');
         const requestLegalModal = document.getElementById('request-legal-modal');
         const qrScanModal = document.getElementById('qr-scan-modal');
+        const liveActionModal = document.getElementById('live-action-modal');
+        let activeLiveActionConfirm = null;
         let activeLegalConsentTarget = 'request';
         let lenderLegalAccepted = false;
         let requestLegalAccepted = false;
@@ -1910,7 +2136,10 @@
             const status = document.getElementById(isLender ? 'lenderLegalConsentStatus' : 'requestLegalConsentStatus');
             if (isLender) lenderLegalAccepted = false;
             else requestLegalAccepted = false;
-            if (checkbox) checkbox.checked = false;
+            if (checkbox && checkbox.checked) {
+                checkbox.checked = false;
+                checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+            }
             if (status) {
                 status.textContent = isLender
                     ? 'You must review and agree before creating an offer.'
@@ -1925,7 +2154,10 @@
             const status = document.getElementById(isLender ? 'lenderLegalConsentStatus' : 'requestLegalConsentStatus');
             if (isLender) lenderLegalAccepted = true;
             else requestLegalAccepted = true;
-            if (checkbox) checkbox.checked = true;
+            if (checkbox) {
+                checkbox.checked = true;
+                checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+            }
             if (status) {
                 status.textContent = isLender
                     ? 'Terms and Conditions accepted for this offer.'
@@ -2000,6 +2232,49 @@
 
         const processQrScanText = (value) => applyScannedLendilyUser(decodeLendilyQrText(value));
 
+        const closeLiveActionModal = () => {
+            liveActionModal?.classList.remove('active');
+            activeLiveActionConfirm = null;
+            const consent = document.getElementById('live-action-consent');
+            const confirm = document.getElementById('live-action-confirm');
+            if (consent) consent.checked = false;
+            if (confirm) confirm.disabled = true;
+        };
+
+        const openLiveActionModal = ({
+            tone = 'warning',
+            eyebrow = 'Agreement action',
+            title = 'Review action',
+            icon = 'shield-alert',
+            body = '',
+            consentCopy = 'I understand and want to continue.',
+            confirmLabel = 'Continue',
+            onConfirm
+        } = {}) => {
+            if (!liveActionModal) return;
+            const iconNode = document.getElementById('live-action-icon');
+            const confirm = document.getElementById('live-action-confirm');
+            const consent = document.getElementById('live-action-consent');
+            setText('live-action-eyebrow', eyebrow);
+            setText('live-action-title', title);
+            setText('live-action-consent-copy', consentCopy);
+            const bodyNode = document.getElementById('live-action-body');
+            if (bodyNode) bodyNode.innerHTML = body;
+            if (iconNode) {
+                iconNode.className = `live-action-icon ${tone}`;
+                iconNode.innerHTML = `<i data-lucide="${icon}" class="w-5 h-5"></i>`;
+            }
+            if (confirm) {
+                confirm.textContent = confirmLabel;
+                confirm.disabled = true;
+                confirm.classList.toggle('is-danger-action', tone === 'danger');
+            }
+            if (consent) consent.checked = false;
+            activeLiveActionConfirm = onConfirm;
+            liveActionModal.classList.add('active');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        };
+
         const openQrScanner = async (target) => {
             activeQrScanTarget = target;
             setText('qr-scan-title', target === 'lender' ? 'Scan Lender QR' : 'Scan Borrower or Receiver QR');
@@ -2060,12 +2335,12 @@
                 `;
             } else {
                 linksHtml = `
-                    <button class="login-btn text-slate-600 hover:text-blue-500 font-semibold">${t('auth.login')}</button>
-                    <button class="register-btn gradient-btn text-white font-semibold py-2 px-6 rounded-full">Sign Up</button>
+                    <a href="#login" class="login-btn nav-link text-slate-600 hover:text-blue-500 font-semibold">${t('auth.login')}</a>
+                    <a href="#signup" class="register-btn nav-link gradient-btn text-white font-semibold py-2 px-6 rounded-full">Sign Up</a>
                 `;
                 mobileLinksHtml = `
-                    <button class="login-btn block w-full text-left py-3 text-slate-600 hover:text-blue-500 font-semibold">${t('auth.login')}</button>
-                    <button class="register-btn gradient-btn text-white font-semibold py-2 px-6 rounded-full mt-2">Sign Up</button>
+                    <a href="#login" class="login-btn nav-link block w-full text-left py-3 text-slate-600 hover:text-blue-500 font-semibold">${t('auth.login')}</a>
+                    <a href="#signup" class="register-btn nav-link gradient-btn text-white font-semibold py-2 px-6 rounded-full mt-2">Sign Up</a>
                 `;
             }
             authLinksContainer.innerHTML = linksHtml;
@@ -2076,9 +2351,6 @@
                 document.querySelectorAll('.logout-btn').forEach(button => button.addEventListener('click', handleLogout));
                 document.getElementById('logout-btn-sidebar')?.addEventListener('click', handleLogout);
                 document.getElementById('logout-btn-profile')?.addEventListener('click', handleLogout);
-            } else {
-                document.querySelectorAll('.login-btn').forEach(button => button.addEventListener('click', () => loginModal.classList.add('active')));
-                document.querySelectorAll('.register-btn').forEach(button => button.addEventListener('click', () => registerModal.classList.add('active')));
             }
         };
 
@@ -2086,7 +2358,8 @@
             loggedIn = false;
             currentUser = null;
             updateAuthUI();
-            showPage('home');
+            history.pushState({pageId: 'login'}, null, '#login');
+            showPage('login');
             showToast('You have been logged out.', 'info');
         };
 
@@ -2099,10 +2372,11 @@
 
         // --- MODAL HANDLING ---
         const setupModals = () => {
-            [loginModal, registerModal, receiptModal, requestLegalModal, qrScanModal].forEach(modal => {
+            [loginModal, registerModal, receiptModal, requestLegalModal, qrScanModal, liveActionModal].forEach(modal => {
                 modal?.addEventListener('click', (e) => {
                     if (e.target !== modal) return;
-                    modal.classList.remove('active');
+                    if (modal === liveActionModal) closeLiveActionModal();
+                    else modal.classList.remove('active');
                     if (modal === qrScanModal) stopQrScanner();
                 });
             });
@@ -2117,6 +2391,17 @@
             });
             document.getElementById('qrManualApplyBtn')?.addEventListener('click', () => {
                 processQrScanText(document.getElementById('qrManualPayload')?.value || '');
+            });
+            document.getElementById('live-action-close')?.addEventListener('click', closeLiveActionModal);
+            document.getElementById('live-action-cancel')?.addEventListener('click', closeLiveActionModal);
+            document.getElementById('live-action-consent')?.addEventListener('change', (event) => {
+                const confirm = document.getElementById('live-action-confirm');
+                if (confirm) confirm.disabled = !event.target.checked;
+            });
+            document.getElementById('live-action-confirm')?.addEventListener('click', async () => {
+                const handler = activeLiveActionConfirm;
+                closeLiveActionModal();
+                if (typeof handler === 'function') await handler();
             });
             document.getElementById('copyProfileQrPayload')?.addEventListener('click', async () => {
                 ensureCurrentUserQrIdentity();
@@ -2141,10 +2426,10 @@
                 loginModal.classList.add('active');
             });
 
-            document.getElementById('login-form').addEventListener('submit', (e) => {
+            const submitLogin = (e, phoneId, emailId, modalToClose) => {
                 e.preventDefault();
-                const loginPhone = document.getElementById('login-phone');
-                const loginEmail = document.getElementById('login-email');
+                const loginPhone = document.getElementById(phoneId);
+                const loginEmail = document.getElementById(emailId);
                 if (!validatePhoneInput(loginPhone, 'Phone number')) return;
                 if (!validateOptionalEmail(loginEmail, 'Email address')) return;
                 loggedIn = true;
@@ -2157,16 +2442,17 @@
                 }
                 ensureCurrentUserQrIdentity();
                 updateAuthUI();
-                loginModal.classList.remove('active');
+                modalToClose?.classList.remove('active');
                 showToast('Login successful!', 'success');
+                history.pushState({pageId: 'dashboard'}, null, '#dashboard');
                 showPage('dashboard');
-            });
+            };
 
-            document.getElementById('register-form').addEventListener('submit', (e) => {
+            const submitRegistration = (e, nameId, phoneId, emailId, modalToClose) => {
                 e.preventDefault();
-                const registerName = document.getElementById('register-name');
-                const registerPhone = document.getElementById('register-phone');
-                const registerEmail = document.getElementById('register-email');
+                const registerName = document.getElementById(nameId);
+                const registerPhone = document.getElementById(phoneId);
+                const registerEmail = document.getElementById(emailId);
                 registerName.value = cleanText(registerName.value);
                 if (!registerName.value) return showFieldError(registerName, 'Full name is required.');
                 if (!validatePhoneInput(registerPhone, 'Phone number')) return;
@@ -2190,10 +2476,94 @@
                     role: 'borrower'
                 };
                 updateAuthUI();
-                registerModal.classList.remove('active');
+                modalToClose?.classList.remove('active');
                 showToast('Registration successful. Your Lendily QR is ready in your profile.', 'success');
+                history.pushState({pageId: 'profile'}, null, '#profile');
                 showPage('profile');
-            });
+            };
+
+            document.getElementById('login-form')?.addEventListener('submit', (e) => submitLogin(e, 'login-phone', 'login-email', loginModal));
+            document.getElementById('login-page-form')?.addEventListener('submit', (e) => submitLogin(e, 'login-page-phone', 'login-page-email'));
+            document.getElementById('register-form')?.addEventListener('submit', (e) => submitRegistration(e, 'register-name', 'register-phone', 'register-email', registerModal));
+            document.getElementById('signup-page-form')?.addEventListener('submit', (e) => submitRegistration(e, 'signup-page-name', 'signup-page-phone', 'signup-page-email'));
+        };
+
+        const applyProfileCompletenessUi = (profileSource) => {
+            if (!profileSource) return;
+            const lenderCompleteness = getProfileCompleteness(profileSource, 'lender');
+            const borrowerCompleteness = getProfileCompleteness(profileSource, 'borrower');
+
+            setText('lender-completeness-percent', `${lenderCompleteness.percent}%`);
+            setText('borrower-completeness-percent', `${borrowerCompleteness.percent}%`);
+            setText('profile-completeness-percent', `${borrowerCompleteness.percent}%`);
+            setText('profile-lender-percent', `${lenderCompleteness.percent}%`);
+            setText('profile-borrower-percent', `${borrowerCompleteness.percent}%`);
+            setText('profile-completeness-copy', 'Complete the categories below to unlock full lender and borrower access.');
+            setText('lender-completeness-copy', currentLanguage === 'en'
+                ? `${lenderCompleteness.completedCount} of ${lenderCompleteness.totalCount} lender fields are complete.`
+                : `${lenderCompleteness.completedCount} / ${lenderCompleteness.totalCount} ${translatePhrase('Lender Profile')}.`);
+            setText('borrower-completeness-copy', currentLanguage === 'en'
+                ? `${borrowerCompleteness.completedCount} of ${borrowerCompleteness.totalCount} borrower fields are complete.`
+                : `${borrowerCompleteness.completedCount} / ${borrowerCompleteness.totalCount} ${translatePhrase('Borrower Profile')}.`);
+            setText('profile-lender-copy', `${lenderCompleteness.completedCount}/${lenderCompleteness.totalCount} complete`);
+            setText('profile-borrower-copy', `${borrowerCompleteness.completedCount}/${borrowerCompleteness.totalCount} complete`);
+
+            const lenderBar = document.getElementById('lender-completeness-bar');
+            const borrowerBar = document.getElementById('borrower-completeness-bar');
+            const profileBar = document.getElementById('profile-completeness-bar');
+            const profileLenderBar = document.getElementById('profile-lender-bar');
+            const profileBorrowerBar = document.getElementById('profile-borrower-bar');
+            if (lenderBar) lenderBar.style.width = `${lenderCompleteness.percent}%`;
+            if (borrowerBar) borrowerBar.style.width = `${borrowerCompleteness.percent}%`;
+            if (profileBar) profileBar.style.width = `${borrowerCompleteness.percent}%`;
+            if (profileLenderBar) profileLenderBar.style.width = `${lenderCompleteness.percent}%`;
+            if (profileBorrowerBar) profileBorrowerBar.style.width = `${borrowerCompleteness.percent}%`;
+
+            const borrowerGroups = borrowerCompleteness.items.reduce((acc, item) => {
+                const category = item.category || 'Profile Details';
+                acc[category] = acc[category] || [];
+                acc[category].push(item);
+                return acc;
+            }, {});
+            const setProfileCategoryProgress = (id, category, fallback) => {
+                const items = borrowerGroups[category] || [];
+                if (!items.length) return setText(id, fallback);
+                const completed = items.filter(item => item.complete).length;
+                const percent = Math.round((completed / items.length) * 100);
+                setText(id, `${completed}/${items.length} complete • ${percent}%`);
+            };
+            setProfileCategoryProgress('profile-contact-progress', 'Contact Details', 'Name, phone, and birthday');
+            setProfileCategoryProgress('profile-address-progress', 'Address', 'Residential address and location');
+            setProfileCategoryProgress('profile-bank-progress', 'Bank Details', 'Receiving account information');
+            setProfileCategoryProgress('profile-documents-progress', 'Documents', 'NIN, BVN, ID and passport photo');
+        };
+
+        const getProfileFormDraft = () => {
+            const field = id => document.getElementById(id);
+            const idUpload = field('profileIdUpload');
+            const passportUpload = field('profilePassportUpload');
+            return {
+                ...(currentUser || {}),
+                name: field('profileFullName') ? cleanText(field('profileFullName').value) : currentUser?.name,
+                phone: field('profilePhone') ? field('profilePhone').value : currentUser?.phone,
+                dateOfBirth: field('profileDob') ? field('profileDob').value : currentUser?.dateOfBirth,
+                residentialAddress: field('profileAddress') ? cleanText(field('profileAddress').value) : currentUser?.residentialAddress,
+                state: field('profileState') ? field('profileState').value : currentUser?.state,
+                lga: field('profileLga') ? field('profileLga').value : currentUser?.lga,
+                nin: field('profileNIN') ? digitsOnly(field('profileNIN').value) : currentUser?.nin,
+                bvn: field('profileBVN') ? digitsOnly(field('profileBVN').value) : currentUser?.bvn,
+                idNumber: field('profileIdNumber') ? cleanText(field('profileIdNumber').value) : currentUser?.idNumber,
+                bankName: field('profileBankName') ? field('profileBankName').value : currentUser?.bankName,
+                accountNumber: field('profileAccountNumber') ? digitsOnly(field('profileAccountNumber').value) : currentUser?.accountNumber,
+                accountName: field('profileAccountName') ? cleanText(field('profileAccountName').value) : currentUser?.accountName,
+                idUploaded: Boolean(currentUser?.idUploaded || idUpload?.files?.[0]),
+                passportUploaded: Boolean(currentUser?.passportUploaded || passportUpload?.files?.[0])
+            };
+        };
+
+        const updateProfileCompletenessFromForm = () => {
+            if (!document.getElementById('profile-details-form')) return;
+            applyProfileCompletenessUi(getProfileFormDraft());
         };
 
         const renderProfile = () => {
@@ -2216,31 +2586,45 @@
                     .catch(() => { profileQr.src = getUserQrUrl(currentUser); });
             }
 
-            setText('lender-completeness-percent', `${lenderCompleteness.percent}%`);
-            setText('borrower-completeness-percent', `${borrowerCompleteness.percent}%`);
-            setText('lender-completeness-copy', currentLanguage === 'en'
-                ? `${lenderCompleteness.completedCount} of ${lenderCompleteness.totalCount} lender fields are complete.`
-                : `${lenderCompleteness.completedCount} / ${lenderCompleteness.totalCount} ${translatePhrase('Lender Profile')}.`);
-            setText('borrower-completeness-copy', currentLanguage === 'en'
-                ? `${borrowerCompleteness.completedCount} of ${borrowerCompleteness.totalCount} borrower fields are complete.`
-                : `${borrowerCompleteness.completedCount} / ${borrowerCompleteness.totalCount} ${translatePhrase('Borrower Profile')}.`);
-
-            const lenderBar = document.getElementById('lender-completeness-bar');
-            const borrowerBar = document.getElementById('borrower-completeness-bar');
-            if (lenderBar) lenderBar.style.width = `${lenderCompleteness.percent}%`;
-            if (borrowerBar) borrowerBar.style.width = `${borrowerCompleteness.percent}%`;
+            applyProfileCompletenessUi(currentUser);
 
             const renderChecklist = (listId, completeness) => {
                 const list = document.getElementById(listId);
                 if (!list) return;
-                list.innerHTML = completeness.items.map(item => `
-                    <div class="profile-check-item">
-                        <span class="profile-check-label">${translatePhrase(item.label)}</span>
-                        <span class="profile-check-status ${item.complete ? 'is-done' : 'is-missing'}">
-                            <i data-lucide="${item.complete ? 'check' : 'clock-3'}" class="w-3 h-3"></i>${item.complete ? translatePhrase('Done') : translatePhrase('Missing')}
-                        </span>
-                    </div>
-                `).join('');
+                const grouped = completeness.items.reduce((acc, item) => {
+                    const category = item.category || 'Profile Details';
+                    acc[category] = acc[category] || [];
+                    acc[category].push(item);
+                    return acc;
+                }, {});
+                list.innerHTML = Object.entries(grouped).map(([category, items], index) => {
+                    const completed = items.filter(item => item.complete).length;
+                    const percent = Math.round((completed / items.length) * 100);
+                    return `
+                        <details class="profile-completion-category" ${index === 0 ? 'open' : ''}>
+                            <summary>
+                                <span>
+                                    <strong>${translatePhrase(category)}</strong>
+                                    <small>${completed}/${items.length} complete</small>
+                                </span>
+                                <em class="${completed === items.length ? 'is-done' : 'is-missing'}">${percent}%</em>
+                            </summary>
+                            <div class="profile-category-progress">
+                                <span style="width:${percent}%"></span>
+                            </div>
+                            <div class="profile-category-list">
+                                ${items.map(item => `
+                                    <div class="profile-check-item">
+                                        <span class="profile-check-label">${translatePhrase(item.label)}</span>
+                                        <span class="profile-check-status ${item.complete ? 'is-done' : 'is-missing'}">
+                                            <i data-lucide="${item.complete ? 'check' : 'clock-3'}" class="w-3 h-3"></i>${item.complete ? translatePhrase('Done') : translatePhrase('Missing')}
+                                        </span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </details>
+                    `;
+                }).join('');
             };
             renderChecklist('lender-completeness-list', lenderCompleteness);
             renderChecklist('borrower-completeness-list', borrowerCompleteness);
@@ -2262,6 +2646,7 @@
             setText('profilePassportUploadStatus', currentUser.passportUploaded
                 ? `Passport photo uploaded${currentUser.passportUploadName ? `: ${currentUser.passportUploadName}` : '.'}`
                 : 'No passport photo uploaded yet.');
+            updateProfileCompletenessFromForm();
 
             if (typeof lucide !== 'undefined') lucide.createIcons();
         };
@@ -2303,6 +2688,25 @@
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
+        mobileMenuBtn?.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            const isOpen = !mobileMenu?.classList.contains('hidden');
+            mobileMenu?.classList.toggle('hidden', isOpen);
+            mobileMenuBtn.setAttribute('aria-expanded', String(!isOpen));
+        });
+
+        const applyFundingPreset = (pageId, preset) => {
+            if (!preset) return;
+            const targetId = pageId === 'request-loan' ? 'requestFundingType' : pageId === 'new-loan' ? 'fundingType' : '';
+            const select = targetId ? document.getElementById(targetId) : null;
+            if (!select) return;
+            select.value = preset;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            if (pageId === 'request-loan') renderRequestSummary();
+            if (pageId === 'new-loan') renderOfferPreview();
+        };
+
         const showPage = (pageId) => {
             if (protectedPages.includes(pageId) && !loggedIn) {
                 continueAsDemoUser();
@@ -2322,15 +2726,24 @@
                 const faceVideo = document.getElementById('borrowerFaceVideo');
                 faceVideo?.srcObject?.getTracks().forEach(track => track.stop());
                 if (faceVideo) faceVideo.srcObject = null;
+                document.getElementById('borrower-verification-modal')?.classList.remove('active');
             }
-            window.scrollTo(0, 0);
+            const resetPageScroll = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+            resetPageScroll();
+            requestAnimationFrame(resetPageScroll);
+            window.setTimeout(resetPageScroll, 80);
             
             if (pageId === 'dashboard' && loggedIn) renderDashboard();
+            if (pageId === 'home') renderReferenceHome();
             if (pageId === 'profile' && loggedIn) renderProfile();
             if (pageId === 'request-loan' && loggedIn) {
                 renderRequestSummary();
                 renderRequestProfileGate();
             }
+            if (pageId === 'accept-loan' && loggedIn) {
+                renderReviewAgreementInbox();
+            }
+            if (window.lucide) lucide.createIcons();
         };
 
         document.addEventListener('click', (e) => {
@@ -2345,6 +2758,7 @@
                 e.preventDefault();
                 history.pushState({pageId}, null, `#${pageId}`);
                 showPage(pageId);
+                applyFundingPreset(pageId, link.dataset.fundingPreset);
                 mobileMenu?.classList.add('hidden');
             }
         });
@@ -2360,9 +2774,6 @@
         });
 
         // --- COMPONENT LOGIC ---
-
-        // Mobile Menu
-        mobileMenuBtn?.addEventListener('click', () => mobileMenu?.classList.toggle('hidden'));
 
         // Testimonial Slider
         const testimonialTrack = document.getElementById('testimonial-track');
@@ -2502,6 +2913,11 @@
             renderDashboard();
             renderRequestProfileGate();
             showToast('Profile details saved.', 'success');
+        });
+
+        profileDetailsForm?.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('input', updateProfileCompletenessFromForm);
+            input.addEventListener('change', updateProfileCompletenessFromForm);
         });
 
         const syncProfileUpload = (inputId, uploadedKey, nameKey, statusId, label) => {
@@ -2663,12 +3079,12 @@
                 event.target.value = normalizeBorrowerId(event.target.value);
             });
 
-            ['loanAmount', 'interestRate', 'profitExpected', 'requestAmount', 'requestInterestRate', 'requestProfitExpected', 'counterAmount', 'counterInterestRate'].forEach(id => {
+            ['loanAmount', 'interestRate', 'profitExpected', 'requestAmount', 'requestInterestRate', 'requestProfitExpected'].forEach(id => {
                 const input = document.getElementById(id);
                 input?.addEventListener('input', () => input.classList.remove('border-red-500'));
             });
 
-            ['loanAmount', 'profitExpected', 'requestAmount', 'requestProfitExpected', 'counterAmount'].forEach(id => {
+            ['loanAmount', 'profitExpected', 'requestAmount', 'requestProfitExpected'].forEach(id => {
                 const input = document.getElementById(id);
                 input?.addEventListener('input', () => {
                     const formatted = formatAmountValue(input.value);
@@ -2729,9 +3145,8 @@
                 return showFieldError(borrowerName, `${partyLabel} cannot be the same person as the lender.`);
             }
             accountNumber.value = digitsOnly(accountNumber.value);
-            accountName.value = cleanText(accountName.value);
             if (accountNumber.value.length !== 10) return showFieldError(accountNumber, 'Account number must contain exactly 10 digits.');
-            if (!accountName.value) return showFieldError(accountName, 'Account name is required.');
+            if (accountName) accountName.value = cleanText(accountName.value) || borrowerName.value;
             if (!requirePositiveNumber(amount, 'Amount')) return false;
             details.value = cleanText(details.value);
             if (fundingType !== 'gift' && parseFloat(rate.value || '0') < 0) return showFieldError(rate, 'Rate cannot be negative.');
@@ -2753,56 +3168,14 @@
             paygoId.value = normalizeLendilyId(paygoId.value);
             if (!/^LN-[A-Z0-9-]{2,}$/.test(paygoId.value)) return showFieldError(paygoId, `${partyLabel}'s Lendily ID should look like LN-JANE.`);
             if (isSamePerson({ lendilyId: paygoId.value })) return showFieldError(paygoId, `You cannot request funds from yourself.`);
+            if (!document.getElementById('requestBankName')?.value) return showFieldError(document.getElementById('requestBankName'), 'Select the bank account that should receive the funds.');
             accountNumber.value = digitsOnly(accountNumber.value);
-            accountName.value = cleanText(accountName.value);
             if (accountNumber.value.length !== 10) return showFieldError(accountNumber, 'Account number must contain exactly 10 digits.');
-            if (!accountName.value) return showFieldError(accountName, 'Account name is required.');
+            if (accountName) accountName.value = cleanText(accountName.value) || currentUser?.accountName || currentUser?.name || '';
             if (!requirePositiveNumber(amount, 'Requested amount')) return false;
             details.value = cleanText(details.value);
             if (fundingType !== 'gift' && parseFloat(rate.value || '0') < 0) return showFieldError(rate, 'Rate cannot be negative.');
             if (fundingType !== 'gift' && !validateDueDate(dueDate)) return false;
-            return true;
-        };
-
-        const validateReviewForm = () => {
-            const profileFields = document.getElementById('profile-completion-fields');
-            if (profileFields?.classList.contains('hidden')) {
-                const counterAmount = document.getElementById('counterAmount');
-                const counterRate = document.getElementById('counterInterestRate');
-                if (counterAmount.value && parseCurrencyAmount(counterAmount.value) <= 0) return showFieldError(counterAmount, 'Counter amount must be greater than zero.');
-                if (counterRate.value && parseFloat(counterRate.value) < 0) return showFieldError(counterRate, 'Counter rate cannot be negative.');
-                return true;
-            }
-
-            const phone = document.getElementById('acceptBorrowerPhone');
-            const email = document.getElementById('acceptBorrowerEmail');
-            const nin = document.getElementById('borrowerNIN');
-            const bvn = document.getElementById('borrowerBVN');
-            const accountNumber = document.getElementById('acceptAccountNumber');
-            const accountName = document.getElementById('acceptAccountName');
-            const counterAmount = document.getElementById('counterAmount');
-            const counterRate = document.getElementById('counterInterestRate');
-
-            if (!validateOptionalEmail(email, "Borrower's email")) return false;
-            if (!validatePhoneInput(phone, 'Phone number')) return false;
-            nin.value = digitsOnly(nin.value);
-            bvn.value = digitsOnly(bvn.value);
-            accountNumber.value = digitsOnly(accountNumber.value);
-            accountName.value = cleanText(accountName.value);
-            if (!isValidIdNumber(nin.value)) return showFieldError(nin, 'NIN must contain digits only, 11 to 12 numbers.');
-            if (!isValidIdNumber(bvn.value)) return showFieldError(bvn, 'BVN must contain digits only, 11 to 12 numbers.');
-            if (accountNumber.value.length !== 10) return showFieldError(accountNumber, 'Account number must contain exactly 10 digits.');
-            if (!accountName.value) return showFieldError(accountName, 'Account name is required.');
-            if (counterAmount.value && parseCurrencyAmount(counterAmount.value) <= 0) return showFieldError(counterAmount, 'Counter amount must be greater than zero.');
-            if (counterRate.value && parseFloat(counterRate.value) < 0) return showFieldError(counterRate, 'Counter rate cannot be negative.');
-            return true;
-        };
-
-        const validateCounterOffer = () => {
-            const counterAmount = document.getElementById('counterAmount');
-            const counterRate = document.getElementById('counterInterestRate');
-            if (counterAmount.value && parseCurrencyAmount(counterAmount.value) <= 0) return showFieldError(counterAmount, 'Counter amount must be greater than zero.');
-            if (counterRate.value && parseFloat(counterRate.value) < 0) return showFieldError(counterRate, 'Counter rate cannot be negative.');
             return true;
         };
 
@@ -2812,16 +3185,62 @@
             const borrowerLookupId = document.getElementById('borrowerLookupId');
             const borrowerLookupHint = document.getElementById('borrowerLookupHint');
             const lenderLegalConsent = document.getElementById('lenderLegalConsent');
+            const showLenderDetails = document.getElementById('showLenderDetails');
+            const progressFill = document.getElementById('newLoanProgressFill');
+            const progressText = document.getElementById('newLoanProgressText');
+            let showLenderDetailsTouched = false;
+            const newLoanProgressSections = {
+                contact: ['borrowerName', 'borrowerPhone'],
+                bank: ['borrowerBankName', 'borrowerAccountNumber'],
+                loan: ['fundingType', 'loanPurpose', 'loanAmount', 'interestRate', 'interestPeriod', 'repaymentDate', 'repaymentPlan'],
+                summary: ['showLenderDetailsChoice', 'lenderLegalConsent']
+            };
+
+            const isFieldComplete = (id) => {
+                if (id === 'showLenderDetailsChoice') return showLenderDetailsTouched;
+                const field = document.getElementById(id);
+                if (!field) return false;
+                if (field.type === 'checkbox') return field.checked;
+                if (id === 'repaymentDate' || id === 'repaymentPlan') {
+                    return document.getElementById('fundingType')?.value === 'gift' || Boolean(field.value);
+                }
+                if (id === 'loanAmount') return parseCurrencyAmount(field.value) > 0;
+                return Boolean(String(field.value || '').trim());
+            };
+
+            const updateNewLoanProgress = () => {
+                let completed = 0;
+                let total = 0;
+                Object.entries(newLoanProgressSections).forEach(([section, ids]) => {
+                    const sectionCompleted = ids.filter(isFieldComplete).length;
+                    total += ids.length;
+                    completed += sectionCompleted;
+                    const status = document.getElementById(`${section}ProgressStatus`);
+                    if (status) status.textContent = `${sectionCompleted}/${ids.length}`;
+                    const sectionCard = document.querySelector(`[data-progress-section="${section}"]`);
+                    sectionCard?.classList.toggle('is-complete', sectionCompleted === ids.length);
+                });
+                const percent = total ? Math.round((completed / total) * 100) : 0;
+                if (progressFill) progressFill.style.width = `${percent}%`;
+                if (progressText) progressText.textContent = `${percent}%`;
+            };
+
+            showLenderDetails?.addEventListener('change', () => {
+                showLenderDetailsTouched = true;
+                updateNewLoanProgress();
+            });
 
             lenderLegalConsent?.addEventListener('change', (event) => {
                 if (!event.target.checked) {
                     resetLegalConsentState('lender');
+                    updateNewLoanProgress();
                     return;
                 }
                 if (!lenderLegalAccepted) {
                     event.target.checked = false;
                     openLegalConsentModal('lender', 'terms');
                 }
+                updateNewLoanProgress();
             });
 
             const fillBorrowerFromDirectory = () => {
@@ -2855,6 +3274,7 @@
                 document.getElementById('borrowerAccountName').value = borrower.accountName || borrower.name || '';
                 borrowerLookupHint && (borrowerLookupHint.textContent = `${borrower.name} loaded from ${normalizedId}.`);
                 renderOfferPreview();
+                updateNewLoanProgress();
                 showToast(`${partyLabel} details loaded.`, 'success');
             };
 
@@ -2875,15 +3295,23 @@
                 input?.addEventListener('input', renderOfferPreview);
                 input?.addEventListener('change', renderOfferPreview);
             });
+            newLoanForm.querySelectorAll('input, select, textarea').forEach(input => {
+                input.addEventListener('input', updateNewLoanProgress);
+                input.addEventListener('change', updateNewLoanProgress);
+            });
             renderOfferPreview();
+            updateNewLoanProgress();
 
             newLoanForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 if (!lenderLegalAccepted || !lenderLegalConsent?.checked) {
+                    lenderLegalConsent?.closest('details')?.setAttribute('open', '');
                     openLegalConsentModal('lender', 'terms');
                     showToast('Review and agree to the Terms and Conditions before creating an offer.', 'info');
                     return;
                 }
+                const firstInvalid = newLoanForm.querySelector(':invalid');
+                firstInvalid?.closest('details')?.setAttribute('open', '');
                 if (!newLoanForm.reportValidity() || !validateOfferForm()) return;
                 const newLoanId = 'LN' + String(Math.floor(Math.random() * 900) + 100).padStart(3, '0');
                 const borrowerId = normalizeBorrowerId(document.getElementById('borrowerLookupId')?.value || '');
@@ -2922,6 +3350,7 @@
                 setBankSelect('borrowerBankName');
                 borrowerLookupHint && (borrowerLookupHint.textContent = 'Use a saved borrower ID to fill name, phone, and email automatically.');
                 document.getElementById('fundingType').dispatchEvent(new Event('change'));
+                renderReferenceHome();
                 showPage('dashboard');
             });
         }
@@ -2933,7 +3362,81 @@
             let faceApiModelsLoaded = false;
 
             const requestLegalConsent = document.getElementById('requestLegalConsent');
+            const requestProgressFill = document.getElementById('requestLoanProgressFill');
+            const requestProgressText = document.getElementById('requestLoanProgressText');
+            const requestBankSource = document.getElementById('requestBankSource');
+            const requestManualBankFields = document.getElementById('requestManualBankFields');
+            const requestCurrentBankPreview = document.getElementById('requestCurrentBankPreview');
+            const requestCurrentBankCopy = document.getElementById('requestCurrentBankCopy');
+            const requestProgressSections = {
+                bank: ['requestBankSource', 'requestBankName', 'requestAccountNumber'],
+                loanDetails: ['requestFundingType', 'requestLoanPurpose', 'requestAmount', 'requestInterestRate', 'requestInterestPeriod', 'requestRepaymentDate', 'requestRepaymentPlan'],
+                summary: ['requestLegalConsent'],
+                lender: ['requestLenderPaygoId']
+            };
+
+            const isRequestFieldComplete = (id) => {
+                if (id === 'borrowerFaceVerified') return borrowerFaceVerified;
+                const field = document.getElementById(id);
+                if (!field) return false;
+                if (field.type === 'checkbox') return field.checked;
+                if (id === 'requestRepaymentDate' || id === 'requestRepaymentPlan') {
+                    return document.getElementById('requestFundingType')?.value === 'gift' || Boolean(field.value);
+                }
+                if (id === 'requestAmount') return parseCurrencyAmount(field.value) > 0;
+                return Boolean(String(field.value || '').trim());
+            };
+
+            const getProfileAccountName = () => cleanText(currentUser?.accountName || currentUser?.name || '');
+
+            const syncRequestBankSource = () => {
+                const bankName = document.getElementById('requestBankName');
+                const accountNumber = document.getElementById('requestAccountNumber');
+                const accountName = document.getElementById('requestAccountName');
+                const hasProfileAccount = Boolean(currentUser?.bankName && currentUser?.accountNumber);
+                const useCurrent = requestBankSource?.value !== 'manual' && hasProfileAccount;
+
+                if (requestBankSource && requestBankSource.value !== 'manual' && !hasProfileAccount) {
+                    requestBankSource.value = 'manual';
+                }
+
+                if (useCurrent) {
+                    setBankSelect('requestBankName', currentUser.bankName || '');
+                    if (accountNumber) accountNumber.value = currentUser.accountNumber || '';
+                    if (accountName) accountName.value = getProfileAccountName();
+                } else if (accountName) {
+                    accountName.value = getProfileAccountName();
+                }
+
+                requestManualBankFields?.classList.toggle('is-hidden', useCurrent);
+                requestCurrentBankPreview?.classList.toggle('is-hidden', !useCurrent);
+                if (requestCurrentBankCopy) {
+                    requestCurrentBankCopy.textContent = useCurrent
+                        ? `${currentUser.bankName} • ${currentUser.accountNumber}`
+                        : 'Choose a bank and enter the receiving account number below.';
+                }
+                updateRequestLoanProgress();
+            };
+
+            const updateRequestLoanProgress = () => {
+                let completed = 0;
+                let total = 0;
+                Object.entries(requestProgressSections).forEach(([section, ids]) => {
+                    const sectionCompleted = ids.filter(isRequestFieldComplete).length;
+                    total += ids.length;
+                    completed += sectionCompleted;
+                    const status = document.getElementById(`request${section.charAt(0).toUpperCase()}${section.slice(1)}ProgressStatus`);
+                    if (status) status.textContent = `${sectionCompleted}/${ids.length}`;
+                    const sectionCard = document.querySelector(`[data-request-progress-section="${section}"]`);
+                    sectionCard?.classList.toggle('is-complete', sectionCompleted === ids.length);
+                });
+                const percent = total ? Math.round((completed / total) * 100) : 0;
+                if (requestProgressFill) requestProgressFill.style.width = `${percent}%`;
+                if (requestProgressText) requestProgressText.textContent = `${percent}%`;
+            };
+
             document.getElementById('scanLenderQrBtn')?.addEventListener('click', () => openQrScanner('lender'));
+            requestBankSource?.addEventListener('change', syncRequestBankSource);
 
             document.querySelectorAll('#request-loan-form [data-legal-open]').forEach(button => {
                 button.addEventListener('click', () => openLegalConsentModal('request', button.dataset.legalOpen));
@@ -2942,18 +3445,35 @@
             requestLegalConsent?.addEventListener('change', (event) => {
                 if (!event.target.checked) {
                     resetLegalConsentState('request');
+                    updateRequestLoanProgress();
                     return;
                 }
                 if (!requestLegalAccepted) {
                     event.target.checked = false;
                     openLegalConsentModal('request', 'terms');
                 }
+                updateRequestLoanProgress();
             });
 
             const stopBorrowerFaceCamera = () => {
                 borrowerFaceStream?.getTracks().forEach(track => track.stop());
                 borrowerFaceStream = null;
             };
+
+            const openBorrowerVerificationModal = () => {
+                document.getElementById('borrower-verification-modal')?.classList.add('active');
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            };
+
+            const closeBorrowerVerificationModal = () => {
+                document.getElementById('borrower-verification-modal')?.classList.remove('active');
+                stopBorrowerFaceCamera();
+            };
+
+            document.getElementById('borrowerVerificationClose')?.addEventListener('click', () => {
+                closeBorrowerVerificationModal();
+                setFaceVerificationStatus('pending', 'Not verified');
+            });
 
             const loadFaceApiModels = async () => {
                 if (faceApiModelsLoaded) return true;
@@ -3082,40 +3602,85 @@
                 }
             };
 
+            window.lendilyFaceVerification = {
+                open: (options = {}) => {
+                    setText('borrower-verification-title', options.title || 'Borrower Verification');
+                    setText('faceVerificationHint', options.hint || 'You will be asked to center your face, turn left, turn right, and smile.');
+                    const heading = document.querySelector('#faceVerificationCard .verification-card-head h3');
+                    const copy = document.querySelector('#faceVerificationCard .verification-card-head span');
+                    if (heading) heading.textContent = options.cardTitle || 'Live Face Check';
+                    if (copy) copy.textContent = options.cardCopy || 'Confirm a real borrower is making this funding request.';
+                    borrowerFaceVerified = false;
+                    setFaceVerificationStatus('pending', 'Not verified');
+                    openBorrowerVerificationModal();
+                },
+                verify: verifyBorrowerFace,
+                close: closeBorrowerVerificationModal,
+                reset: () => {
+                    borrowerFaceVerified = false;
+                    setFaceVerificationStatus('pending', 'Not verified');
+                    stopBorrowerFaceCamera();
+                }
+            };
+
             ['requestFundingType', 'requestLenderPaygoId', 'requestLoanPurpose', 'requestAmount', 'requestInterestRate', 'requestProfitExpected', 'requestInterestPeriod', 'requestRepaymentDate', 'requestRepaymentPlan'].forEach(id => {
                 const input = document.getElementById(id);
                 input?.addEventListener('input', renderRequestSummary);
                 input?.addEventListener('change', renderRequestSummary);
+            });
+            requestLoanForm.querySelectorAll('input, select, textarea').forEach(input => {
+                input.addEventListener('input', updateRequestLoanProgress);
+                input.addEventListener('change', updateRequestLoanProgress);
             });
             renderRequestSummary();
             renderRequestProfileGate();
             setBankSelect('requestBankName', currentUser?.bankName || '');
             document.getElementById('requestAccountNumber') && (document.getElementById('requestAccountNumber').value = currentUser?.accountNumber || '');
             document.getElementById('requestAccountName') && (document.getElementById('requestAccountName').value = currentUser?.accountName || currentUser?.name || '');
+            syncRequestBankSource();
 
-            requestLoanForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
+            const handleRequestLoanSubmit = async (e) => {
+                e?.preventDefault();
                 const gate = getBorrowerProfileGate();
                 if (!gate.isComplete) {
                     renderRequestProfileGate();
-                    showToast('Complete your borrower profile before requesting funds.', 'info');
-                    showPage('profile');
+                    showTransientErrorModal(
+                        'Complete your borrower profile first. The missing details are listed on this page, and Profile will open next.',
+                        'Profile incomplete',
+                        { duration: 3200, afterDismiss: () => showPage('profile') }
+                    );
                     return;
                 }
                 if (!requestLegalAccepted || !requestLegalConsent?.checked) {
+                    requestLegalConsent?.closest('details')?.setAttribute('open', '');
                     openLegalConsentModal('request', 'terms');
+                    showTransientErrorModal('Review and agree to the Terms and Privacy Statement before sending your request.', 'Agreement required');
                     showToast('Review and agree to the Terms and Privacy Statement before sending your request.', 'info');
                     return;
                 }
-                if (!requestLoanForm.reportValidity() || !validateRequestForm()) return;
+                const firstInvalid = requestLoanForm.querySelector(':invalid');
+                firstInvalid?.closest('details')?.setAttribute('open', '');
+                if (firstInvalid) {
+                    firstInvalid.focus();
+                    showTransientErrorModal(firstInvalid.validationMessage || 'Complete the highlighted required field before sending your request.', 'Missing details');
+                    return;
+                }
+                if (!validateRequestForm()) {
+                    showTransientErrorModal('Fix the highlighted field before sending your request.', 'Check request details');
+                    return;
+                }
                 const submitButton = requestLoanForm.querySelector('button[type="submit"]');
                 submitButton && (submitButton.disabled = true);
-                document.getElementById('faceVerificationCard')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                openBorrowerVerificationModal();
+                setFaceVerificationStatus('pending', 'Opening camera...');
+                await new Promise(resolve => requestAnimationFrame(resolve));
                 const verified = borrowerFaceVerified || await verifyBorrowerFace();
                 submitButton && (submitButton.disabled = false);
                 if (!verified) {
+                    showTransientErrorModal('Borrower verification did not complete. Allow camera access and try again.', 'Verification needed');
                     return;
                 }
+                closeBorrowerVerificationModal();
                 const newLoanId = 'LN' + String(Math.floor(Math.random() * 900) + 100).padStart(3, '0');
                 const lenderId = normalizeLendilyId(document.getElementById('requestLenderPaygoId').value);
                 const requesterProfile = currentUser;
@@ -3154,98 +3719,150 @@
                 borrowerFaceVerified = false;
                 stopBorrowerFaceCamera();
                 setFaceVerificationStatus('pending', 'Not verified');
+                requestBankSource && (requestBankSource.value = 'current');
                 setBankSelect('requestBankName', currentUser?.bankName || '');
                 document.getElementById('requestAccountNumber').value = currentUser?.accountNumber || '';
                 document.getElementById('requestAccountName').value = currentUser?.accountName || currentUser?.name || '';
+                syncRequestBankSource();
                 document.getElementById('requestFundingType').dispatchEvent(new Event('change'));
                 renderRequestSummary();
+                renderReferenceHome();
                 showPage('dashboard');
-            });
+            };
+
+            requestLoanForm.addEventListener('submit', handleRequestLoanSubmit);
+            requestLoanForm.querySelector('button[type="submit"]')?.addEventListener('click', handleRequestLoanSubmit);
         }
         
         // Accept Loan Form (Borrower)
         const findLoanForm = document.getElementById('find-loan-form');
         const acceptLoanDetailsForm = document.getElementById('accept-loan-details-form');
         const loanSummaryDiv = document.getElementById('loan-summary');
+        const reviewAgreementList = document.getElementById('reviewAgreementList');
+        const reviewAgreementCount = document.getElementById('reviewAgreementCount');
+        const reviewDetailHome = document.getElementById('review-detail-home');
         let foundLoan = null;
+
+        const isLoanForCurrentReviewUser = (loan) => {
+            if (!currentUser) return false;
+            const pendingParty = getPendingParty(loan);
+            const userName = String(currentUser.name || '').toLowerCase();
+            const userEmail = String(currentUser.email || '').toLowerCase();
+            const userLendilyId = normalizeLendilyId(currentUser.lendilyId || '');
+            const userBorrowerId = normalizeBorrowerId(currentUser.borrowerId || '');
+
+            if (pendingParty === 'lender') {
+                return String(loan.lender || '').toLowerCase() === userName ||
+                    String(loan.lenderEmail || '').toLowerCase() === userEmail ||
+                    normalizeLendilyId(loan.lenderLendilyId || '') === userLendilyId;
+            }
+
+            return String(loan.borrower || '').toLowerCase() === userName ||
+                String(loan.borrowerEmail || '').toLowerCase() === userEmail ||
+                normalizeBorrowerId(loan.borrowerId || '') === userBorrowerId;
+        };
+
+        const getReviewableAgreements = () => loans.filter(loan =>
+            ['pending_borrower_acceptance', 'pending_lender_acceptance'].includes(loan.status) &&
+            isLoanForCurrentReviewUser(loan)
+        );
+
+        const collapseAgreementReview = () => {
+            if (!acceptLoanDetailsForm) return;
+            acceptLoanDetailsForm.classList.add('hidden', 'mt-6');
+            reviewDetailHome?.appendChild(acceptLoanDetailsForm);
+            document.querySelectorAll('.review-agreement-card').forEach(card => {
+                card.classList.remove('is-selected');
+            });
+            foundLoan = null;
+        };
+
+        const selectAgreementForReview = (loanId) => {
+            if (foundLoan?.id === loanId && !acceptLoanDetailsForm.classList.contains('hidden')) {
+                collapseAgreementReview();
+                return;
+            }
+            foundLoan = loans.find(loan => loan.id === loanId);
+            if (!foundLoan) return;
+            const actionCard = acceptLoanDetailsForm.querySelector('.review-detail-actions');
+            actionCard?.remove();
+            loanSummaryDiv.innerHTML = renderReviewSummaryCard(foundLoan);
+            const decisionSlot = loanSummaryDiv.querySelector('.review-decision-slot');
+            if (decisionSlot) {
+                if (actionCard) decisionSlot.appendChild(actionCard);
+            }
+            const selectedCard = reviewAgreementList?.querySelector(`.review-agreement-card[data-loan-id="${loanId}"]`);
+            acceptLoanDetailsForm.classList.remove('hidden');
+            acceptLoanDetailsForm.classList.remove('mt-6');
+            document.querySelectorAll('.review-agreement-card').forEach(card => {
+                card.classList.toggle('is-selected', card.dataset.loanId === loanId);
+            });
+            selectedCard?.appendChild(acceptLoanDetailsForm);
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        };
+
+        const renderReviewAgreementInbox = () => {
+            if (!reviewAgreementList) return;
+            if (acceptLoanDetailsForm && reviewDetailHome && acceptLoanDetailsForm.parentElement !== reviewDetailHome) {
+                reviewDetailHome.appendChild(acceptLoanDetailsForm);
+                acceptLoanDetailsForm.classList.add('hidden', 'mt-6');
+            }
+            const agreements = getReviewableAgreements();
+            if (reviewAgreementCount) reviewAgreementCount.textContent = String(agreements.length);
+
+            if (!agreements.length) {
+                reviewAgreementList.innerHTML = `
+                    <div class="review-empty-state">
+                        <i data-lucide="inbox" class="w-7 h-7"></i>
+                        <strong>No agreements waiting for your review</strong>
+                        <span>New agreements sent to you will appear here.</span>
+                    </div>
+                `;
+                acceptLoanDetailsForm?.classList.add('hidden');
+                foundLoan = null;
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+                return;
+            }
+
+            reviewAgreementList.innerHTML = agreements.map(loan => {
+                const pendingParty = getPendingParty(loan);
+                const otherParty = pendingParty === 'lender' ? loan.borrower : loan.lender;
+                const charge = loan.fundingType === 'gift' ? 'No repayment' : `${loan.interestRate || 0}% • ${formatCurrency(calculateFundingCharge(loan))}`;
+                return `
+                    <article class="review-agreement-card ${foundLoan?.id === loan.id ? 'is-selected' : ''}" data-loan-id="${loan.id}">
+                        <div class="review-agreement-main">
+                            <span>${loan.id}</span>
+                            <h3>${getFundingLabel(loan)} from ${otherParty || 'Unknown party'}</h3>
+                            <p>${getPurposeLabel(loan.loanPurpose)} • ${formatDate(loan.dueDate)}</p>
+                        </div>
+                        <div class="review-agreement-side">
+                            <strong>${formatCurrency(loan.amount)}</strong>
+                            <small>${charge}</small>
+                        </div>
+                        <div class="review-agreement-actions">
+                            <button type="button" class="quick-action-btn review-select-btn" data-review-loan-id="${loan.id}">
+                                <i data-lucide="eye" class="w-4 h-4"></i> Review
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        };
 
         const resetAcceptLoanPage = () => {
             acceptLoanDetailsForm.classList.add('hidden');
-            findLoanForm.reset();
+            acceptLoanDetailsForm.classList.add('mt-6');
+            reviewDetailHome?.appendChild(acceptLoanDetailsForm);
             acceptLoanDetailsForm.reset();
-            document.getElementById('profile-completion-fields')?.classList.remove('hidden');
-            document.querySelectorAll('#profile-completion-fields input, #profile-completion-fields select').forEach(input => {
-                input.disabled = false;
-            });
-            setStateLgaPair('acceptBorrowerState', 'acceptBorrowerLga');
-            setBankSelect('acceptBankName');
-            setText('reviewBorrowerIdLabel', 'Borrower ID');
-            setText('reviewBorrowerPinLabel', 'Borrower PIN');
             foundLoan = null;
+            renderReviewAgreementInbox();
         };
 
         findLoanForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const loanId = document.getElementById('loanIdInput').value.toUpperCase();
-            foundLoan = loans.find(l => l.id === loanId && ['pending_borrower_acceptance', 'pending_lender_acceptance'].includes(l.status));
-
-            if (foundLoan) {
-                const reviewerRole = getPendingParty(foundLoan);
-                const reviewPartyIdLabel = foundLoan.fundingType === 'gift' ? "Receiver's ID" : 'Borrower ID';
-                const reviewPartyPinLabel = foundLoan.fundingType === 'gift' ? 'Receiver PIN' : 'Borrower PIN';
-                setText('reviewBorrowerIdLabel', reviewPartyIdLabel);
-                setText('reviewBorrowerPinLabel', reviewPartyPinLabel);
-                const reviewBorrowerId = normalizeBorrowerId(document.getElementById('reviewBorrowerId')?.value || '');
-                const reviewBorrowerPin = document.getElementById('reviewBorrowerPin')?.value || '';
-                const expectedBorrowerId = normalizeBorrowerId(foundLoan.borrowerId || '');
-                const borrowerProfile = borrowerDirectory[reviewBorrowerId];
-                const expectedPin = foundLoan.borrowerPin || borrowerProfile?.pin || '';
-
-                if (reviewerRole === 'borrower') {
-                    if (!reviewBorrowerId || !reviewBorrowerPin) {
-                        showToast(`Enter your ${reviewPartyIdLabel} and PIN before viewing this agreement.`, 'error');
-                        acceptLoanDetailsForm.classList.add('hidden');
-                        return;
-                    }
-                    if ((expectedBorrowerId && reviewBorrowerId !== expectedBorrowerId) || !borrowerProfile || reviewBorrowerPin !== expectedPin) {
-                        showToast(`${reviewPartyIdLabel} or PIN is incorrect for this agreement.`, 'error');
-                        acceptLoanDetailsForm.classList.add('hidden');
-                        return;
-                    }
-                    currentUser = { ...(currentUser || {}), ...borrowerProfile };
-                }
-
-                const reviewerProfile = reviewerRole === 'borrower' ? (borrowerDirectory[reviewBorrowerId] || currentUser) : currentUser;
-                const profileComplete = isProfileComplete(reviewerProfile, reviewerRole);
-                const profileFields = document.getElementById('profile-completion-fields');
-                loanSummaryDiv.innerHTML = renderAgreementSummaryCard(foundLoan, { statusText: 'Pending Review' });
-                document.getElementById('reviewer-details-heading').textContent = profileComplete
-                    ? 'Profile verified. Review terms or send a counter offer.'
-                    : `Complete Your Profile to Accept as ${reviewerRole === 'lender' ? 'Lender' : 'Borrower'}`;
-                document.getElementById('acceptBorrowerName').value = reviewerProfile?.name || (reviewerRole === 'lender' ? foundLoan.lender : foundLoan.borrower);
-                document.getElementById('acceptBorrowerEmail').value = reviewerProfile?.email || currentUser?.email || '';
-                document.getElementById('acceptBorrowerPhone').value = reviewerProfile?.phone || '';
-                document.getElementById('acceptBorrowerDob').value = reviewerProfile?.dateOfBirth || '';
-                document.getElementById('acceptBorrowerAddress').value = reviewerProfile?.residentialAddress || '';
-                setStateLgaPair('acceptBorrowerState', 'acceptBorrowerLga', reviewerProfile?.state || foundLoan.borrowerState || '', reviewerProfile?.lga || foundLoan.borrowerLga || '');
-                setBankSelect('acceptBankName', reviewerProfile?.bankName || foundLoan.borrowerBankName || '');
-                document.getElementById('acceptAccountNumber').value = reviewerProfile?.accountNumber || foundLoan.borrowerAccountNumber || '';
-                document.getElementById('acceptAccountName').value = reviewerProfile?.accountName || foundLoan.borrowerAccountName || reviewerProfile?.name || '';
-                document.getElementById('borrowerNIN').value = reviewerProfile?.nin || '';
-                document.getElementById('borrowerBVN').value = reviewerProfile?.bvn || '';
-                document.getElementById('borrowerIdNumber').value = reviewerProfile?.idNumber || '';
-                document.getElementById('counterAmount').value = formatAmountValue(foundLoan.amount);
-                document.getElementById('counterInterestRate').value = foundLoan.interestRate || 0;
-                profileFields?.classList.toggle('hidden', profileComplete);
-                document.querySelectorAll('#profile-completion-fields input, #profile-completion-fields select').forEach(input => {
-                    input.disabled = profileComplete;
-                });
-                acceptLoanDetailsForm.classList.remove('hidden');
-                showToast(profileComplete ? 'Borrower verified. Agreement details loaded.' : 'Profile incomplete. Complete your profile before accepting.', profileComplete ? 'success' : 'info');
-            } else {
-                showToast('Invalid, already accepted, or closed Lendily ID.', 'error');
-                acceptLoanDetailsForm.classList.add('hidden');
-            }
+            renderReviewAgreementInbox();
         });
 
         document.getElementById('reject-loan-btn').addEventListener('click', () => {
@@ -3253,90 +3870,42 @@
                 foundLoan.status = 'rejected';
                 showToast(`Agreement ${foundLoan.id} has been rejected.`, 'info');
                 resetAcceptLoanPage();
+                renderReferenceHome();
                 showPage('dashboard');
             }
         });
 
-        document.getElementById('counter-loan-btn').addEventListener('click', () => {
-             if (foundLoan) {
-                if (!validateCounterOffer()) return;
-                foundLoan.amount = parseCurrencyAmount(document.getElementById('counterAmount').value || foundLoan.amount);
-                foundLoan.interestRate = foundLoan.fundingType === 'gift' ? 0 : parseFloat(document.getElementById('counterInterestRate').value || '0');
-                foundLoan.status = foundLoan.status === 'pending_borrower_acceptance' ? 'pending_lender_acceptance' : 'pending_borrower_acceptance';
-                showToast(`Counter sent for ${foundLoan.id}. The other party must review it.`, 'info');
-                resetAcceptLoanPage();
-                showPage('dashboard');
+        reviewAgreementList?.addEventListener('click', (event) => {
+            if (event.target.closest('#accept-loan-details-form')) return;
+            const reviewButton = event.target.closest('[data-review-loan-id]');
+            const card = event.target.closest('.review-agreement-card');
+            if (reviewButton) {
+                selectAgreementForReview(reviewButton.dataset.reviewLoanId);
+                return;
+            }
+            if (card?.dataset.loanId) {
+                selectAgreementForReview(card.dataset.loanId);
             }
         });
-
 
         acceptLoanDetailsForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            if (!acceptLoanDetailsForm.reportValidity() || !validateReviewForm()) return;
-            const reviewerRole = getPendingParty(foundLoan);
-            const profileFieldsHidden = document.getElementById('profile-completion-fields')?.classList.contains('hidden');
-            currentUser = {
-                ...(currentUser || {}),
-                role: reviewerRole,
-                name: document.getElementById('acceptBorrowerName').value,
-                email: document.getElementById('acceptBorrowerEmail').value || currentUser?.email || '',
-                phone: document.getElementById('acceptBorrowerPhone').value,
-                dateOfBirth: document.getElementById('acceptBorrowerDob').value,
-                residentialAddress: cleanText(document.getElementById('acceptBorrowerAddress').value),
-                state: document.getElementById('acceptBorrowerState').value,
-                lga: document.getElementById('acceptBorrowerLga').value,
-                bankName: document.getElementById('acceptBankName').value,
-                accountNumber: document.getElementById('acceptAccountNumber').value,
-                accountName: cleanText(document.getElementById('acceptAccountName').value),
-                nin: document.getElementById('borrowerNIN').value,
-                bvn: document.getElementById('borrowerBVN').value,
-                idNumber: cleanText(document.getElementById('borrowerIdNumber').value),
-                idUploaded: profileFieldsHidden ? currentUser?.idUploaded : document.getElementById('borrowerIdUpload').files.length > 0,
-                passportUploaded: profileFieldsHidden ? currentUser?.passportUploaded : document.getElementById('borrowerPassport').files.length > 0
-            };
+            if (!acceptLoanDetailsForm.reportValidity()) return;
+            if (!foundLoan) return;
             const receiptDetails = document.getElementById('receipt-details');
-            
-            let lenderDetailsHtml = '';
-            if (foundLoan.showLenderDetails) {
-                 lenderDetailsHtml = `
-                    <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl">
-                        <h4 class="font-bold text-indigo-900">Funder Details</h4>
-                        <div class="grid sm:grid-cols-3 gap-3 mt-3 text-sm">
-                            ${renderSummaryRow('Name', foundLoan.lender)}
-                            ${renderSummaryRow('Phone', foundLoan.lenderPhone)}
-                            ${renderSummaryRow('Email', foundLoan.lenderEmail)}
-                        </div>
-                    </div>
-                 `;
-            } else {
-                 lenderDetailsHtml = `
-                    <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl">
-                        <h4 class="font-bold text-indigo-900">Funder Details</h4>
-                        <p class="text-slate-700 mt-1">This agreement is from a private funder.</p>
-                    </div>
-                 `;
-            }
-
-            receiptDetails.innerHTML = `
-                <div class="space-y-4">
-                    ${renderAgreementSummaryCard(foundLoan, { statusText: 'Ready to Accept' })}
-                    ${renderPrivacyNotice()}
-                    ${lenderDetailsHtml}
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
-                        <h4 class="font-bold text-slate-900">Reviewer Summary</h4>
-                        <div class="grid sm:grid-cols-2 gap-3 mt-3 text-sm">
-                            ${renderSummaryRow('Full Name', document.getElementById('acceptBorrowerName').value)}
-                            ${renderSummaryRow('Email', maskEmailDisplay(document.getElementById('acceptBorrowerEmail').value))}
-                            ${renderSummaryRow('Phone', maskPhoneDisplay(document.getElementById('acceptBorrowerPhone').value))}
-                            ${renderSummaryRow('NIN', maskSensitiveNumber(document.getElementById('borrowerNIN').value))}
-                            ${renderSummaryRow('BVN', maskSensitiveNumber(document.getElementById('borrowerBVN').value))}
-                            ${renderSummaryRow('Payout Account', `Account ending ${digitsOnly(document.getElementById('acceptAccountNumber').value).slice(-4) || '----'}`)}
-                        </div>
-                    </div>
-                </div>
-            `;
+            receiptDetails.innerHTML = renderReceiptDocument(foundLoan, {
+                statusText: 'Ready to Accept',
+                reviewerRows: [
+                    { label: 'Name', value: currentUser?.name || 'Current user' },
+                    { label: 'Role', value: getPendingParty(foundLoan) === 'lender' ? 'Lender' : 'Borrower' },
+                    { label: 'Email', value: maskEmailDisplay(currentUser?.email || '') },
+                    { label: 'Phone', value: maskPhoneDisplay(currentUser?.phone || '') }
+                ]
+            });
             receiptModal.classList.add('active');
         });
+
+        renderReviewAgreementInbox();
 
         // Consent Form Logic
         const consentCheckbox = document.getElementById('consent-checkbox');
@@ -3357,10 +3926,135 @@
                 consentCheckbox.checked = false;
                 finalAcceptBtn.disabled = true;
 
+                renderReferenceHome();
                 showPage('dashboard');
             }
         });
 
+
+        // --- REFERENCE MOBILE HOME (dynamic primary app landing) ---
+        const renderReferenceHome = () => {
+            if (!currentUser) return;
+
+            const myLoans = loans.filter(l =>
+                (l.lender && l.lender.toLowerCase() === currentUser.name.toLowerCase()) ||
+                (l.borrower && l.borrower.toLowerCase() === currentUser.name.toLowerCase())
+            );
+
+            // Greeting
+            const nameEl = document.getElementById('ref-user-name');
+            if (nameEl) nameEl.textContent = currentUser.name || 'User';
+
+            const timeEl = document.getElementById('ref-greeting-time');
+            if (timeEl) {
+                const hour = new Date().getHours();
+                const prefix = hour < 12 ? 'Good morning,' : hour < 17 ? 'Good afternoon,' : 'Good evening,';
+                timeEl.textContent = prefix;
+            }
+
+            // Wallet calculations
+            const settled = ['active', 'repaid'];
+            const lentOut = myLoans
+                .filter(l => l.lender && l.lender.toLowerCase() === currentUser.name.toLowerCase() && settled.includes(l.status))
+                .reduce((s, l) => s + (l.amount || 0), 0);
+            const received = myLoans
+                .filter(l => l.borrower && l.borrower.toLowerCase() === currentUser.name.toLowerCase() && settled.includes(l.status))
+                .reduce((s, l) => s + (l.amount || 0), 0);
+            const inEscrow = myLoans
+                .filter(l => pendingStatuses.includes(l.status))
+                .reduce((s, l) => s + (l.amount || 0), 0);
+            const totalProtected = lentOut + received + inEscrow;
+
+            const setMoney = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = formatCurrency(val);
+            };
+            setMoney('ref-total-protected', totalProtected);
+            setMoney('ref-lent-out', lentOut);
+            setMoney('ref-received', received);
+            setMoney('ref-in-escrow', inEscrow);
+
+            const trendEl = document.getElementById('ref-trend-pct');
+            if (trendEl) {
+                const pct = myLoans.length ? Math.min(38, Math.max(4, Math.round((myLoans.length * 3.8)))) : 0;
+                trendEl.textContent = `+${pct}%`;
+            }
+
+            // Stats
+            const activeCount = myLoans.filter(l => l.status === 'active').length;
+            const pendingCount = myLoans.filter(l => pendingStatuses.includes(l.status)).length;
+            const completedCount = myLoans.filter(l => l.status === 'repaid').length;
+
+            const setNum = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = val;
+            };
+            setNum('ref-active-count', activeCount);
+            setNum('ref-pending-count', pendingCount);
+            setNum('ref-completed-count', completedCount);
+
+            document.querySelectorAll('[data-statement-filter]').forEach(tile => {
+                tile.onclick = () => {
+                    const filter = tile.getAttribute('data-statement-filter') || 'all';
+                    statementFilter = filter;
+                    statementSearchQuery = '';
+                    history.pushState({pageId: 'dashboard'}, null, '#dashboard');
+                    showPage('dashboard');
+                    setTimeout(() => {
+                        const historyCard = document.querySelector('.dashboard-history-card');
+                        historyCard?.setAttribute('open', '');
+                        historyCard?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 120);
+                };
+            });
+
+            // Recent activity (up to 4 most relevant)
+            const list = document.getElementById('ref-activity-list');
+            if (list) {
+                const sorted = [...myLoans].sort((a, b) => {
+                    const da = Date.parse(a.dueDate || a.createdAt || 0) || 0;
+                    const db = Date.parse(b.dueDate || b.createdAt || 0) || 0;
+                    return db - da;
+                }).slice(0, 4);
+
+                if (!sorted.length) {
+                    list.innerHTML = `<article><span class="reference-icon teal"><i data-lucide="plus-circle"></i></span><div><strong>No activity yet</strong><small>Start a new agreement</small></div><aside><a href="#loan-actions" class="nav-link text-xs font-bold text-teal-600">Create</a></aside></article>`;
+                } else {
+                    list.innerHTML = sorted.map(loan => {
+                        const isLender = loan.lender && loan.lender.toLowerCase() === currentUser.name.toLowerCase();
+                        const other = isLender ? (loan.borrower || 'Recipient') : (loan.lender || 'Lender');
+                        const short = (other || '').split(' ').slice(0, 2).join(' ');
+                        const typeLabel = getFundingLabel(loan);
+                        const due = loan.dueDate ? `Due ${formatDate(loan.dueDate).replace(/,?\s*\d{4}$/, '')}` : (loan.fundingType === 'gift' ? 'Gift' : 'No due date');
+                        const icon = loan.status === 'active' ? 'arrow-up' : pendingStatuses.includes(loan.status) ? 'clock-3' : 'check-circle-2';
+                        const iconClass = loan.status === 'active' ? 'green' : pendingStatuses.includes(loan.status) ? 'amber' : 'teal';
+                        const statusSmall = loan.status === 'active' ? 'Active' : pendingStatuses.includes(loan.status) ? 'Pending' : 'Done';
+                        return `
+                            <article data-loan-id="${loan.id}">
+                                <span class="reference-icon ${iconClass}"><i data-lucide="${icon}"></i></span>
+                                <div><strong>${isLender ? 'To' : 'From'} ${short}</strong><small>${typeLabel} • ${due}</small></div>
+                                <aside><strong>${formatCurrency(loan.amount)}</strong><small>${statusSmall}</small></aside>
+                            </article>
+                        `;
+                    }).join('');
+                }
+                // Make recent items open the loan in accept or just go to dashboard
+                list.querySelectorAll('article[data-loan-id]').forEach(article => {
+                    article.style.cursor = 'pointer';
+                    article.addEventListener('click', () => {
+                        const id = article.getAttribute('data-loan-id');
+                        showPage('dashboard');
+                        // Optional: could prefilter but dashboard already shows live
+                        setTimeout(() => {
+                            const el = document.getElementById('statement-search');
+                            if (el) { el.value = id; el.dispatchEvent(new Event('input', {bubbles:true})); }
+                        }, 120);
+                    });
+                });
+            }
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        };
 
         // --- DASHBOARD LOGIC ---
         const renderDashboard = () => {
@@ -3480,20 +4174,23 @@
                     const progressWidth = loan.status === 'active' ? '72' : '34';
                     const chargeLabel = loan.fundingType === 'gift' ? 'Gift' : loan.fundingType === 'halal' ? 'Profit' : 'Interest';
                     const chargeValue = loan.fundingType === 'gift' ? 'No repayment' : formatCurrency(getTotalProfit(loan));
+                    const totalLabel = loan.fundingType === 'gift' ? 'Recorded' : 'Total due';
+                    const progressLabel = loan.status === 'active' ? 'In repayment' : 'Awaiting review';
                     const actionButtons = [
-                        `<button class="share-agreement-btn bg-green-500 hover:bg-green-600 text-white text-sm transition" data-loan-id="${loan.id}"><i data-lucide="send" class="w-4 h-4"></i>Share</button>`,
-                        pendingStatuses.includes(loan.status) ? `<button class="review-agreement-btn quick-action-btn text-sm text-slate-800" data-loan-id="${loan.id}"><i data-lucide="file-check-2" class="w-4 h-4"></i>Review</button>` : '',
-                        isLender && loan.status === 'active' ? `<button class="enforce-btn bg-red-500 hover:bg-red-600 text-white text-sm transition" data-loan-id="${loan.id}"><i data-lucide="shield-alert" class="w-4 h-4"></i>Enforce</button>` : '',
-                        loan.status === 'active' ? `<button class="reminder-btn bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm transition" data-loan-id="${loan.id}"><i data-lucide="bell-ring" class="w-4 h-4"></i>Reminder</button>` : ''
+                        `<button class="share-agreement-btn live-action-btn share" data-loan-id="${loan.id}"><i data-lucide="send" class="w-4 h-4"></i>Share</button>`,
+                        pendingStatuses.includes(loan.status) ? `<button class="review-agreement-btn live-action-btn review" data-loan-id="${loan.id}"><i data-lucide="file-check-2" class="w-4 h-4"></i>Review</button>` : '',
+                        isLender && loan.status === 'active' ? `<button class="enforce-btn live-action-btn danger" data-loan-id="${loan.id}"><i data-lucide="shield-alert" class="w-4 h-4"></i>Enforce</button>` : '',
+                        isLender && loan.status === 'active' && loan.fundingType !== 'gift' ? `<button class="forfeit-btn live-action-btn warning" data-loan-id="${loan.id}"><i data-lucide="badge-x" class="w-4 h-4"></i>Forfeit</button>` : '',
+                        isLender && loan.status === 'active' ? `<button class="reminder-btn live-action-btn neutral" data-loan-id="${loan.id}"><i data-lucide="bell-ring" class="w-4 h-4"></i>Reminder</button>` : ''
                     ].filter(Boolean).join('');
 
                     card.innerHTML = `
                         <div class="live-agreement-top">
-                            <div class="flex items-start gap-3 min-w-0">
+                            <div class="live-party-block">
                                 <div class="live-party-mark"><i data-lucide="${isLender ? 'user-round' : 'landmark'}" class="w-5 h-5"></i></div>
-                                <div class="min-w-0">
-                                    <h3 class="text-lg font-extrabold text-slate-900 truncate" title="${otherParty}">${displayParty}</h3>
-                                    <p class="text-sm font-semibold text-slate-500">${role}</p>
+                                <div>
+                                    <h3 title="${otherParty}">${displayParty}</h3>
+                                    <p>${role} • ${getFundingLabel(loan)}</p>
                                 </div>
                             </div>
                             ${statusBadge}
@@ -3504,20 +4201,20 @@
                                 <strong>${formatCurrency(loan.amount)}</strong>
                             </div>
                             <div>
-                                <span>${loan.fundingType === 'gift' ? 'Recorded' : 'Total Due'}</span>
+                                <span>${totalLabel}</span>
                                 <strong>${formatCurrency(getDisplayTotal(loan))}</strong>
                             </div>
                         </div>
-                        <div class="live-detail-grid text-sm">
-                            <p><span>Type</span>${getFundingLabel(loan)}</p>
-                            <p><span>Purpose</span>${getPurposeLabel(loan.loanPurpose)}</p>
-                            <p class="live-detail-inline"><span>${chargeLabel}</span>${chargeValue}</p>
-                            <p class="live-detail-inline"><span>Due Date</span>${formatDate(loan.dueDate)}</p>
+                        <div class="live-detail-grid">
+                            <div><span>Purpose</span><strong>${getPurposeLabel(loan.loanPurpose)}</strong></div>
+                            <div><span>${chargeLabel}</span><strong>${chargeValue}</strong></div>
+                            <div><span>Due date</span><strong>${formatDate(loan.dueDate)}</strong></div>
+                            <div><span>Agreement</span><strong>${loan.id}</strong></div>
                         </div>
-                        <div>
-                            <div class="flex items-center justify-between text-xs font-bold text-slate-400 mb-2">
+                        <div class="live-progress-block">
+                            <div>
                                 <span>${loan.id}</span>
-                                <span>${loan.status === 'active' ? 'In repayment' : 'Awaiting review'}</span>
+                                <span>${progressLabel}</span>
                             </div>
                             <div class="progress-rail"><div class="progress-fill" style="width: ${progressWidth}%"></div></div>
                         </div>
@@ -3539,8 +4236,122 @@
             }
         };
         
-        window.triggerEnforcement = (loanId) => { showToast(`Enforcement protocol initiated for loan ${loanId}.`, 'error'); };
-        window.sendReminder = (loanId) => { showToast(`Payment reminder sent for loan ${loanId}.`, 'info'); };
+        const getLiveActionLoan = (loanId) => loans.find(item => item.id === loanId);
+        const refreshLiveAgreementSurfaces = () => {
+            renderDashboard();
+            renderReferenceHome();
+        };
+
+        window.triggerEnforcement = (loanId) => {
+            const loan = getLiveActionLoan(loanId);
+            if (!loan) return showToast('Agreement not found.', 'error');
+            openLiveActionModal({
+                tone: 'danger',
+                eyebrow: 'Recovery warning',
+                title: `Enforce ${loan.id}`,
+                icon: 'shield-alert',
+                confirmLabel: 'I Understand, Enforce',
+                consentCopy: 'I understand Lendily cannot guarantee recovery and I still want to request enforcement.',
+                body: `
+                    <div class="live-action-summary">
+                        <span>${getFundingLabel(loan)}</span>
+                        <strong>${formatCurrency(getDisplayTotal(loan))}</strong>
+                        <small>${loan.borrower || 'Borrower'} • Due ${formatDate(loan.dueDate)}</small>
+                    </div>
+                    <p>Enforcement can strain or damage the relationship between you and the borrower. Use it only when you are ready for that consequence.</p>
+                    <p>By continuing, you ask Lendily to begin the recovery mandate you accepted before disbursement, including authorization workflows intended to debit repayment from available borrower-linked accounts where legally and technically possible.</p>
+                    <ul>
+                        <li>Recovery is not guaranteed. It may fail because of no funds, death, network or banking issues, the borrower no longer using banking services, regulatory limits, or an act of God.</li>
+                        <li>Lendily will try its best within the agreed terms, but this action does not guarantee that you will get your money back.</li>
+                        <li>You acknowledge that the prior agreement releases Lendily from liability for failed recovery attempts.</li>
+                    </ul>
+                `,
+                onConfirm: () => {
+                    loan.enforcementRequestedAt = new Date().toISOString();
+                    loan.enforcementRequestedBy = currentUser?.name || 'Lender';
+                    showTransientErrorModal(
+                        `Enforcement request recorded for ${loan.id}. Lendily will begin the agreed recovery workflow.`,
+                        'Enforcement requested',
+                        { type: 'info', duration: 3600 }
+                    );
+                    showToast(`Enforcement request recorded for ${loan.borrower || 'the borrower'}.`, 'error');
+                    refreshLiveAgreementSurfaces();
+                }
+            });
+        };
+
+        window.forfeitAgreement = (loanId) => {
+            const loan = getLiveActionLoan(loanId);
+            if (!loan) return showToast('Agreement not found.', 'error');
+            openLiveActionModal({
+                tone: 'warning',
+                eyebrow: 'Irreversible release',
+                title: `Forfeit ${loan.id}`,
+                icon: 'badge-x',
+                confirmLabel: 'Agree & Start Face Check',
+                consentCopy: 'I understand this releases the borrower and cannot be reversed.',
+                body: `
+                    <div class="live-action-summary">
+                        <span>Release borrower from repayment</span>
+                        <strong>${formatCurrency(getDisplayTotal(loan))}</strong>
+                        <small>${loan.borrower || 'Borrower'} • ${getFundingLabel(loan)}</small>
+                    </div>
+                    <p>Forfeiting this agreement means you voluntarily release the borrower from the repayment obligation recorded on Lendily.</p>
+                    <p>This decision is final. After the forfeiture is confirmed, there is no going back from this action inside Lendily.</p>
+                    <p>To protect both sides, Lendily will require facial liveness proof after you accept this agreement before the loan is marked as forfeited.</p>
+                `,
+                onConfirm: async () => {
+                    const face = window.lendilyFaceVerification;
+                    if (!face?.open || !face?.verify) {
+                        showTransientErrorModal('Face verification is unavailable right now. Try again from the request page or reload Lendily.', 'Liveness required');
+                        return;
+                    }
+                    face.open({
+                        title: 'Forfeit Proof',
+                        cardTitle: 'Lender Liveness Check',
+                        cardCopy: 'Confirm the lender is personally releasing this borrower from repayment.',
+                        hint: 'Forfeit requires proof. Center your face, turn left, turn right, and smile.'
+                    });
+                    await new Promise(resolve => requestAnimationFrame(resolve));
+                    const verified = await face.verify();
+                    if (!verified) {
+                        showTransientErrorModal('Forfeit was not completed because liveness proof failed or was cancelled.', 'Forfeit not completed');
+                        return;
+                    }
+                    loan.status = 'forfeited';
+                    loan.forfeitedAt = new Date().toISOString();
+                    loan.forfeitedBy = currentUser?.name || 'Lender';
+                    loan.forfeitFaceVerifiedAt = currentUser?.faceVerifiedAt || new Date().toISOString();
+                    showTransientErrorModal(
+                        `${loan.id} has been forfeited. ${loan.borrower || 'The borrower'} is released from repayment.`,
+                        'Borrower released',
+                        { type: 'info', duration: 3800 }
+                    );
+                    showToast(`Agreement ${loan.id} forfeited. Borrower released from repayment.`, 'success');
+                    refreshLiveAgreementSurfaces();
+                }
+            });
+        };
+
+        window.sendReminder = (loanId) => {
+            const loan = getLiveActionLoan(loanId);
+            if (!loan) return showToast('Agreement not found.', 'error');
+            const borrowerName = loan.borrower || 'Borrower';
+            const borrowerPhone = loan.borrowerPhone || borrowerDirectory[loan.borrowerId]?.phone;
+            const whatsappPhone = normalizeWhatsAppPhone(borrowerPhone);
+            const message = [
+                `Hello ${borrowerName},`,
+                `${currentUser?.name || 'Your lender'} is reminding you about your Lendily ${getFundingLabel(loan).toLowerCase()} agreement.`,
+                `Agreement ID: ${loan.id}`,
+                `Amount due: ${formatCurrency(getDisplayTotal(loan))}`,
+                `Due date: ${formatDate(loan.dueDate)}`,
+                `Please review and make repayment as agreed.`
+            ].join('\n');
+            if (whatsappPhone) {
+                window.open(`https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+            }
+            showToast(whatsappPhone ? `Reminder prepared for ${borrowerName}.` : `Reminder noted for ${borrowerName}. Add a phone number to send by WhatsApp.`, 'info');
+        };
         const shareAgreementOnWhatsApp = (loanId) => {
             const loan = loans.find(item => item.id === loanId);
             if (!loan || !currentUser) return;
@@ -3570,19 +4381,13 @@
             const loan = loans.find(item => item.id === loanId);
             if (!loan) return showToast('Receipt not found.', 'error');
             const receiptDetails = document.getElementById('receipt-details');
-            receiptDetails.innerHTML = `
-                <div class="space-y-4">
-                    ${renderAgreementSummaryCard(loan, { statusText: getStatusLabel(loan.status) })}
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
-                        <h4 class="font-bold text-slate-900">Statement Dates</h4>
-                        <div class="grid sm:grid-cols-3 gap-3 mt-3 text-sm">
-                            ${renderSummaryRow('Transaction Date', formatDate(getTransactionDate(loan)))}
-                            ${renderSummaryRow('Disbursed Date', formatDate(getDisbursedDate(loan)))}
-                            ${renderSummaryRow('Reimbursed Date', formatDate(getReimbursedDate(loan)))}
-                        </div>
-                    </div>
-                </div>
-            `;
+            receiptDetails.innerHTML = renderReceiptDocument(loan, {
+                statusText: getStatusLabel(loan.status),
+                reviewerRows: [
+                    { label: 'Disbursed date', value: formatDate(getDisbursedDate(loan)) },
+                    { label: 'Reimbursed date', value: formatDate(getReimbursedDate(loan)) }
+                ]
+            });
             receiptModal.classList.add('active');
         };
 
@@ -3664,14 +4469,17 @@
             const enforceBtn = e.target.closest('.enforce-btn');
             if (enforceBtn) triggerEnforcement(enforceBtn.dataset.loanId);
 
+            const forfeitBtn = e.target.closest('.forfeit-btn');
+            if (forfeitBtn) forfeitAgreement(forfeitBtn.dataset.loanId);
+
             const shareBtn = e.target.closest('.share-agreement-btn');
             if (shareBtn) shareAgreementOnWhatsApp(shareBtn.dataset.loanId);
 
             const reviewBtn = e.target.closest('.review-agreement-btn');
             if (reviewBtn) {
                 showPage('accept-loan');
-                document.getElementById('loanIdInput').value = reviewBtn.dataset.loanId;
-                showToast(`Loaded ${reviewBtn.dataset.loanId}. Tap Find to review.`, 'info');
+                selectAgreementForReview(reviewBtn.dataset.loanId);
+                showToast(`Loaded ${reviewBtn.dataset.loanId} for review.`, 'info');
             }
 
             const receiptBtn = e.target.closest('.view-receipt-btn');
@@ -3726,6 +4534,10 @@
             startSocialProofFeed();
             const initialPage = window.location.hash.substring(1) || 'home';
             showPage(document.getElementById(initialPage) ? initialPage : 'home');
+            // Ensure the mobile reference home is populated even on first paint
+            if (initialPage === 'home' || !document.getElementById('dashboard')?.classList.contains('active')) {
+                renderReferenceHome();
+            }
             refreshIcons();
             window.setTimeout(refreshIcons, 250);
         });
